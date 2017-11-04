@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     // 出力先のパス（絶対パスを指定）
-    path: path.join(__dirname, 'docs/js')
+    path: path.join(__dirname, 'public/js')
   },
   module: {
     rules: [
