@@ -10,3 +10,7 @@
 % npm install
 % npm run build
 ```
+
+## 参考
+* [サブディレクトリをドキュメントルートにする](https://qiita.com/kwappa/items/03ffdeb89039a7249619)
+* [webpack 3 入門](https://qiita.com/soarflat/items/28bf799f7e0335b68186)
