@@ -1,22 +1,25 @@
 const webpack = require('webpack');
-const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = [{
-  // エントリーポイント
+  context: __dirname + '/src/js',
   entry: {
-    'bundle': './src/main.js',
+    'bundle': './main.js',
   },
   output: {
-    filename: '[name].js',
-    // 出力先のパス（絶対パスを指定）
-    path: path.join(__dirname, 'public/js')
+    filename: 'bundle.js',
+    path: __dirname + '/public/js'
   },
   module: {
     rules: [
       {
+        enforce: 'pre', // 他より先に処理
         test: /\.js$/,
-        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      },
+      {
+        test: /\.js$/,
         use: [{
           loader: 'babel-loader',
           options: {
@@ -25,10 +28,8 @@ module.exports = [{
         }]
       },
       {
-        enforce: 'pre', // 他より先に処理
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader'
+        test: /\.pug$/,
+        loader:['html-loader', 'pug-html-loader']
       }
     ]
   },
@@ -40,27 +41,33 @@ module.exports = [{
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
       _: 'lodash'
+    }),
+    new HtmlWebpackPlugin({
+      template: '../pug/index.pug',
+      filename: '../index.html'
     })
   ]
 }, {
+  context: __dirname + '/src/sass',
   entry: {
-    'bundle': './src/main.scss'
+    'bundle': './main.scss'
   },
   output: {
-    filename: '[name].css',
-    path: path.join(__dirname, 'public/css')
+    filename: 'bundle.css',
+    path: __dirname + '/public/css'
   },
   module: {
     rules: [
       {
-        test: /\.scss/,
+        test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader?-url&minimize', 'sass-loader']})
+          use: ['css-loader?-url&minimize', 'sass-loader']
+        })
       },
     ]
   },
   plugins: [
-        new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css')
   ]
 }];
