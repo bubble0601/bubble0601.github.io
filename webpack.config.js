@@ -1,11 +1,14 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
+module.exports = [{
   // エントリーポイント
-  entry: './src/main.js',
+  entry: {
+    'bundle': './src/main.js',
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     // 出力先のパス（絶対パスを指定）
     path: path.join(__dirname, 'public/js')
   },
@@ -20,30 +23,6 @@ module.exports = {
             presets: ['env']  // es2017 to es5
           }
         }]
-      },
-      {
-        test: /\.scss/,
-        loaders: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              url :false  // cssのurl()禁止
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function() {
-                return [
-                  require('precss'),
-                  require('autoprefixer')
-                ];
-              }
-            }
-          },
-          'sass-loader'
-        ]
       },
       {
         enforce: 'pre', // 他より先に処理
@@ -63,4 +42,25 @@ module.exports = {
       _: 'lodash'
     })
   ]
-};
+}, {
+  entry: {
+    'bundle': './src/main.scss'
+  },
+  output: {
+    filename: '[name].css',
+    path: path.join(__dirname, 'public/css')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader?-url&minimize', 'sass-loader']})
+      },
+    ]
+  },
+  plugins: [
+        new ExtractTextPlugin('[name].css')
+  ]
+}];
