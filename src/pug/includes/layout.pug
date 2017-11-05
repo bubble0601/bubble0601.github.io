@@ -16,7 +16,8 @@ mixin head(title, desc)
             link(rel="stylesheet", href="css/bundle.css")
 
 mixin navbar(current)
-    header.navbar.navbar-light
-        ul.navbar-nav.ml-2
+    header.navbar.navbar-light.justify-content-start
+        span.navbar-brand.mb-0.ml-2 Bubble0601.GitHub.io
+        ul.navbar-nav
             li.nav-item(class={active: current === 'top'})
                 a.nav-link(href="index.html") Top
