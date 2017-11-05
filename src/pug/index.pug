@@ -1,16 +1,14 @@
-doctype html
-html(lang="ja")
-    head
-        meta(charset="UTF-8")
-        meta(name="author", content="bubble0601")
-        title Bubble0601.GitHub.io
-        // meta(name="description", content="")
-        meta(name="format-detection", content="telephone=no,address=no,email=no")
-        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-        meta(http-equiv="content-language", content="ja")
-        link(rel="stylesheet", href="css/bundle.css")
-    body
-        .container
-            h3 test
-        script(src="js/bundle.js")
+include includes/layout.pug
 
++head
+
+body
+    +navbar('top')
+
+    div.container-fluid.row.mx-0
+        main.col-12.col-md-9.py-md-3.pl-md-5(role="main")
+            span content
+        div.col-12.col-md-3.py-md-3
+            span side bar
+
+    //- script is contained automatically

@@ -1,0 +1,22 @@
+mixin head(title, desc)
+    doctype html
+    html(lang="ja")
+        head
+            meta(charset="UTF-8")
+            meta(name="author", content="bubble0601")
+            if title
+                title= title
+            else
+                title Bubble0601.GitHub.io
+            if desc
+                meta(name="description", content=desc)
+            meta(name="format-detection", content="telephone=no,address=no,email=no")
+            meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+            meta(http-equiv="content-language", content="ja")
+            link(rel="stylesheet", href="css/bundle.css")
+
+mixin navbar(current)
+    header.navbar.navbar-light
+        ul.navbar-nav.ml-2
+            li.nav-item(class={active: current === 'top'})
+                a.nav-link(href="index.html") Top

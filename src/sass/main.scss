@@ -1,5 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
-#abcde {
-    width: 769px;
+.navbar {
+    background-color: #9fd9f6;
+    @include media-breakpoint-up(lg) {  // bootstrapのメディアクエリmixinをinclude
+        position: sticky;
+    }
 }
+
