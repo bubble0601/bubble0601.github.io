@@ -5,10 +5,8 @@ include includes/layout.pug
 body
     +navbar('top')
 
-    div.container-fluid.row.mx-0
-        main.col-12.col-md-9.py-md-3.pl-md-5(role="main")
-            span content
-        div.col-12.col-md-3.py-md-3
-            span side bar
+    +main
+        div.jumbotron
+            h1.display-3 Hellow, World!
 
-    //- script is contained automatically
+    +footer

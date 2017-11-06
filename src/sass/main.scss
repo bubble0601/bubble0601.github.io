@@ -7,3 +7,20 @@
     }
 }
 
+main {
+    min-height: 500px !important;
+    @include media-breakpoint-up(md) {
+        min-height: 1000px !important;
+    }
+}
+
+.sidebar {
+    height: 100%;
+    @include media-breakpoint-up(md) {
+        border-left: 2px solid #ddd;
+    }
+    @include media-breakpoint-down(sm) {
+        border-top: 2px solid #ddd;
+    }
+}
+

@@ -2,6 +2,14 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+var pugs = ['index', 'univ/1'];
+pugs = pugs.map(function(v) {
+  return new HtmlWebpackPlugin({
+    template: '../pug/' + v + '.pug',
+    filename: '../' + v + '.html'
+  })
+});
+
 module.exports = [{
   context: __dirname + '/src/js',
   entry: {
@@ -41,12 +49,8 @@ module.exports = [{
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
       _: 'lodash'
-    }),
-    new HtmlWebpackPlugin({
-      template: '../pug/index.pug',
-      filename: '../index.html'
     })
-  ]
+  ].concat(pugs)
 }, {
   context: __dirname + '/src/sass',
   entry: {
