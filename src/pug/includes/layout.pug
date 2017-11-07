@@ -1,7 +1,11 @@
-mixin head(rootpath, title, desc)
+mixin var(root)
+    - rootpath = root || ''
+
+mixin head(title, desc)
     doctype html
     html(lang="ja")
         head
+            +analytics
             meta(charset="UTF-8")
             meta(name="author", content="bubble0601")
             if title
@@ -13,19 +17,30 @@ mixin head(rootpath, title, desc)
             meta(name="format-detection", content="telephone=no,address=no,email=no")
             meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
             meta(http-equiv="content-language", content="ja")
-            - var csspath = (rootpath || '') + 'css/bundle.css'
+            - var csspath = rootpath + 'css/bundle.css'
             link(rel="stylesheet", href=csspath)
 
-mixin navbar(current, rootpath)
+mixin header(current)
+    +navbar(current)
+
+mixin navbar(current)
     header.navbar.navbar-light.justify-content-start
         span.navbar-brand.mb-0.ml-2 Bubble0601.GitHub.io
         ul.navbar-nav.flex-row
-            li.nav-item.mx-2(class={active: current === 'top'})
-                - var path = (rootpath || '') + 'index.html'
+            li.nav-item.h5.mx-3(class={active: current === 'top'})
+                - var path = rootpath + 'index.html'
                 a.nav-link(href=path) Top
-            li.nav-item.mx-2(class={active: current === 'univ'})
-                - var path = (rootpath || '') + 'univ/1.html'
+            li.nav-item.h5.mx-3(class={active: current === 'univ'})
+                - var path = rootpath + 'univ.html'
                 a.nav-link(href=path) Univ
+
+mixin bread(bread, current)
+    nav.rounded.w-75.my-2.mx-auto(aria-label="breadcrumb" role="navigation")
+        ol.breadcrumb
+            each item in bread
+                li.breadcrumb-item(class={active: item.current})
+                    - var path = rootpath + item.filename
+                    a(href=path)= item.title
 
 mixin sidebar
     div.sidebar.py-md-2
@@ -46,6 +61,45 @@ mixin main
         div.col-12.col-md-3
             +sidebar
 
-mixin footer
+mixin article
+    article.col-lg-10.mx-auto
+        if block
+            block
+
+mixin title(title, date, tags)
+    h2= title
+    p.d-inline-block.mb-3
+        span.text-muted.mr-2= date
+        each tag in tags
+            span.badge.badge-secondary= tag
+
+mixin article-card(url, title, img)
+    div.col-12.col-md-6.col-lg-4.col-xl-3.px-2
+        div.card
+            if img
+                a(href=url + '.html')
+                    //- srcにするとwebpackが勝手に読み込もうとするので後でjsでいじる
+                    img.card-img-top(data='img/' + img)
+            div.card-body
+                h4.card-title: a(href=url + '.html')= title
+
+mixin footer(bread)
+    +bread(bread, current)
     script#github-bjs(async defer src="https://buttons.github.io/buttons.js")
     //- bundle.js is contained automatically
+
+mixin analytics
+    // Global site tag (gtag.js) - Google Analytics
+    .
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80539440-2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-80539440-2');
+        </script>
+
+mixin gist(url)
+    p.my-2
+    script(src=url)

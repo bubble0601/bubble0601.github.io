@@ -1,12 +1,17 @@
 include includes/layout.pug
++var
 
 +head
 
 body
-    +navbar('top')
+    +header('top')
 
     +main
         div.jumbotron
             h1.display-3 Hellow, World!
 
-    +footer
+    +footer([{
+        current: true,
+        filename: 'index.html',
+        title: 'Top'
+    }])

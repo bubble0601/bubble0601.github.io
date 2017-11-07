@@ -1,15 +1,19 @@
 @import "~bootstrap/scss/bootstrap";
 
+p {
+    @extend .mb-0
+}
+
 .navbar {
     background-color: #9fd9f6;
-    @include media-breakpoint-up(lg) {  // bootstrapのメディアクエリmixinをinclude
-        position: sticky;
+    @extend .sticky-top;
+    @include media-breakpoint-up(lg) {
     }
 }
 
 main {
     min-height: 500px !important;
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(md) {  // bootstrapのメディアクエリmixinをinclude
         min-height: 1000px !important;
     }
 }
@@ -24,3 +28,7 @@ main {
     }
 }
 
+.breadcrumb li.active a {
+    color: black;
+    pointer-events: none;
+}

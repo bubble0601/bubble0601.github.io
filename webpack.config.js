@@ -1,14 +1,20 @@
 const webpack = require('webpack');
+const path = require('path');
+const glob = require('glob');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-var pugs = ['index', 'univ/1'];
-pugs = pugs.map(function(v) {
-  return new HtmlWebpackPlugin({
-    template: '../pug/' + v + '.pug',
-    filename: '../' + v + '.html'
-  })
-});
+const getFileList = (dir, ext, exclude) =>{
+  const ws = path.resolve(dir);
+  const reg1 = new RegExp(`${ws}/`)
+  const reg2 = new RegExp(`.${ext}$`)
+  return glob.sync(`${ws}/**/[!_]*.${ext}`).map((v) => v.replace(reg1, '').replace(reg2, '')).filter((v) => v.indexOf(exclude) !== 0);
+}
+
+const pugs = getFileList('src/pug', 'pug', 'includes').map((v) => new HtmlWebpackPlugin({
+  template: '../pug/' + v + '.pug',
+  filename: '../' + v + '.html'
+}));
 
 module.exports = [{
   context: __dirname + '/src/js',
