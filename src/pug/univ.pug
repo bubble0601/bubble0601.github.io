@@ -9,7 +9,7 @@ body
     +main
         div.jumbotron.bg-info
             h1 University Page
-        - var articles = [{url: 'univ/1', title: 'ライフゲーム', img: 'lifegame.png'}]
+        - var articles = [{url: 'univ/1', title: 'ライフゲーム', img: 'lifegame.png'}, {url: 'univ/2', title: 'プロ基礎課題#7', img: 'default.png'}]
         div.row.mx-auto
             each article in articles
                 +article-card(article.url, article.title, article.img)

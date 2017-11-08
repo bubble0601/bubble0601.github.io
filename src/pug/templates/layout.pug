@@ -75,11 +75,11 @@ mixin title(title, date, tags)
 
 mixin article-card(url, title, img)
     div.col-12.col-md-6.col-lg-4.col-xl-3.px-2
-        div.card
+        div.card.article-card
             if img
                 a(href=url + '.html')
                     //- srcにするとwebpackが勝手に読み込もうとするので後でjsでいじる
-                    img.card-img-top(data='img/' + img)
+                    img.card-img-top(data='img/' + img height="140")
             div.card-body
                 h4.card-title: a(href=url + '.html')= title
 
