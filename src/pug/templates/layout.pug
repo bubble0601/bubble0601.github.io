@@ -25,7 +25,7 @@ mixin header(current)
 
 mixin navbar(current)
     header.navbar.navbar-light.justify-content-start
-        span.navbar-brand.mb-0.ml-2 Bubble0601.GitHub.io
+        span.navbar-brand.mb-0.ml-2.d-none.d-md-inline Bubble0601.GitHub.io
         ul.navbar-nav.flex-row
             li.nav-item.h5.mx-3(class={active: current === 'top'})
                 - var path = rootpath + 'index.html'

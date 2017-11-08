@@ -1,0 +1,29 @@
+include layout.pug
+
+mixin univart(id, title, date, tags)
+    - var rootpath = '../'
+    +var(rootpath)
+
+    +head
+
+    body
+        +header('univ')
+
+        +main
+            +article
+                +title(title, date, tags)
+
+                block
+
+        +footer([{
+            filename: 'index.html',
+            title: 'Top'
+        }, {
+            filename: 'univ.html',
+            title: 'Univ'
+        }, {
+            current: true,
+            filename: 'univ/' + id + '.html',
+            title: title
+        }])
+

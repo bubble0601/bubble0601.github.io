@@ -11,7 +11,7 @@ const getFileList = (dir, ext, exclude) =>{
   return glob.sync(`${ws}/**/[!_]*.${ext}`).map((v) => v.replace(reg1, '').replace(reg2, '')).filter((v) => v.indexOf(exclude) !== 0);
 }
 
-const pugs = getFileList('src/pug', 'pug', 'includes').map((v) => new HtmlWebpackPlugin({
+const pugs = getFileList('src/pug', 'pug', 'templates').map((v) => new HtmlWebpackPlugin({
   template: '../pug/' + v + '.pug',
   filename: '../' + v + '.html'
 }));

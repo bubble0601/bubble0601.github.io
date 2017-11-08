@@ -1,37 +1,17 @@
-include ../includes/layout.pug
-- var rootpath = '../'
-+var(rootpath)
+include ../templates/univ_article.pug
 
-+head
-
-body
-    +header('univ')
-
-    +main
-        +article
-            +title('ライフゲーム', '2017-11-07', ['ソフトウェアI'])
-
-            p main関数を短くすると処理の流れが分かりやすくておすすめです
-            p.mt-2 関数の引数の宣言で
-                code int[][SIZE_X];
-                | のように2次元配列の行を省略し列のみ指定しているのは、アドレスを計算するときに列数のみ分かれば十分だからです
-            p 例えば
-                code mat[1]
-                | のアドレスは
-                code mat
-                | のアドレスに
-                code SIZE_X*sizeof(int)
-                | 足せば分かります
-            +gist('https://gist.github.com/bubble0601/5d5f7d1b33be9051fffa5283c052f997.js')
-
-    +footer([{
-        filename: 'index.html',
-        title: 'Top'
-    }, {
-        filename: 'univ.html',
-        title: 'Univ'
-    }, {
-        current: true,
-        filename: 'univ/1.html',
-        title: '1'
-    }])
++univart("1", "ライフゲーム", "2017-11-07", ["ソフトウェアI"])
+    p main関数を短くすると処理の流れが分かりやすくておすすめです
+    p.mt-2 関数の引数の宣言で
+        code int[][SIZE_X];
+        | のように2次元配列の行を省略し列のみ指定しているのは、アドレスを計算するときに列数のみ分かれば十分だからです
+    p 例えば
+        code mat[1]
+        | のアドレスは
+        code mat
+        | のアドレスに
+        code SIZE_X*sizeof(int)
+        | 足せば分かります
+    +gist('https://gist.github.com/bubble0601/5d5f7d1b33be9051fffa5283c052f997.js')
+    
+    

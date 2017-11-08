@@ -6,8 +6,11 @@ p {
 
 .navbar {
     background-color: #9fd9f6;
-    @extend .sticky-top;
     @include media-breakpoint-up(lg) {
+        // .sticky-top
+        position: sticky;
+        top: 0;
+        z-index: 1020;
     }
 }
 
@@ -31,4 +34,13 @@ main {
 .breadcrumb li.active a {
     color: black;
     pointer-events: none;
+}
+
+.jumbotron h1 {
+    @include media-breakpoint-up(md) {
+        // .display-3
+        font-size: 4.5rem;
+        font-weight: 300;
+        line-height: 1.2;
+    }
 }
