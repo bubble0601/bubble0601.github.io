@@ -2,8 +2,6 @@ require "json"
 require "fileutils"
 require_relative 'data_manager'
 
-ROOT_PATH = File.dirname(__FILE__)
-
 module Status
     INVALID   = 0
     PUBLISHED = 1

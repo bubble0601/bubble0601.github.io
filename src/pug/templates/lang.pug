@@ -22,7 +22,7 @@ include layout.pug
 mixin langart(lang, name, title, langname)
     +var(rootpath)
 
-    +head
+    +head(title, undefined, ['prism'])
 
     body
         +header('lang')
@@ -46,6 +46,7 @@ mixin langart(lang, name, title, langname)
             filename: 'lang/' + lang + '/' + name + '.html',
             title: title
         }])
+        script(src=rootpath + "js/prism.js")
 
 mixin lang-card(lang, langname, categories)
     div.col-12.col-sm-6.col-lg-4.col-xl-3.px-2

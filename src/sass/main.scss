@@ -3,7 +3,7 @@
 $base-color: #9fd9f6;
 
 p {
-    @extend .mb-0
+    @extend .mb-0;
 }
 
 ul {
@@ -14,6 +14,12 @@ a {
     &:link, &:visited {
         color: #0093ff;
     }
+}
+
+samp {
+    @extend .p-2;
+    background-color: #f5f2f0;
+    display: block;
 }
 
 .navbar {
@@ -70,7 +76,7 @@ a.lang-toggle {
 }
 
 li.lang-item {
-    padding-left: 15px;
+    @extend .pl-4;
     border-top: 1px #ccc dotted;
     a {
         display: block;
