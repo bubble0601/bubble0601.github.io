@@ -1,0 +1,22 @@
+include templates/lang.pug
++var
+
++head
+
+body
+    +header('lang')
+
+    +main([0,9,3])
+        - var langs = \{langs}
+        div.row.mx-auto
+            each l in langs
+                +lang-card(l.lang, l.name, l.categories)
+
+    +footer([{
+        filename: 'index.html',
+        title: 'Top'
+    }, {
+        current: true,
+        filename: 'lang.html',
+        title: 'Lang'
+    }])

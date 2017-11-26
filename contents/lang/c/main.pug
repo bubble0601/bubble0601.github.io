@@ -1,0 +1,26 @@
+p エントリーポイント
+p 例1
+pre: code
+    | int main(void) {
+    |     return 0;
+    | }
+p.mt-2 例2(voidは省略可)
+pre: code
+    | int main() {
+    |     return 0;
+    | }
+p 例1では<code>main(0)</code>などとするとエラーになるが例2ではエラーは起きない
+p.mt-2 例3(一応動くが、省略すべきではない)
+pre: code
+    | main(void) {
+    |     return 0;
+    | }
+
+p 例:
+pre: code
+    | int main(void) {
+    |     printf("Hello, World!\n");
+    |     return 0;
+    | }
+p 出力
+samp Hello, World!

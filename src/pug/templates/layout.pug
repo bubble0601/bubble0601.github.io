@@ -33,14 +33,20 @@ mixin navbar(current)
             li.nav-item.h5.mx-3(class={active: current === 'univ'})
                 - var path = rootpath + 'univ.html'
                 a.nav-link(href=path) Univ
+            li.nav-item.h5.mx-3(class={active: current === 'lang'})
+                - var path = rootpath + 'lang.html'
+                a.nav-link(href=path) Lang
 
-mixin bread(bread, current)
+mixin bread(bread)
     nav.rounded.w-75.my-2.mx-auto(aria-label="breadcrumb" role="navigation")
         ol.breadcrumb
             each item in bread
                 li.breadcrumb-item(class={active: item.current})
-                    - var path = rootpath + item.filename
-                    a(href=path)= item.title
+                    if item.filename
+                        - var path = rootpath + item.filename
+                        a(href=path)= item.title
+                    else
+                        span= item.title
 
 mixin sidebar
     div.sidebar.py-md-2
@@ -53,18 +59,17 @@ mixin sidebar
             .my-1.
                 <a href="https://twitter.com/bubble_0_?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="ja" data-show-count="false">Follow @bubble_0_</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-mixin main
+mixin main(side)
     div.container-fluid.row.mx-0
-        main.col-12.col-md-9.py-3.pl-md-5(role="main")
+        if side[0] > 0
+            div.col-12(class="col-md-" + side[0])
+                +sidebar_left
+        main.col-12.py-3.pl-md-5(class="col-md-" + side[1] role="main")
             if block
                 block
-        div.col-12.col-md-3
-            +sidebar
-
-mixin article
-    article.col-lg-10.mx-auto
-        if block
-            block
+        if side[2] > 0
+            div.col-12(class="col-md-" + side[2])
+                +sidebar
 
 mixin title(title, date, tags)
     h2= title
@@ -72,16 +77,6 @@ mixin title(title, date, tags)
         span.text-muted.mr-2= date
         each tag in tags
             span.badge.badge-secondary= tag
-
-mixin article-card(url, title, img)
-    div.col-12.col-md-6.col-lg-4.col-xl-3.px-2
-        div.card.article-card
-            if img
-                a(href=url + '.html')
-                    //- srcにするとwebpackが勝手に読み込もうとするので後でjsでいじる
-                    img.card-img-top(data='img/' + img height="140")
-            div.card-body
-                h4.card-title: a(href=url + '.html')= title
 
 mixin footer(bread)
     +bread(bread, current)

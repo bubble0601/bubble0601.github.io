@@ -1,0 +1,37 @@
+---
+columns:
+  filename:
+    type: String
+    default: no_name
+  state:
+    type: Integer
+    default: 0
+  template:
+    type: String
+    default: article
+  category:
+    type: String
+    default: basic
+  params:
+    type: Hash
+    default:
+        title: no_title
+data:
+- filename: c/main
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: Main関数
+- filename: c/cl_args
+  state: 0
+  template: article
+  category: basic
+  params:
+    title: コマンドライン引数
+- filename: java/main
+  state: 0
+  template: article
+  category: basic
+  params:
+    title: Main関数

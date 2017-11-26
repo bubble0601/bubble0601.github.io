@@ -1,0 +1,10 @@
+c:
+    name: C
+    categories:
+        - alias: basic
+          title: 基本
+# java:
+#     name: Java
+#     categories:
+#         - alias: basic
+#           title: 基本

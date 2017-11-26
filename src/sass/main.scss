@@ -1,11 +1,23 @@
 @import "~bootstrap/scss/bootstrap";
 
+$base-color: #9fd9f6;
+
 p {
     @extend .mb-0
 }
 
+ul {
+    list-style: none;
+}
+
+a {
+    &:link, &:visited {
+        color: #0093ff;
+    }
+}
+
 .navbar {
-    background-color: #9fd9f6;
+    background-color: $base-color;
     @include media-breakpoint-up(lg) {
         // .sticky-top
         position: sticky;
@@ -15,9 +27,9 @@ p {
 }
 
 main {
-    min-height: 500px !important;
+    // min-height: 500px !important;
     @include media-breakpoint-up(md) {  // bootstrapのメディアクエリmixinをinclude
-        min-height: 1000px !important;
+        // min-height: 1000px !important;
     }
 }
 
@@ -42,5 +54,32 @@ main {
         font-size: 4.5rem;
         font-weight: 300;
         line-height: 1.2;
+    }
+}
+
+div.card-header > a {
+    display: block;
+}
+
+a.lang-toggle {
+    color: #555;
+    &:hover, &:active {
+        text-decoration: none;
+        background-color: #eee;
+    }
+}
+
+li.lang-item {
+    padding-left: 15px;
+    border-top: 1px #ccc dotted;
+    a {
+        display: block;
+        &:hover, &:active {
+            text-decoration: none;
+            color: #444;
+        }
+    }
+    &:hover, &:active {
+        background-color: #dff2fc;
     }
 }

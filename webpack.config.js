@@ -1,3 +1,4 @@
+/*global require, module, __dirname */
 const webpack = require('webpack');
 const path = require('path');
 const glob = require('glob');

@@ -1,0 +1,61 @@
+- rootpath = '../../'
+mixin cat(v)
+    - categories = v
+
+mixin sidebar_left
+    div#accordion.mt-2(role="tablist")
+        each item in categories
+            div.card
+                div.card-header.p-0(id="clphead" + item.id, role="tab")
+                    a.lang-toggle.pl-3.py-2.btn(data-toggle="collapse", href="#clp" + item.id aria-expanded="false" aria-controls="clp" + item.id)
+                        = item.title
+                div.collapse(id="clp" + item.id role="tabpanel" aria-labelledby="clphead" + item.id data-parent="#accordion")
+                    div.card-body.p-0
+                        ul.m-0.p-0: each e in item.list
+                            if e.filename === 'c/main'
+                                li.lang-item: span= e.title
+                            else
+                                li.lang-item: a(href=rootpath + "lang/" + e.filename + ".html")= e.title
+
+include layout.pug
+
+mixin langart(lang, name, title, langname)
+    +var(rootpath)
+
+    +head
+
+    body
+        +header('lang')
+
+        +main([2,10,0])
+            article.mx-1
+                h2= title
+        
+                block
+
+        +footer([{
+            filename: 'index.html',
+            title: 'Top'
+        }, {
+            filename: 'lang.html',
+            title: 'Lang'
+        }, {
+            title: langname
+        }, {
+            current: true,
+            filename: 'lang/' + lang + '/' + name + '.html',
+            title: title
+        }])
+
+mixin lang-card(lang, langname, categories)
+    div.col-12.col-sm-6.col-lg-4.col-xl-3.px-2
+        div.card.article-card
+            div.card-body
+                h4.card-title= langname
+                div(id="acd_" + lang data-children=".item")
+                    each item in categories
+                        div.item
+                            a(data-toggle="collapse" data-parent="acd_" + lang href="#" + lang + item.id aria-expanded="false" aria-controls=lang + item.id)= item.title
+                            div.collapse(id=lang + item.id role="tabpanel")
+                                ul: each e in item.list
+                                    li: a(href=rootpath + "lang/" + e.filename + ".html")= e.title
