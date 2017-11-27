@@ -20,6 +20,7 @@ def sitemap
             f.puts("<lastmod>#{lastmod}</lastmod>")
             f.puts("</url>")
         end
+        f.puts("</urlset>")
     end
 end
 

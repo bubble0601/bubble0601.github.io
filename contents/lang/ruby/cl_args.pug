@@ -1,0 +1,14 @@
+p.lead コマンドラインから引数を受け取る
+p
+    | 引数は
+    code ARGV
+    | に配列として格納されている
+h4 例
+p foo.rb
++code("ruby").
+    puts ARGV[0]
+p 実行
++code("bash").
+    ruby foo.rb bar
+p.mt-1 出力
+samp bar

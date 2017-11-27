@@ -1,0 +1,13 @@
+p.lead ファイルの1行目から順に実行される
+p.lead 以下のように書くと、if文の中は直接実行された場合は呼び出されるが、モジュールとしてインポートしたときは呼び出されない
++code("ruby").
+    if __FILE__ == $0
+        # 処理
+    end
+h4 例
++code("ruby").
+    if __FILE__ == $0
+        puts "Hello, World!"
+    end
+p 出力
+samp Hello, World!

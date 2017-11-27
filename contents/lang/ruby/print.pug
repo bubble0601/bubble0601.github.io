@@ -1,0 +1,34 @@
+p.lead デバッグにはp, 普通に出力するときはprint, putsをよく使う
++code("ruby").
+    # print 改行なし
+    print "foo"
+
+    # puts 改行あり
+    puts "foo"
+
+    # p オブジェクトを文字列にして出力
+    p [1, 2, "3"]       # => [1, 2, "3"]
+
+    # pp p に改行をつけてさらに分かりやすくして出力
+    require "pp"
+    pp Array.new(10) { [1, 2, "3"] }
+
+    # y yaml形式で出力
+    require "yaml"
+    y [1, 2, "3"]
+
+p.lead 特殊文字などの出力
++code("ruby"): :esc
+    # エスケープ
+    print "foo\n"
+
+    # シングルクォーテーションではエスケープされない
+    print 'foo\n'       # => foo\n
+
+    # 変数を出力
+    bar = 10
+    print "foo#{bar}"   # => foo10
+
+    # シングルクォーテーションではそのまま出力
+    print 'foo#{bar}'   # => foo#{bar}
+
