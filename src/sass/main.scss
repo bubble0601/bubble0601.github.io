@@ -1,6 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
 
-$base-color: #9fd9f6;
+$pale-blue:  #9fd9f6;
+$pale-green: #a2d7d4;
+
+html {
+    font-size: 1rem;
+    @include media-breakpoint-up(md) {
+        font-size: 1.1rem;
+    }
+    @include media-breakpoint-up(lg) {
+        font-size: 1.2rem;
+    }
+}
 
 p {
     @extend .mb-0;
@@ -23,7 +34,7 @@ samp {
 }
 
 .navbar {
-    background-color: $base-color;
+    background-color: $pale-blue;
     @include media-breakpoint-up(lg) {
         // .sticky-top
         position: sticky;
@@ -87,10 +98,6 @@ li.lang-item {
     }
 }
 
-div.border-line {
-    border-bottom: thick solid #ccc;
-}
-
 #langart {
     h2 {
         border-bottom: thick solid #ccc;
@@ -105,3 +112,9 @@ div.border-line {
         @extend .mt-4;
     }
 }
+
+#langtitle {
+    background-color: $pale-green;
+    @extend .p-2;
+}
+

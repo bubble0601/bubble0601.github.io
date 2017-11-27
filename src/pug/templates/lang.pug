@@ -30,9 +30,9 @@ mixin langart(lang, name, title, langname)
 
         +main([2,10,0])
             article#langart.mx-1
-                h1.mb-0= title
-                h5.mb-1: span.badge.badge-pill.badge-success= langname
-                div.border-line
+                div#langtitle
+                    h1.d-inline= title
+                    h5.d-inline.ml-2: span.badge.badge-pill.badge-success= langname
 
                 block
 
