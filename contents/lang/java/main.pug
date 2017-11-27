@@ -1,1 +1,38 @@
-p main
+p.lead Javaではファイル名と一致する名前のクラスのmainメソッドから処理が始まる
+p Main.java
++code("java").
+    class Main {
+        public static void main(String args[]) {
+            /* 処理 */
+        }
+    }
+p
+    code public
+    | はアクセス修飾子でメソッドが公開されていることを意味している.
+p
+    code static
+    | は静的であることを意味する修飾子.
+    | main関数はクラスメソッドでなければならない.
+p
+    code void
+    | 返り値の型.
+    | voidなので返り値はなし.
+p
+    code String args[]
+    a(href="cl_args.html") コマンドライン引数
+p 全て省略不可. void以外の返り値も不可.
+
+h3 例
+p Main.java
++code("java").
+    class Main {
+        public static void main(String args[]) {
+            System.out.println("Hello, World!");
+        }
+    }
+p 実行
++code("bash").
+    javac Main.java
+    java Main
+p 出力
+samp Hello, World!

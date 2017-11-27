@@ -30,7 +30,7 @@ data:
   params:
     title: コマンドライン引数
 - filename: java/main
-  state: 0
+  state: 1
   template: article
   category: basic
   params:
