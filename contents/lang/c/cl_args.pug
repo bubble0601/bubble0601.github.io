@@ -1,1 +1,32 @@
-p args
+p.lead コマンドラインから引数を受け取る
++code("c").
+    int main(int argc, char *argv[]) {
+        /* argcに引数の数, argvに引数が格納されている */
+        return 0;
+    }
+p 以下も可
++code("c").
+    int main(int argc, char **argv) {}
+
+h3 例
+p foo.c
++code("c"): :esc
+    #include <stdio.h>
+
+    int main(int argc, char *argv[]) {
+        for (int i = 0; i < argc; i++) {
+            printf("%s\n", argv[i]);
+        }
+        return 0;
+    }
+p 実行
++code("bash").
+    gcc ./foo.c
+    ./a.out bar
+p 出力
+samp: pre.mb-0.
+    ./a.out
+    bar
+
+h4 関連
+a(href="main.html") main関数

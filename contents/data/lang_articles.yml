@@ -15,16 +15,16 @@ columns:
   params:
     type: Hash
     default:
-        title: no_title
+      title: no_title
 data:
 - filename: c/main
   state: 1
   template: article
   category: basic
   params:
-    title: Main関数
+    title: main関数
 - filename: c/cl_args
-  state: 0
+  state: 1
   template: article
   category: basic
   params:
@@ -35,3 +35,21 @@ data:
   category: basic
   params:
     title: Main関数
+- filename: ruby/main
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: main関数的なやつ
+- filename: ruby/print
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: 標準出力
+- filename: ruby/cl_args
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: コマンドライン引数

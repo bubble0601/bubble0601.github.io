@@ -10,8 +10,8 @@ end
 def sitemap
     urls = Dir.glob("#{ROOT_PATH}/../public/**/*.html")
     open("#{ROOT_PATH}/../public/sitemap.xml", "w") do |f|
-        f.puts("<?xml version=”1.0″ encoding=”UTF-8″?>")
-        f.puts("<urlset xmlns=”http://www.sitemaps.org/schemas/sitemap/0.9″>")
+        f.puts("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+        f.puts("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">")
         urls.each do |url|
             lastmod = File::Stat.new(url).mtime.to_s[0,10]
             url = "https://bubble0601.github.io/" + url.match(/\.\.\/public\/(.+\.html)$/)[1]
@@ -21,6 +21,21 @@ def sitemap
             f.puts("</url>")
         end
     end
+end
+
+def lang
+    require_relative "data_manager"
+    dm = DataMan.new('lang_articles')
+    print "lang: "
+    lang  = STDIN.gets.chomp
+    print "name: "
+    name  = STDIN.gets.chomp
+    print "title: "
+    title = STDIN.gets.chomp
+    print "category: "
+    cat   = STDIN.gets.chomp
+    dm.insert({"filename" => "#{lang}/#{name}", "state" => 1, "template" => "article", "category" => cat, "params" => {"title" => title}})
+    open("#{ROOT_PATH}/lang/#{lang}/#{name}.pug", "w")
 end
 
 if __FILE__ == $0
@@ -38,8 +53,12 @@ if __FILE__ == $0
             require_relative "data_manager"
             dm = DataMan.new(ARGV[1])
             dm.console()
+
         when 'sitemap', 's'
             sitemap()
+
+        when 'lang', 'l'
+            lang()
         end
     end
 end

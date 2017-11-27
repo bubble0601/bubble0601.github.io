@@ -44,8 +44,12 @@ def lang
     data = DataMan.new('lang_articles').get(cond: {'state' => Status::PUBLISHED})
     langs = DataMan.new('langs').get
     data.each do |e|
-        e['lang'] = e['filename'].split('/')[0]
-        e['params']['name'] = e['filename'].split('/')[1]
+        begin
+            e['lang'] = e['filename'].split('/')[0]
+            e['params']['name'] = e['filename'].split('/')[1]
+        rescue
+            puts "failed: probably filename do not contain lang"
+        end
         e['params']['langname'] = langs[e['lang']]['name']
     end
     data.each do |elem|

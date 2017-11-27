@@ -11,13 +11,13 @@ columns:
     default: 0
   template:
     type: String
-    default: 'article'
+    default: article
   thumbnail:
     type: String
     default: img/default.png
   params:
     type: Hash
-    default:
+    default: &1
       title: no_title
       tags: []
 data:
@@ -39,3 +39,9 @@ data:
     title: プロ基礎課題#7
     tags:
     - プロ基礎
+- filename: no_name
+  date: 1970-01-01
+  state: 0
+  template: article
+  thumbnail: img/default.png
+  params: *1

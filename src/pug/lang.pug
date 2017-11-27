@@ -7,7 +7,7 @@ body
     +header('lang')
 
     +main([0,9,3])
-        - var langs = [{"lang":"c","name":"C","categories":[{"id":0,"title":"基本","list":[{"filename":"c/main","title":"Main関数"}]}]}]
+        - var langs = [{"lang":"c","name":"C","categories":[{"id":0,"title":"基本","list":[{"filename":"c/main","title":"main関数"},{"filename":"c/cl_args","title":"コマンドライン引数"}]}]},{"lang":"ruby","name":"Ruby","categories":[{"id":0,"title":"基本","list":[{"filename":"ruby/main","title":"main関数的なやつ"},{"filename":"ruby/print","title":"標準出力"},{"filename":"ruby/cl_args","title":"コマンドライン引数"}]}]}]
         div.row.mx-auto
             each l in langs
                 +lang-card(l.lang, l.name, l.categories)

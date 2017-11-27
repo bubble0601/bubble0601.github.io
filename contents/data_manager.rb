@@ -141,7 +141,9 @@ class DataMan
 
     def console
         if @is_table
-            while print "#{@name}> " || line = STDIN.gets
+            while true
+                print "#{@name}> "
+                line = STDIN.gets
                 queries = line.split()
                 case queries[0]
                 when 'show', 's'
@@ -161,7 +163,7 @@ class DataMan
                                 new_data[k] = YAML.load(arr)
                             rescue
                                 puts 'parse error'
-                                break
+                                new_data = nil
                             end
                         when 'Integer'
                             begin
@@ -170,7 +172,7 @@ class DataMan
                                 new_data[k] = Integer(num)
                             rescue
                                 puts 'not a number'
-                                break
+                                new_data = nil
                             end
                         when 'Date'
                             begin
@@ -179,13 +181,13 @@ class DataMan
                                 new_data[k] = Date.parse(STDIN.gets.chomp)
                             rescue
                                 puts 'parse error'
-                                break
+                                new_data = nil
                             end
                         end
                     end
                     puts 'insert new data'
                     p new_data
-                    insert(new_data)
+                    insert(new_data) if new_data
                 when 'update', 'u'
                     cond = {}
                     while true

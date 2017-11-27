@@ -29,6 +29,7 @@ a {
 
 samp {
     @extend .p-2;
+    @extend .rounded;
     background-color: #f5f2f0;
     display: block;
 }
