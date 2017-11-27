@@ -17,12 +17,10 @@ mixin head(title, desc, css)
             meta(name="format-detection", content="telephone=no,address=no,email=no")
             meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
             meta(http-equiv="content-language", content="ja")
-            - var csspath = rootpath + 'css/bundle.css'
-            link(rel="stylesheet", href=csspath)
+            link(rel="stylesheet", href=rootpath + 'css/bundle.css')
             if css
                 each c in css
-                    - csspath = rootpath + 'css/' + c + '.css'
-                    link(rel="stylesheet", href=csspath)
+                    link(rel="stylesheet", href=rootpath + 'css/' + c + '.css')
 
 mixin header(current)
     +navbar(current)
@@ -34,12 +32,12 @@ mixin navbar(current)
             li.nav-item.h5.mx-3(class={active: current === 'top'})
                 - var path = rootpath + 'index.html'
                 a.nav-link(href=path) Top
-            li.nav-item.h5.mx-3(class={active: current === 'univ'})
-                - var path = rootpath + 'univ.html'
-                a.nav-link(href=path) Univ
             li.nav-item.h5.mx-3(class={active: current === 'lang'})
                 - var path = rootpath + 'lang.html'
                 a.nav-link(href=path) Lang
+            li.nav-item.h5.mx-3(class={active: current === 'univ'})
+                - var path = rootpath + 'univ.html'
+                a.nav-link(href=path) Univ
 
 mixin bread(bread)
     nav.rounded.w-75.my-2.mx-auto(aria-label="breadcrumb" role="navigation")
@@ -58,10 +56,8 @@ mixin sidebar
             //- spanではなくdivを使うならflexboxがよさげ
             img.my-1(src="https://avatars1.githubusercontent.com/u/19218424?s=460&v=4" width="80")
             span.align-top.d-inline-block.h5.ml-3.mt-4 bubble0601
-            .my-1.
-                <a class="github-button" href="https://github.com/bubble0601" data-size="large" aria-label="Follow @bubble0601 on GitHub">Follow @bubble0601</a>
-            .my-1.
-                <a href="https://twitter.com/bubble_0_?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="ja" data-show-count="false">Follow @bubble_0_</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            a#github.btn.btn-secondary.btn-sm.d-block.text-white.w-50.my-1(target="_blank" href="https://github.com/bubble0601") GitHub @bubble0601
+            a#twitter.btn.btn-primary.btn-sm.d-block.text-white.w-50.my-1(href="#") @bubble_0_さんをフォロー
 
 mixin main(side)
     div.container-fluid.row.mx-0
@@ -84,7 +80,6 @@ mixin title(title, date, tags)
 
 mixin footer(bread)
     +bread(bread, current)
-    script#github-bjs(async defer src="https://buttons.github.io/buttons.js")
     //- bundle.js is contained automatically
 
 mixin analytics
@@ -99,6 +94,14 @@ mixin analytics
           gtag('config', 'UA-80539440-2');
         </script>
 
+mixin code(lg)
+    if lg === 'html'
+        pre: code.language-markup(data-language="html")
+            block
+    else
+        pre: code(class="language-" + lg)
+            block
+
 mixin gist(url)
-    p.my-2
+    div.my-2
     script(src=url)

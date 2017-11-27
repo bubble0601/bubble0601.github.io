@@ -33,10 +33,7 @@ samp {
 }
 
 main {
-    // min-height: 500px !important;
-    @include media-breakpoint-up(md) {  // bootstrapのメディアクエリmixinをinclude
-        // min-height: 1000px !important;
-    }
+    min-height: 500px !important;
 }
 
 .sidebar {
@@ -87,5 +84,24 @@ li.lang-item {
     }
     &:hover, &:active {
         background-color: #dff2fc;
+    }
+}
+
+div.border-line {
+    border-bottom: thick solid #ccc;
+}
+
+#langart {
+    h2 {
+        border-bottom: thick solid #ccc;
+        @extend .mt-4;
+    }
+    h3 {
+        border-bottom: medium solid #ccc;
+        @extend .mt-4;
+    }
+    h4 {
+        border-bottom: thin solid #ccc;
+        @extend .mt-4;
     }
 }

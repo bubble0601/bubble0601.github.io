@@ -1,6 +1,7 @@
 - rootpath = '../../'
-mixin cat(v)
-    - categories = v
+mixin var_lang(cat, fn)
+    - categories = cat
+    - filename   = fn
 
 mixin sidebar_left
     div#accordion.mt-2(role="tablist")
@@ -9,10 +10,10 @@ mixin sidebar_left
                 div.card-header.p-0(id="clphead" + item.id, role="tab")
                     a.lang-toggle.pl-3.py-2.btn(data-toggle="collapse", href="#clp" + item.id aria-expanded="false" aria-controls="clp" + item.id)
                         = item.title
-                div.collapse(id="clp" + item.id role="tabpanel" aria-labelledby="clphead" + item.id data-parent="#accordion")
+                div.collapse(id="clp" + item.id role="tabpanel" aria-labelledby="clphead" + item.id data-parent="#accordion" class={show: item.list.map(v => v.filename).indexOf(filename) >= 0})
                     div.card-body.p-0
                         ul.m-0.p-0: each e in item.list
-                            if e.filename === 'c/main'
+                            if e.filename === filename
                                 li.lang-item: span= e.title
                             else
                                 li.lang-item: a(href=rootpath + "lang/" + e.filename + ".html")= e.title
@@ -28,9 +29,11 @@ mixin langart(lang, name, title, langname)
         +header('lang')
 
         +main([2,10,0])
-            article.mx-1
-                h2= title
-        
+            article#langart.mx-1
+                h1.mb-0= title
+                h5.mb-1: span.badge.badge-pill.badge-success= langname
+                div.border-line
+
                 block
 
         +footer([{

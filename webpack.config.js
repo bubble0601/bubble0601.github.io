@@ -44,7 +44,16 @@ module.exports = [{
       },
       {
         test: /\.pug$/,
-        loader:['html-loader', 'pug-html-loader']
+        use: [{
+          loader: 'html-loader'
+        }, {
+          loader: 'pug-html-loader',
+          options: {
+            filters: {
+              'esc': text => text.replace(/[&'`"<>]/g, m => {return {'&': '&amp;',"'": '&#x27;','`': '&#x60;','"': '&quot;','<': '&lt;','>': '&gt;',}[m]})
+            }
+          }
+        }]
       }
     ]
   },

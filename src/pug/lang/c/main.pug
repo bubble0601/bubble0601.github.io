@@ -1,31 +1,47 @@
 include ../../templates/lang.pug
 
-+cat([{"id":0,"title":"基本","list":[{"filename":"c/main","title":"Main関数"}]}])
++var_lang([{"id":0,"title":"基本","list":[{"filename":"c/main","title":"Main関数"}]}], "c/main")
 
 +langart("c", "main", "Main関数", "C")
-    p エントリーポイント
-    p 例1
-    pre: code.language-c(data-language="c")
-        | int main(void) {
-        |     return 0;
-        | }
-    p.mt-2 例2(voidは省略可)
-    pre: code.language-c(data-language="c")
-        | int main() {
-        |     return 0;
-        | }
-    p 例1では<code>main(0)</code>などとするとエラーになるが例2ではエラーは起きない
-    p.mt-2 例3(一応動くが、省略すべきではない)
-    pre: code.language-c(data-language="c")
-        | main(void) {
-        |     return 0;
-        | }
-    
-    p 例:
-    pre: code.language-c(data-language="c")
-        | int main(void) {
-        |     printf("Hello, World!\n");
-        |     return 0;
-        | }
+    p.lead エントリーポイント
+    p.lead C言語でははじめにmain関数が実行される
+    p.lead 返り値(<code>return 0;</code>の0)はプログラムが返す値で0が正常終了, 1が異常終了(C99以降は省略可で省略すると0を返す)
+
+    h3 1. 一般的な書き方
+    +code("c").
+        int main(void) {
+            /* 処理 */
+            return 0;
+        }
+
+    h3 2. voidは省略可
+    +code("c").
+        int main() {
+            /* 処理 */
+            return 0;
+        }
+    p 1では<code>main(0)</code>などとするとエラーになるが2ではエラーは起きない
+
+    h3 3. 返り値の型を省略
+    p 多くのコンパイラで一応動く(int扱い)が、省略すべきではない
+    +code("c").
+        main(void) { /* 処理 */ }
+        main() { /* 処理 */ }
+
+    h3 例
+    +code("c"): :esc
+        #include <stdio.h>
+
+        int main(void) {
+            printf("Hello, World!\n");
+            return 0;
+        }
     p 出力
     samp Hello, World!
+
+    h4 参考
+    a(href="https://qiita.com/raccy/items/b59bd7fa9f4eacabca79" target="_blank") C言語(C11)で`main`の定義方法は何が一番正しいのか？
+    h4 関連
+    // a(href="cl_args.html") コマンドライン引数を受け取る
+    a(href="https://qiita.com/nwtgck/items/32ea5dc3111a9514b12a" target="_blank") C言語のreturn 0の有用性が今更わかった話
+
