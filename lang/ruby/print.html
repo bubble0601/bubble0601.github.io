@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="ja"><head><!-- Global site tag (gtag.js) - Google Analytics--><script async src="https://www.googletagmanager.com/gtag/js?id=UA-80539440-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80539440-2');
+</script>
+<meta charset="UTF-8"><meta name="author" content="bubble0601"><title>標準出力</title><meta name="format-detection" content="telephone=no,address=no,email=no"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv="content-language" content="ja"><link rel="stylesheet" href="../../css/bundle.css"><link rel="stylesheet" href="../../css/prism.css"></head></html><body><header class="navbar navbar-light justify-content-start"><span class="navbar-brand mb-0 ml-2 d-none d-md-inline">Bubble0601.GitHub.io</span><ul class="navbar-nav flex-row"><li class="nav-item h5 mx-3"><a class="nav-link" href="../../index.html">Top</a></li><li class="nav-item h5 mx-3 active"><a class="nav-link" href="../../lang.html">Lang</a></li><li class="nav-item h5 mx-3"><a class="nav-link" href="../../univ.html">Univ</a></li></ul></header><div class="container-fluid row mx-0"><div class="col-12 col-md-2"><div class="mt-2" id="accordion" role="tablist"><div class="card"><div class="card-header p-0" id="clphead0" role="tab"><a class="lang-toggle pl-3 py-2 btn" data-toggle="collapse" href="#clp0" aria-expanded="false" aria-controls="clp0">基本</a></div><div class="collapse show" id="clp0" role="tabpanel" aria-labelledby="clphead0" data-parent="#accordion"><div class="card-body p-0"><ul class="m-0 p-0"><li class="lang-item"><a href="../../lang/ruby/main.html">main関数的なやつ</a></li><li class="lang-item"><span>標準出力</span></li><li class="lang-item"><a href="../../lang/ruby/cl_args.html">コマンドライン引数</a></li></ul></div></div></div></div></div><main class="col-12 py-3 pl-md-5 col-md-10" role="main"><article class="mx-1" id="langart"><div id="langtitle"><h1 class="d-inline">標準出力</h1><h5 class="d-inline ml-2"><span class="badge badge-pill badge-success">Ruby</span></h5></div><p class="lead">デバッグにはp, 普通に出力するときはprint, putsをよく使う</p><pre><code class="language-ruby"># print 改行なし
+print "foo"
+
+# puts 改行あり
+puts "foo"
+
+# p オブジェクトを文字列にして出力
+p [1, 2, "3"]       # => [1, 2, "3"]
+
+# pp p に改行をつけてさらに分かりやすくして出力
+require "pp"
+pp Array.new(10) { [1, 2, "3"] }
+
+# y yaml形式で出力
+require "yaml"
+y [1, 2, "3"]
+</code></pre><p class="lead">特殊文字などの出力</p><pre><code class="language-ruby"># エスケープ
+print &quot;foo\n&quot;
+
+# シングルクォーテーションではエスケープされない
+print &#x27;foo\n&#x27;       # =&gt; foo\n
+
+# 変数を出力
+bar = 10
+print &quot;foo#{bar}&quot;   # =&gt; foo10
+
+# シングルクォーテーションではそのまま出力
+print &#x27;foo#{bar}&#x27;   # =&gt; foo#{bar}</code></pre></article></main></div><nav class="rounded w-75 my-2 mx-auto" aria-label="breadcrumb" role="navigation"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Top</a></li><li class="breadcrumb-item"><a href="../../lang.html">Lang</a></li><li class="breadcrumb-item"><span>Ruby</span></li><li class="breadcrumb-item active"><a href="../../lang/ruby/print.html">標準出力</a></li></ol></nav><script src="../../js/prism.js"></script><script type="text/javascript" src="../../js/bundle.js"></script></body>
