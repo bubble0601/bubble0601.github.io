@@ -6,4 +6,95 @@
 
   gtag('config', 'UA-80539440-2');
 </script>
-<meta charset="UTF-8"><meta name="author" content="bubble0601"><title>ライフゲーム</title><meta name="format-detection" content="telephone=no,address=no,email=no"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv="content-language" content="ja"><link rel="stylesheet" href="../css/bundle.css"></head></html><body><header class="navbar navbar-light justify-content-start"><span class="navbar-brand mb-0 ml-2 d-none d-md-inline">Bubble0601.GitHub.io</span><ul class="navbar-nav flex-row"><li class="nav-item h5 mx-3"><a class="nav-link" href="../index.html">Top</a></li><li class="nav-item h5 mx-3"><a class="nav-link" href="../lang.html">Lang</a></li><li class="nav-item h5 mx-3 active"><a class="nav-link" href="../univ.html">Univ</a></li></ul></header><div class="container-fluid row mx-0"><main class="col-12 py-3 pl-md-5 col-md-9" role="main"><article class="col-lg-10 mx-auto"><h2>ライフゲーム</h2><p class="d-inline-block mb-3"><span class="text-muted mr-2">2017-11-07</span><span class="badge badge-secondary">ソフトウェア</span></p><p>main関数を短くすると処理の流れが分かりやすくておすすめです</p><p class="mt-2">関数の引数の宣言で<code>int[][SIZE_X];</code>のように2次元配列の行を省略し列のみ指定しているのは、アドレスを計算するときに列数のみ分かれば十分だからです</p><p>例えば<code>mat[1]</code>のアドレスは<code>mat</code>のアドレスに<code>SIZE_X*sizeof(int)</code>足せば分かります</p><div class="my-2"></div><script src="https://gist.github.com/bubble0601/5d5f7d1b33be9051fffa5283c052f997.js"></script></article></main><div class="col-12 col-md-3"><div class="sidebar py-md-2"><div class="p-3"><img class="my-1" src="https://avatars1.githubusercontent.com/u/19218424?s=460&amp;v=4" width="80"><span class="align-top d-inline-block h5 ml-3 mt-4">bubble0601</span><a class="btn btn-secondary btn-sm d-block text-white w-50 my-1" id="github" target="_blank" href="https://github.com/bubble0601">GitHub @bubble0601</a><a class="btn btn-primary btn-sm d-block text-white w-50 my-1" id="twitter" href="#">Twitter @bubble_0_</a><a class="d-block" href="https://github.com/bubble0601/bubble0601.github.io">このサイトのレポジトリ</a></div></div></div></div><nav class="rounded w-75 my-2 mx-auto" aria-label="breadcrumb" role="navigation"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Top</a></li><li class="breadcrumb-item"><a href="../univ.html">Univ</a></li><li class="breadcrumb-item active"><a href="../univ/1.html">ライフゲーム</a></li></ol></nav><script type="text/javascript" src="../js/bundle.js"></script></body>
+<meta charset="UTF-8"><meta name="author" content="bubble0601"><title>ライフゲーム</title><meta name="format-detection" content="telephone=no,address=no,email=no"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv="content-language" content="ja"><link rel="stylesheet" href="../css/bundle.css"><link rel="stylesheet" href="../css/prism.css"></head></html><body><header class="navbar navbar-light justify-content-start"><span class="navbar-brand mb-0 ml-2 d-none d-md-inline">Bubble0601.GitHub.io</span><ul class="navbar-nav flex-row"><li class="nav-item h5 mx-3"><a class="nav-link" href="../index.html">Top</a></li><li class="nav-item h5 mx-3"><a class="nav-link" href="../lang.html">Lang</a></li><li class="nav-item h5 mx-3 active"><a class="nav-link" href="../univ.html">Univ</a></li></ul></header><div class="container-fluid row mx-0"><main class="col-12 py-3 pl-md-5 col-md-9" role="main"><article class="col-lg-10 mx-auto"><h2>ライフゲーム</h2><p class="d-inline-block mb-3"><span class="text-muted mr-2">2017-11-07</span><span class="badge badge-secondary">ソフトウェア</span></p><p>main関数を短くすると処理の流れが分かりやすくておすすめです</p><p class="mt-2">関数の引数の宣言で<code>int[][SIZE_X];</code>のように2次元配列の行を省略し列のみ指定しているのは、アドレスを計算するときに列数のみ分かれば十分だからです</p><p>例えば<code>mat[1]</code>のアドレスは<code>mat</code>のアドレスに<code>SIZE_X*sizeof(int)</code>足せば分かります</p><pre><code class="language-c" data-language="c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;time.h&gt;
+
+#define SIZE_X 150  // 横
+#define SIZE_Y 35   // 縦
+
+void init(int[][SIZE_X]);
+void update(int[][SIZE_X]);
+int is_living(int[][SIZE_X]);
+void print_mat(int[][SIZE_X]);
+
+int main() {
+    int mat[SIZE_Y][SIZE_X];
+    init(mat);
+
+    while(is_living(mat)) {
+        print_mat(mat);
+        update(mat);
+        usleep(50000);  // 0.05秒ごとに更新
+    }
+}
+
+// 初期化
+void init(int mat[][SIZE_X]) {
+    // 初期は各マス20%で生
+    srand(time(NULL));
+    for (int i = 0; i &lt; SIZE_Y; i++) {
+        for (int j = 0; j &lt; SIZE_X; j++) {
+            if (rand() % 5 == 0) {
+                mat[i][j] = 1;  // 生
+            } else {
+                mat[i][j] = 0;  // 死
+            }
+        }
+    }
+}
+
+// 更新
+void update(int mat[][SIZE_X]) {
+    int count[SIZE_Y][SIZE_X];
+    for (int i = 0; i &lt; SIZE_Y; i++) {
+        for (int j = 0; j &lt; SIZE_X; j++) {
+            count[i][j] = 0;
+            if (i &gt; 0) count[i][j] += mat[i-1][j];
+            if (j &gt; 0) count[i][j] += mat[i][j-1];
+            if (i &gt; 0 &amp;&amp; j &gt; 0) count[i][j] += mat[i-1][j-1];
+            if (i &lt; SIZE_Y-1) count[i][j] += mat[i+1][j];
+            if (j &lt; SIZE_X-1) count[i][j] += mat[i][j+1];
+            if (i &lt; SIZE_Y-1 &amp;&amp; j &lt; SIZE_X-1) count[i][j] += mat[i+1][j+1];
+            if (i &gt; 0 &amp;&amp; j &lt; SIZE_X-1) count[i][j] += mat[i-1][j+1];
+            if (j &gt; 0 &amp;&amp; i &lt; SIZE_Y-1) count[i][j] += mat[i+1][j-1];
+        }
+    }
+
+    for (int i = 0; i &lt; SIZE_Y; i++) {
+        for (int j = 0; j &lt; SIZE_X; j++) {
+            if (mat[i][j] == 0) {
+                if (count[i][j] == 3) mat[i][j] = 1;
+            } else {
+                if (count[i][j] &lt;= 1 || count [i][j] &gt;= 4) mat[i][j] = 0;
+            }
+        }
+    }
+}
+
+// 生きている個体があるか判定
+int is_living(int mat[][SIZE_X]) {
+    for (int i = 0; i &lt; SIZE_Y; i++) {
+        for (int j = 0; j &lt; SIZE_X; j++) {
+            if (mat[i][j] == 1) return 1;
+        }
+    }
+    return 0;
+}
+
+// 表示
+void print_mat(int mat[][SIZE_X]) {
+    system(&quot;clear&quot;);
+
+    for (int i = 0; i &lt; SIZE_Y; i++) {
+        for (int j = 0; j &lt; SIZE_X; j++) {
+            if (mat[i][j] == 0) {
+                printf(&quot;.&quot;);
+            } else {
+                printf(&quot;#&quot;);
+            }
+        }
+        printf(&quot;\n&quot;);
+    }
+}</code></pre></article></main><div class="col-12 col-md-3"><div class="sidebar py-md-2"><div class="p-3"><img class="my-1" src="https://avatars1.githubusercontent.com/u/19218424?s=460&amp;v=4" width="80"><span class="align-top d-inline-block h5 ml-3 mt-4">bubble0601</span><a class="btn btn-secondary btn-sm d-block text-white w-50 my-1" id="github" href="https://github.com/bubble0601" target="_blank"><img class="d-inline mr-1" data="../img/github.svg" width="20" height="20">@bubble0601</a><a class="btn btn-primary btn-sm d-block text-white w-50 my-1" id="twitter" href="#"><img class="d-inline mr-1" data="../img/twitter.svg" width="20" height="20">@bubble_0_</a><h4 class="mt-2">Links</h4><ul class="list-unstyled"><li><a href="https://github.com/bubble0601/bubble0601.github.io" target="_blank">このサイトのレポジトリ</a></li></ul></div></div></div></div><nav class="rounded w-75 my-2 mx-auto" aria-label="breadcrumb" role="navigation"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">Top</a></li><li class="breadcrumb-item"><a href="../univ.html">Univ</a></li><li class="breadcrumb-item active"><a href="../univ/1.html">ライフゲーム</a></li></ol></nav><p><a class="text-muted text-small float-right mr-4" href="../about.html">当サイトについて</a></p><p><a class="text-muted text-small float-right mr-2" href="../index.html">Top</a></p><script src="../js/prism.js"></script><script type="text/javascript" src="../js/bundle.js"></script></body>

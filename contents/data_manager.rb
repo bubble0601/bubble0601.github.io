@@ -114,10 +114,10 @@ class DataMan
         return self
     end
 
-    def update(cond, data)
+    def update(cond: nil, data:)
         if @is_table
             @data.each do |e|
-                if cond.map{ |k, v| e[k] == v }.all?
+                if cond == nil or cond.map{ |k, v| e[k] == v }.all?
                     data.each{ |k, v| e[k] = v }
                 end
             end

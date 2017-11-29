@@ -2,9 +2,10 @@ ROOT_PATH = File.dirname(__FILE__)
 
 def help
     puts "Usage"
-    puts "\tgenerate: generate pug"
-    puts "\tdata [name]: manipulate data/[name].yml; if not exists, creatre interactively"
-    puts "\tsitemap: generate sitemap"
+    puts "\tgenerate/g: generate pug"
+    puts "\tdata [name]/d [name]: manipulate data/[name].yml; if not exists, creatre interactively"
+    puts "\tsitemap/s: generate sitemap"
+    puts "\tlang/l: create new lang article"
 end
 
 def sitemap
@@ -36,7 +37,28 @@ def lang
     print "category: "
     cat   = STDIN.gets.chomp
     dm.insert({"filename" => "#{lang}/#{name}", "state" => 1, "template" => "article", "category" => cat, "params" => {"title" => title}})
-    open("#{ROOT_PATH}/lang/#{lang}/#{name}.pug", "w")
+    dm = DataMan.new('langs')
+    langs = dm.get()
+    unless langs.key?(lang)
+        print "lang name: "
+        ln = STDIN.gets.chomp
+        langs[lang] = {
+            "name" => ln,
+            "categories" => []
+        }
+    end
+    unless langs[lang].map{|v| v.alias }.include?(cat)
+            print "category name: "
+            cn = STDIN.gets.chomp
+            langs[lang]['categories'].push({
+                "alias" => cat,
+                "title" => cn
+            })
+    end
+    dm.update(data: langs)
+    dir = "#{ROOT_PATH}/lang/#{lang}"
+    Dir.mkdir(dir) unless Dir.exist?(dir)
+    open("#{dir}/#{name}.pug", "w")
 end
 
 if __FILE__ == $0

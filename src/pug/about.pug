@@ -1,0 +1,23 @@
+mixin sidebar_left
+    div
+
+include templates/layout.pug
++var
+
++head("当サイトについて")
+
+body
+    +header('top')
+
+    +main([1,11,0])
+        h2 当サイトについて
+        p 当サイトを利用して発生したいかなる損害についても責任を負いません
+        p Twitter, GitHubアイコンは
+            a(href="https://www.iconfinder.com/iconsets/social-flat-rounded-rects") Social Media Icons by Aha-Soft
+            | 様のものを使用しています
+
+    +footer([{
+        current: true,
+        filename: 'about.html',
+        title: 'About'
+    }])

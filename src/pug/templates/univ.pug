@@ -9,7 +9,7 @@ mixin univart(id, title, date, tags)
     - var rootpath = '../'
     +var(rootpath)
 
-    +head(title)
+    +head(title, undefined, ['prism'])
 
     body
         +header('univ')
@@ -30,7 +30,7 @@ mixin univart(id, title, date, tags)
             current: true,
             filename: 'univ/' + id + '.html',
             title: title
-        }])
+        }], ['prism'])
 
 mixin article-card(url, title, img)
     div.col-12.col-sm-6.col-lg-4.col-xl-3.px-2

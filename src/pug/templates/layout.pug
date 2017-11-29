@@ -56,9 +56,15 @@ mixin sidebar
             //- spanではなくdivを使うならflexboxがよさげ
             img.my-1(src="https://avatars1.githubusercontent.com/u/19218424?s=460&v=4" width="80")
             span.align-top.d-inline-block.h5.ml-3.mt-4 bubble0601
-            a#github.btn.btn-secondary.btn-sm.d-block.text-white.w-50.my-1(target="_blank" href="https://github.com/bubble0601") GitHub @bubble0601
-            a#twitter.btn.btn-primary.btn-sm.d-block.text-white.w-50.my-1(href="#") Twitter @bubble_0_
-            a.d-block(href="https://github.com/bubble0601/bubble0601.github.io") このサイトのレポジトリ
+            a#github.btn.btn-secondary.btn-sm.d-block.text-white.w-50.my-1(href="https://github.com/bubble0601" target="_blank")
+                img.d-inline.mr-1(data=rootpath + "img/github.svg", width=20, height=20)
+                | @bubble0601
+            a#twitter.btn.btn-primary.btn-sm.d-block.text-white.w-50.my-1(href="#")
+                img.d-inline.mr-1(data=rootpath + "img/twitter.svg", width=20, height=20)
+                | @bubble_0_
+            h4.mt-2 Links
+            ul.list-unstyled
+                li: a(href="https://github.com/bubble0601/bubble0601.github.io" target="_blank") このサイトのレポジトリ
 
 mixin main(side)
     div.container-fluid.row.mx-0
@@ -79,9 +85,14 @@ mixin title(title, date, tags)
         each tag in tags
             span.badge.badge-secondary= tag
 
-mixin footer(bread)
+mixin footer(bread, js)
     +bread(bread, current)
-    //- bundle.js is contained automatically
+    p: a.text-muted.text-small.float-right.mr-4(href=rootpath + 'about.html') 当サイトについて
+    p: a.text-muted.text-small.float-right.mr-2(href=rootpath + 'index.html') Top
+    if js
+        each j in js
+            script(src=rootpath + "js/" + j + ".js")
+            //- bundle.js is contained automatically
 
 mixin analytics
     // Global site tag (gtag.js) - Google Analytics
@@ -100,7 +111,7 @@ mixin code(lg)
         pre: code.language-markup(data-language="html")
             block
     else
-        pre: code(class="language-" + lg)
+        pre: code(class="language-" + lg, data-language=lg)
             block
 
 mixin gist(url)

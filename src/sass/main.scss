@@ -48,6 +48,10 @@ main {
     min-height: 500px !important;
 }
 
+.text-small {
+    font-size: small;
+}
+
 .sidebar {
     height: 100%;
     @include media-breakpoint-up(md) {

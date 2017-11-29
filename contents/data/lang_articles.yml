@@ -34,7 +34,7 @@ data:
   template: article
   category: basic
   params:
-    title: Main関数
+    title: main関数
 - filename: ruby/main
   state: 1
   template: article
