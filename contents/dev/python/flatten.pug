@@ -1,0 +1,23 @@
+h3 配列の展開
+
+h4 参考
+a(href="http://d.hatena.ne.jp/xef/20121027/p2") Pythonでリストをflattenする方法まとめ - Soleil cou coupé
+
+h3 引数への展開
++code("python").
+    def foo(a, b, c):
+        print(a, b, c)
+
+h4 リスト
++code("python").
+    foo(*[1, 2, 3])
+
+p 出力
+samp 1 2 3
+
+h4 辞書
++code("python").
+    foo(**{'a': 1, 'b': 'b', 'c': True})
+
+p 出力
+samp 1 b True

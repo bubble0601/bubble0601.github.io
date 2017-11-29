@@ -1,0 +1,30 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"リスト","list":[{"path":"python/flatten","title":"リストを展開する"}]},{"id":1,"title":"関数","list":[{"path":"python/variable_argument","title":"可変長引数"}]},{"id":2,"title":"クラス","list":[{"path":"python/class","title":"クラス"},{"path":"python/special_method","title":"特殊メソッド"}]}], "python/variable_argument", "Python")
+
++devart("python", "variable_argument", "可変長引数", "Python")
+    h3 可変長引数
+    +code("python").
+        def foo(*args):
+            print(args)
+    
+        foo(1, 2, 3, 4)
+    
+    p 出力
+    samp (1, 2, 3, 4)
+    
+    h3 キーワード引数
+    +code("python").
+        def bar(**kwargs):
+            print(kwargs)
+    
+        bar(a=1, b="b")
+    p 出力
+    samp {'a': 1, 'b': 'b'}
+    
+    h4 参考
+    a(href="https://qiita.com/Kodaira_/items/51237ada3bb672433e78") 可変長引数
+    
+    h4 関連
+    a(href="flatten.html") 配列を展開する
+    

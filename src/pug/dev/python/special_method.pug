@@ -1,12 +1,32 @@
 include ../../templates/dev.pug
 
-+var_dev([{"id":0,"title":"クラス","list":[{"path":"python/special_method","title":"特殊メソッド"}]}], "python/special_method", "Python")
++var_dev([{"id":0,"title":"リスト","list":[{"path":"python/flatten","title":"リストを展開する"}]},{"id":1,"title":"関数","list":[{"path":"python/variable_argument","title":"可変長引数"}]},{"id":2,"title":"クラス","list":[{"path":"python/class","title":"クラス"},{"path":"python/special_method","title":"特殊メソッド"}]}], "python/special_method", "Python")
 
 +devart("python", "special_method", "特殊メソッド", "Python")
+    p.lead 特殊な機能を持つメソッド
+    h4 例
     +code("python").
-        def __init__:
-            pass
+        def __init__(self):
+            # 初期化処理
     
-        def __add__:
-            pass
+        # +
+        def __add__(self, other):
+            # selfとotherの和を返す
+    
+        # ==
+        def __eq__(self, other):
+            # selfとotherが等しいか
+    
+        # print
+        def __repr__(self):
+            # 文字列化(オブジェクトを正確に表すのが目的. デフォルトでモジュール、クラス名、アドレスを出力)
+        def __str__(self):
+            # 文字列化(読めることが目的. print, strなどは両方あればこちらが優先)
+    
+        # []
+        def __getitem__(self, key):
+            # keyに対応する値を返す
+    
+    h4 参考
+    a(href="http://diveintopython3-ja.rdy.jp/special-method-names.html") 特殊メソッド名 - Dive Into Python 3 日本語版
     

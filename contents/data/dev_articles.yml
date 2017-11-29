@@ -20,7 +20,7 @@ data:
 - path: c/top
   state: 1
   template: article
-  category: null
+  category:
   params:
     title: C言語
 - path: c/main
@@ -38,7 +38,7 @@ data:
 - path: java/top
   state: 1
   template: article
-  category: null
+  category:
   params:
     title: Java
 - path: java/main
@@ -50,7 +50,7 @@ data:
 - path: ruby/top
   state: 1
   template: article
-  category: null
+  category:
   params:
     title: Ruby
 - path: ruby/main
@@ -74,12 +74,30 @@ data:
 - path: python/top
   state: 1
   template: article
-  category: null
+  category:
   params:
     title: Python
+- path: python/class
+  state: 1
+  template: article
+  category: class
+  params:
+    title: クラス
 - path: python/special_method
   state: 1
   template: article
   category: class
   params:
     title: 特殊メソッド
+- path: python/flatten
+  state: 1
+  template: article
+  category: list
+  params:
+    title: リストを展開する
+- path: python/variable_argument
+  state: 1
+  template: article
+  category: function
+  params:
+    title: 可変長引数

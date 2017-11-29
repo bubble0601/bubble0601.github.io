@@ -37,8 +37,8 @@ def dev
     print "category: "
     cat   = STDIN.gets.chomp
 
-    dev_man = DataMan.new('dev')
-    kinds = dev_man.get()
+    kind_man = DataMan.new('kinds')
+    kinds = kind_man.get()
     dir = "#{ROOT_PATH}/dev/#{kind}"
     unless kinds.key?(kind)
         print "kind name: "
@@ -51,7 +51,7 @@ def dev
         dev_art_man.insert({"path" => "#{kind}/top", "state" => 1, "template" => "article", "category" => nil, "params" => {"title" => kn}})
         open("#{dir}/top.pug", "w")
     end
-    unless kinds[kind]['categories'].map{|v| v.alias }.include?(cat)
+    unless kinds[kind]['categories'].map{|v| v['alias'] }.include?(cat)
             print "category name: "
             cn = STDIN.gets.chomp
             kinds[kind]['categories'].push({
@@ -59,7 +59,7 @@ def dev
                 "title" => cn
             })
     end
-    dev_man.update(data: kinds)
+    kind_man.update(data: kinds)
 
     dev_art_man.insert({"path" => "#{kind}/#{name}", "state" => 1, "template" => "article", "category" => cat, "params" => {"title" => title}})
     open("#{dir}/#{name}.pug", "w")

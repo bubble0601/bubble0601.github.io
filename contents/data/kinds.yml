@@ -17,5 +17,9 @@ ruby:
 python:
   name: Python
   categories:
+  - alias: list
+    title: リスト
+  - alias: function
+    title: 関数
   - alias: class
     title: クラス
