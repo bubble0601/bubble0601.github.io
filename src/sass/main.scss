@@ -80,7 +80,9 @@ div.card-header > a {
     display: block;
 }
 
-a.lang-toggle {
+
+
+a.dev-toggle {
     color: #555;
     &:hover, &:active {
         text-decoration: none;
@@ -88,7 +90,7 @@ a.lang-toggle {
     }
 }
 
-li.lang-item {
+li.dev-item {
     @extend .pl-4;
     border-top: 1px #ccc dotted;
     a {
@@ -103,7 +105,18 @@ li.lang-item {
     }
 }
 
-#langart {
+#sidedev {
+    background-color: $pale-green;
+    a {
+        color: #004986;
+    }
+    a:hover {
+        color: #004986;
+        text-decoration: none;
+    }
+}
+
+#devart {
     h2 {
         border-bottom: thick solid #ccc;
         @extend .mt-4;
@@ -118,7 +131,7 @@ li.lang-item {
     }
 }
 
-#langtitle {
+#devtitle {
     background-color: $pale-green;
     @extend .p-2;
 }

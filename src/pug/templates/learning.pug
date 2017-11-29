@@ -1,0 +1,43 @@
+include layout.pug
+
+mixin article
+    article.col-lg-10.mx-auto
+        if block
+            block
+
+mixin learningart(id, title, date, tags)
+    - var rootpath = '../'
+    +var(rootpath)
+
+    +head(title, undefined, ['prism'])
+
+    body
+        +header('univ')
+
+        +main([0,9,3])
+            +article
+                +title(title, date, tags)
+
+                block
+
+        +footer([{
+            filename: 'index.html',
+            title: 'トップ'
+        }, {
+            filename: 'univ.html',
+            title: '学習'
+        }, {
+            current: true,
+            filename: 'univ/' + id + '.html',
+            title: title
+        }], ['prism'])
+
+mixin article-card(url, title, img)
+    div.col-12.col-sm-6.col-lg-4.col-xl-3.px-2
+        div.card.article-card
+            if img
+                a(href=url + '.html')
+                    //- srcにするとwebpackが勝手に読み込もうとするので後でjsでいじる
+                    img.card-img-top(data='img/' + img height="140")
+            div.card-body
+                h4.card-title: a(href=url + '.html')= title

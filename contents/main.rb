@@ -5,7 +5,7 @@ def help
     puts "\tgenerate/g: generate pug"
     puts "\tdata [name]/d [name]: manipulate data/[name].yml; if not exists, creatre interactively"
     puts "\tsitemap/s: generate sitemap"
-    puts "\tlang/l: create new lang article"
+    puts "\tdev: create new dev article"
 end
 
 def sitemap
@@ -25,39 +25,43 @@ def sitemap
     end
 end
 
-def lang
+def dev
     require_relative "data_manager"
-    dm = DataMan.new('lang_articles')
-    print "lang: "
-    lang  = STDIN.gets.chomp
+    dev_art_man = DataMan.new('dev_articles')
+    print "kind: "
+    kind  = STDIN.gets.chomp
     print "name: "
     name  = STDIN.gets.chomp
     print "title: "
     title = STDIN.gets.chomp
     print "category: "
     cat   = STDIN.gets.chomp
-    dm.insert({"filename" => "#{lang}/#{name}", "state" => 1, "template" => "article", "category" => cat, "params" => {"title" => title}})
-    dm = DataMan.new('langs')
-    langs = dm.get()
-    unless langs.key?(lang)
-        print "lang name: "
-        ln = STDIN.gets.chomp
-        langs[lang] = {
-            "name" => ln,
+
+    dev_man = DataMan.new('dev')
+    kinds = dev_man.get()
+    dir = "#{ROOT_PATH}/dev/#{kind}"
+    unless kinds.key?(kind)
+        print "kind name: "
+        kn = STDIN.gets.chomp
+        kinds[kind] = {
+            "name" => kn,
             "categories" => []
         }
+        Dir.mkdir(dir)
+        dev_art_man.insert({"path" => "#{kind}/top", "state" => 1, "template" => "article", "category" => nil, "params" => {"title" => kn}})
+        open("#{dir}/top.pug", "w")
     end
-    unless langs[lang].map{|v| v.alias }.include?(cat)
+    unless kinds[kind]['categories'].map{|v| v.alias }.include?(cat)
             print "category name: "
             cn = STDIN.gets.chomp
-            langs[lang]['categories'].push({
+            kinds[kind]['categories'].push({
                 "alias" => cat,
                 "title" => cn
             })
     end
-    dm.update(data: langs)
-    dir = "#{ROOT_PATH}/lang/#{lang}"
-    Dir.mkdir(dir) unless Dir.exist?(dir)
+    dev_man.update(data: kinds)
+
+    dev_art_man.insert({"path" => "#{kind}/#{name}", "state" => 1, "template" => "article", "category" => cat, "params" => {"title" => title}})
     open("#{dir}/#{name}.pug", "w")
 end
 
@@ -80,8 +84,8 @@ if __FILE__ == $0
         when 'sitemap', 's'
             sitemap()
 
-        when 'lang', 'l'
-            lang()
+        when 'dev'
+            dev()
         end
     end
 end

@@ -1,0 +1,85 @@
+---
+columns:
+  path:
+    type: String
+    default: no_name
+  state:
+    type: Integer
+    default: 0
+  template:
+    type: String
+    default: article
+  category:
+    type: String
+    default: basic
+  params:
+    type: Hash
+    default:
+      title: no_title
+data:
+- path: c/top
+  state: 1
+  template: article
+  category: null
+  params:
+    title: C言語
+- path: c/main
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: main関数
+- path: c/cl_args
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: コマンドライン引数
+- path: java/top
+  state: 1
+  template: article
+  category: null
+  params:
+    title: Java
+- path: java/main
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: main関数
+- path: ruby/top
+  state: 1
+  template: article
+  category: null
+  params:
+    title: Ruby
+- path: ruby/main
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: main関数的なやつ
+- path: ruby/print
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: 標準出力
+- path: ruby/cl_args
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: コマンドライン引数
+- path: python/top
+  state: 1
+  template: article
+  category: null
+  params:
+    title: Python
+- path: python/special_method
+  state: 1
+  template: article
+  category: class
+  params:
+    title: 特殊メソッド

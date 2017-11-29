@@ -1,0 +1,22 @@
+include ../../templates/lang.pug
+
++var_lang([{"id":0,"title":"基本","list":[{"filename":"c/main","title":"main関数"},{"filename":"c/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"filename":"java/top","title":"Java"},{"filename":"ruby/top","title":"Ruby"},{"filename":"python/top","title":"Python"}]}], "c/top", "C")
+
++langart("c", "top", "C言語", "C")
+    p コンパイル言語
+    p 昔から使われている
+    p 速い
+    
+    h3 実行例
+    +code("bash").
+        gcc sample.c
+        ./a.out
+    
+    h3 Hello World
+    +code("c").
+        #include <stdio.h>
+        int main(void) {
+            printf("Hello, World!\n");
+            return 0;
+        }
+    

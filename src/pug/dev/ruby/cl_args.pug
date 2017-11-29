@@ -1,0 +1,20 @@
+include ../../templates/lang.pug
+
++var_lang([{"id":0,"title":"基本","list":[{"filename":"ruby/main","title":"main関数的なやつ"},{"filename":"ruby/print","title":"標準出力"},{"filename":"ruby/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"filename":"c/cl_args","title":"C"}]}], "ruby/cl_args", "Ruby")
+
++langart("ruby", "cl_args", "コマンドライン引数", "Ruby")
+    p.lead コマンドラインから引数を受け取る
+    p
+        | 引数は
+        code ARGV
+        | に配列として格納されている
+    h4 例
+    p foo.rb
+    +code("ruby").
+        puts ARGV[0]
+    p 実行
+    +code("bash").
+        ruby foo.rb bar
+    p.mt-1 出力
+    samp bar
+    

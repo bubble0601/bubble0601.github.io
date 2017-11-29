@@ -3,20 +3,20 @@ mixin var(root)
 
 mixin head(title, desc, css)
     doctype html
-    html(lang="ja")
+    html(dev="ja")
         head
             +analytics
             meta(charset="UTF-8")
             meta(name="author", content="bubble0601")
             if title
-                title= title
+                title= title + " | bubbleメモ"
             else
-                title Bubble0601.GitHub.io
+                title bubbleメモ
             if desc
                 meta(name="description", content=desc)
             meta(name="format-detection", content="telephone=no,address=no,email=no")
             meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-            meta(http-equiv="content-language", content="ja")
+            meta(http-equiv="content-devuage", content="ja")
             link(rel="stylesheet", href=rootpath + 'css/bundle.css')
             if css
                 each c in css
@@ -27,17 +27,17 @@ mixin header(current)
 
 mixin navbar(current)
     header.navbar.navbar-light.justify-content-start
-        span.navbar-brand.mb-0.ml-2.d-none.d-md-inline Bubble0601.GitHub.io
+        span.navbar-brand.mb-0.ml-2.d-none.d-md-inline bubbleメモ
         ul.navbar-nav.flex-row
             li.nav-item.h5.mx-3(class={active: current === 'top'})
                 - var path = rootpath + 'index.html'
-                a.nav-link(href=path) Top
-            li.nav-item.h5.mx-3(class={active: current === 'lang'})
-                - var path = rootpath + 'lang.html'
-                a.nav-link(href=path) Lang
-            li.nav-item.h5.mx-3(class={active: current === 'univ'})
-                - var path = rootpath + 'univ.html'
-                a.nav-link(href=path) Univ
+                a.nav-link(href=path) トップ
+            li.nav-item.h5.mx-3(class={active: current === 'dev'})
+                - var path = rootpath + 'dev.html'
+                a.nav-link(href=path) 開発
+            li.nav-item.h5.mx-3(class={active: current === 'learning'})
+                - var path = rootpath + 'learning.html'
+                a.nav-link(href=path) 学習
 
 mixin bread(bread)
     nav.rounded.w-75.my-2.mx-auto(aria-label="breadcrumb" role="navigation")
@@ -88,7 +88,7 @@ mixin title(title, date, tags)
 mixin footer(bread, js)
     +bread(bread, current)
     p: a.text-muted.text-small.float-right.mr-4(href=rootpath + 'about.html') 当サイトについて
-    p: a.text-muted.text-small.float-right.mr-2(href=rootpath + 'index.html') Top
+    p: a.text-muted.text-small.float-right.mr-2(href=rootpath + 'index.html') トップ
     if js
         each j in js
             script(src=rootpath + "js/" + j + ".js")
@@ -108,10 +108,10 @@ mixin analytics
 
 mixin code(lg)
     if lg === 'html'
-        pre: code.language-markup(data-language="html")
+        pre: code.devuage-markup(data-devuage="html")
             block
     else
-        pre: code(class="language-" + lg, data-language=lg)
+        pre: code(class="devuage-" + lg, data-devuage=lg)
             block
 
 mixin gist(url)

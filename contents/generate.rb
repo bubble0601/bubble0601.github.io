@@ -9,30 +9,30 @@ end
 
 ################################################################################
 # データ形式: Hashの配列. Hashの中身は以下
-# filename(必須): 変換元(かつ変換先)のアドレス
+# path(必須): 変換元(かつ変換先)のアドレス
 # template(必須): \{param_name}をparamsから適用.↑はcontentとして適用
 # params        : templateに適用するパラメータ
 ################################################################################
 def main
-    univ()
-    univ_top()
-    lang()
-    lang_top()
+    learning()
+    learning_top()
+    dev()
+    dev_top()
 end
 
-def univ
-    data = DataMan.new('univ_articles').get(cond: {'state' => Status::PUBLISHED})
-    data.each { |e| e['params']['name'] = e['filename'] }
-    generate(data, 'univ/')
+def learning
+    data = DataMan.new('learning_articles').get(cond: {'state' => Status::PUBLISHED})
+    data.each { |e| e['params']['name'] = e['path'] }
+    generate(data, 'learning/')
 end
 
-def univ_top
-    art_data = DataMan.new('univ_articles').get(cond: {'state' => Status::PUBLISHED})
+def learning_top
+    art_data = DataMan.new('learning_articles').get(cond: {'state' => Status::PUBLISHED})
     data = [{
-        'filename' => 'univ',           # 出力先
-        'template' => 'univ/top',       # 入力
+        'path' => 'learning',           # 出力先
+        'template' => 'learning/top',       # 入力
         'params' => {'articles' => art_data.map{ |e| {
-            'url' => "univ/#{e['filename']}",
+            'url' => "learning/#{e['path']}",
             'title' => e['params']['title'],
             'img' => e['thumbnail']
         } }},
@@ -40,64 +40,64 @@ def univ_top
     generate(data)
 end
 
-def lang
-    data = DataMan.new('lang_articles').get(cond: {'state' => Status::PUBLISHED})
-    langs = DataMan.new('langs').get
+def kind
+    data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
+    kinds = DataMan.new('dev').get
     data.each do |e|
         begin
-            e['lang'] = e['filename'].split('/')[0]
-            e['params']['name'] = e['filename'].split('/')[1]
+            e['kind'] = e['path'].split('/')[0]
+            e['params']['name'] = e['path'].split('/')[1]
         rescue
-            puts "failed: probably filename do not contain lang"
+            puts "failed: probably path do not contain kind"
         end
-        e['params']['langname'] = langs[e['lang']]['name']
+        e['params']['kindname'] = kinds[e['kind']]['name']
     end
     data.each do |elem|
-        categories = langs[elem['lang']]['categories']
+        categories = kinds[elem['kind']]['categories']
         elem['params']['categories'] = []
         categories.each_with_index do |cat, i|
             elem['params']['categories'].push({
                 'id' => i,
                 'title' => cat['title'],
-                'list' => data.select{ |e| e['lang'] == elem['lang'] and e['category'] == cat['alias'] }.map{ |e| {'filename' => e['filename'], 'title' => e['params']['title']} }
+                'list' => data.select{ |e| e['kind'] == elem['kind'] and e['category'] == cat['alias'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
             })
         end
 
-        other_lang_data = data.select{ |e| e['params']['name'] == elem['params']['name'] and e['lang'] != elem['lang'] }.map{ |e| {'filename' => e['filename'], 'title' => e['params']['langname']} }
+        other_kind_data = data.select{ |e| e['params']['name'] == elem['params']['name'] and e['kind'] != elem['kind'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['kindname']} }
         elem['params']['categories'].push({
             'id' => elem['params']['categories'].length,
             'title' => '他の言語',
-            'list' => other_lang_data
-        }) if other_lang_data.length > 0
+            'list' => other_kind_data
+        }) if other_kind_data.length > 0
     end
-    generate(data, 'lang/')
+    generate(data, 'dev/')
 end
 
-def lang_top
-    data = DataMan.new('lang_articles').get(cond: {'state' => Status::PUBLISHED})
-    langs = DataMan.new('langs').get
-    lang_data = langs.map do |k, l| {
-        'lang' => k,
+def kind_top
+    data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
+    kinds = DataMan.new('dev').get
+    kind_data = kinds.map do |k, l| {
+        'kind' => k,
         'name' => l['name'],
         'categories' => l['categories'].map.with_index do |cat, i| {
             'id' => i,
             'title' => cat['title'],
-            'list' => data.select{ |e| e['filename'].split('/')[0] == k and e['category'] == cat['alias'] }.map{ |e| {'filename' => e['filename'], 'title' => e['params']['title']} }
+            'list' => data.select{ |e| e['path'].split('/')[0] == k and e['category'] == cat['alias'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
         }
         end
     }
     end
     data = [{
-        'filename' => 'lang',
-        'template' => 'lang/top',
+        'path' => 'kind',
+        'template' => 'dev/top',
         'params' => {
-            'langs' => lang_data
+            'kinds' => kind_data
         }
     }]
     generate(data)
 end
 
-def generate(data, path = '')
+def generate(data, dir = '')
     data.each do |v|
         # パラメータ
         v['params'] = {} unless v['params']
@@ -106,13 +106,13 @@ def generate(data, path = '')
 
         tpl = ''
         # template読み込み
-        open("#{ROOT_PATH}/#{path}#{v['template']}.pug") do |f|
+        open("#{ROOT_PATH}/#{dir}#{v['template']}.pug") do |f|
             tpl = f.read()
         end
 
         # pug読み込み
-        if File.exist?("#{ROOT_PATH}/#{path}#{v['filename']}.pug")
-            open("#{ROOT_PATH}/#{path}#{v['filename']}.pug") do |f|
+        if File.exist?("#{ROOT_PATH}/#{dir}#{v['path']}.pug")
+            open("#{ROOT_PATH}/#{dir}#{v['path']}.pug") do |f|
                 params['content'] = f.read().gsub(/\n/, "\n    ")   # TODO: インデントをうまく処理
             end
         end
@@ -123,13 +123,13 @@ def generate(data, path = '')
         end
 
         # 出力
-        output_path = "#{ROOT_PATH}/../src/pug/#{path}#{v['filename']}.pug"
+        output_path = "#{ROOT_PATH}/../src/pug/#{dir}#{v['path']}.pug"
         dir = File.split(output_path)[0]
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
         open(output_path, 'w') do |f|
             f.write(tpl)
         end
-        puts "write: src/pug/#{path}#{v['filename']}.pug"
+        puts "write: src/pug/#{dir}#{v['path']}.pug"
     end
 end
 

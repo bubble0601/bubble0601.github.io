@@ -1,0 +1,81 @@
+- rootpath = '../../'
+mixin var_dev(cat, p, kn)
+    - categories = cat
+    - path       = p
+    - kindname   = kn
+
+mixin sidebar_left
+    h2: span#sidedev.badge.badge-primary.w-100: a.mx-auto(href="top.html")= kindname
+    div#accordion.mt-2(role="tablist")
+        each item in categories
+            div.card
+                div.card-header.p-0(id="clphead" + item.id, role="tab")
+                    a.dev-toggle.pl-3.py-2.btn(data-toggle="collapse", href="#clp" + item.id aria-expanded="false" aria-controls="clp" + item.id)
+                        = item.title
+                div.collapse(id="clp" + item.id role="tabpanel" aria-labelledby="clphead" + item.id data-parent="#accordion" class={show: item.list.map(v => v.path).indexOf(path) >= 0})
+                    div.card-body.p-0
+                        ul.m-0.p-0: each e in item.list
+                            if e.path === path
+                                li.dev-item: span= e.title
+                            else
+                                li.dev-item: a(href=rootpath + "dev/" + e.path + ".html")= e.title
+
+include layout.pug
+
+mixin devart(kind, name, title, kindname)
+    +var(rootpath)
+
+    - title = name === 'top' ? title : title + '-' + kindname
+    +head(title, undefined, ['prism'])
+
+    body
+        +header('dev')
+
+        +main([2,10,0])
+            article#devart.mx-1
+                div#devtitle
+                    h1.d-inline= title
+                    h5.d-inline.ml-2: span.badge.badge-pill.badge-success= kindname
+
+                block
+
+        if name === 'top'
+            +footer([{
+                path: 'index.html',
+                title: 'Top'
+            }, {
+                path: 'dev.html',
+                title: '開発'
+            }, {
+                current: true,
+                path: 'dev/' + kind + '/top.html',
+                title: kindname
+            }], ['prism'])
+        else
+            +footer([{
+                filename: 'index.html',
+                title: 'トップ'
+            }, {
+                filename: 'dev.html',
+                title: '開発'
+            }, {
+                filename: 'dev/' + kind + '/top.html',
+                title: kindname
+            }, {
+                current: true,
+                filename: 'dev/' + kind + '/' + name + '.html',
+                title: title
+            }], ['prism'])
+
+mixin dev-card(kind, kindname, categories)
+    div.col-12.col-sm-6.col-lg-4.col-xl-3.p-2
+        div.card.article-card
+            div.card-body
+                h4.card-title: a(href=rootpath + "dev/" + dev + "/top.html")= kindname
+                div(id="acd_" + dev data-children=".item")
+                    each item in categories
+                        div.item
+                            a(data-toggle="collapse" data-parent="acd_" + dev href="#" + kind + item.id aria-expanded="false" aria-controls=dev + item.id)= item.title
+                            div.collapse(id=kind + item.id role="tabpanel")
+                                ul: each e in item.list
+                                    li: a(href=rootpath + "dev/" + e.path + ".html")= e.title
