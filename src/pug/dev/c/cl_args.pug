@@ -1,8 +1,8 @@
-include ../../templates/lang.pug
+include ../../templates/dev.pug
 
-+var_lang([{"id":0,"title":"基本","list":[{"filename":"c/main","title":"main関数"},{"filename":"c/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"filename":"ruby/cl_args","title":"Ruby"}]}], "c/cl_args", "C")
++var_dev([{"id":0,"title":"基本","list":[{"path":"c/main","title":"main関数"},{"path":"c/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"path":"ruby/cl_args","title":"Ruby"}]}], "c/cl_args", "C")
 
-+langart("c", "cl_args", "コマンドライン引数", "C")
++devart("c", "cl_args", "コマンドライン引数", "C")
     p.lead コマンドラインから引数を受け取る
     +code("c").
         int main(int argc, char *argv[]) {

@@ -1,22 +1,22 @@
-include templates/lang.pug
+include templates/dev.pug
 +var
 
-+head('Languages Page')
++head('開発')
 
 body
-    +header('lang')
+    +header('dev')
 
     +main([0,9,3])
-        - var langs = \{langs}
+        - var kinds = \{kinds}
         div.row.mx-auto
-            each l in langs
-                +lang-card(l.lang, l.name, l.categories)
+            each k in kinds
+                +dev-card(k.kind, k.name, k.categories)
 
     +footer([{
         filename: 'index.html',
         title: 'Top'
     }, {
         current: true,
-        filename: 'lang.html',
-        title: 'Lang'
+        filename: 'dev.html',
+        title: '開発'
     }])

@@ -25,8 +25,8 @@ include layout.pug
 mixin devart(kind, name, title, kindname)
     +var(rootpath)
 
-    - title = name === 'top' ? title : title + '-' + kindname
-    +head(title, undefined, ['prism'])
+    - t = name === 'top' ? title : title + '-' + kindname
+    +head(t, undefined, ['prism'])
 
     body
         +header('dev')
@@ -41,14 +41,14 @@ mixin devart(kind, name, title, kindname)
 
         if name === 'top'
             +footer([{
-                path: 'index.html',
+                filename: 'index.html',
                 title: 'Top'
             }, {
-                path: 'dev.html',
+                filename: 'dev.html',
                 title: '開発'
             }, {
                 current: true,
-                path: 'dev/' + kind + '/top.html',
+                filename: 'dev/' + kind + '/top.html',
                 title: kindname
             }], ['prism'])
         else
@@ -71,11 +71,11 @@ mixin dev-card(kind, kindname, categories)
     div.col-12.col-sm-6.col-lg-4.col-xl-3.p-2
         div.card.article-card
             div.card-body
-                h4.card-title: a(href=rootpath + "dev/" + dev + "/top.html")= kindname
-                div(id="acd_" + dev data-children=".item")
+                h4.card-title: a(href=rootpath + "dev/" + kind + "/top.html")= kindname
+                div(id="acd_" + kind data-children=".item")
                     each item in categories
                         div.item
-                            a(data-toggle="collapse" data-parent="acd_" + dev href="#" + kind + item.id aria-expanded="false" aria-controls=dev + item.id)= item.title
+                            a(data-toggle="collapse" data-parent="acd_" + kind href="#" + kind + item.id aria-expanded="false" aria-controls=kind + item.id)= item.title
                             div.collapse(id=kind + item.id role="tabpanel")
                                 ul: each e in item.list
                                     li: a(href=rootpath + "dev/" + e.path + ".html")= e.title

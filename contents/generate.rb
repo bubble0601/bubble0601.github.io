@@ -40,9 +40,9 @@ def learning_top
     generate(data)
 end
 
-def kind
+def dev
     data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
-    kinds = DataMan.new('dev').get
+    kinds = DataMan.new('kinds').get
     data.each do |e|
         begin
             e['kind'] = e['path'].split('/')[0]
@@ -73,9 +73,9 @@ def kind
     generate(data, 'dev/')
 end
 
-def kind_top
+def dev_top
     data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
-    kinds = DataMan.new('dev').get
+    kinds = DataMan.new('kinds').get
     kind_data = kinds.map do |k, l| {
         'kind' => k,
         'name' => l['name'],
@@ -88,7 +88,7 @@ def kind_top
     }
     end
     data = [{
-        'path' => 'kind',
+        'path' => 'dev',
         'template' => 'dev/top',
         'params' => {
             'kinds' => kind_data
@@ -124,8 +124,8 @@ def generate(data, dir = '')
 
         # 出力
         output_path = "#{ROOT_PATH}/../src/pug/#{dir}#{v['path']}.pug"
-        dir = File.split(output_path)[0]
-        FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
+        output_dir = File.split(output_path)[0]
+        FileUtils.mkdir_p(output_dir) unless Dir.exist?(output_dir)
         open(output_path, 'w') do |f|
             f.write(tpl)
         end

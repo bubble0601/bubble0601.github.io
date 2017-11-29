@@ -106,12 +106,12 @@ mixin analytics
           gtag('config', 'UA-80539440-2');
         </script>
 
-mixin code(lg)
-    if lg === 'html'
-        pre: code.devuage-markup(data-devuage="html")
+mixin code(lang)
+    if lang === 'html'
+        pre: code.language-markup(data-language="HTML")
             block
     else
-        pre: code(class="devuage-" + lg, data-devuage=lg)
+        pre: code(class="language-" + lang, data-language=lang)
             block
 
 mixin gist(url)

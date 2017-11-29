@@ -12,7 +12,7 @@ mixin learningart(id, title, date, tags)
     +head(title, undefined, ['prism'])
 
     body
-        +header('univ')
+        +header('learning')
 
         +main([0,9,3])
             +article
@@ -24,11 +24,11 @@ mixin learningart(id, title, date, tags)
             filename: 'index.html',
             title: 'トップ'
         }, {
-            filename: 'univ.html',
+            filename: 'learning.html',
             title: '学習'
         }, {
             current: true,
-            filename: 'univ/' + id + '.html',
+            filename: 'learning/' + id + '.html',
             title: title
         }], ['prism'])
 

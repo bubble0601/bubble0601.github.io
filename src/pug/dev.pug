@@ -1,22 +1,22 @@
-include templates/lang.pug
+include templates/dev.pug
 +var
 
-+head('Languages Page')
++head('開発')
 
 body
-    +header('lang')
+    +header('dev')
 
     +main([0,9,3])
-        - var langs = [{"lang":"c","name":"C","categories":[{"id":0,"title":"基本","list":[{"filename":"c/main","title":"main関数"},{"filename":"c/cl_args","title":"コマンドライン引数"}]}]},{"lang":"java","name":"Java","categories":[{"id":0,"title":"基本","list":[{"filename":"java/main","title":"main関数"}]}]},{"lang":"ruby","name":"Ruby","categories":[{"id":0,"title":"基本","list":[{"filename":"ruby/main","title":"main関数的なやつ"},{"filename":"ruby/print","title":"標準出力"},{"filename":"ruby/cl_args","title":"コマンドライン引数"}]}]},{"lang":"python","name":"Python","categories":[{"id":0,"title":"クラス","list":[{"filename":"python/special_method","title":"特殊メソッド"}]}]}]
+        - var kinds = [{"kind":"c","name":"C","categories":[{"id":0,"title":"基本","list":[{"path":"c/main","title":"main関数"},{"path":"c/cl_args","title":"コマンドライン引数"}]}]},{"kind":"java","name":"Java","categories":[{"id":0,"title":"基本","list":[{"path":"java/main","title":"main関数"}]}]},{"kind":"ruby","name":"Ruby","categories":[{"id":0,"title":"基本","list":[{"path":"ruby/main","title":"main関数的なやつ"},{"path":"ruby/print","title":"標準出力"},{"path":"ruby/cl_args","title":"コマンドライン引数"}]}]},{"kind":"python","name":"Python","categories":[{"id":0,"title":"クラス","list":[{"path":"python/special_method","title":"特殊メソッド"}]}]}]
         div.row.mx-auto
-            each l in langs
-                +lang-card(l.lang, l.name, l.categories)
+            each k in kinds
+                +dev-card(k.kind, k.name, k.categories)
 
     +footer([{
         filename: 'index.html',
         title: 'Top'
     }, {
         current: true,
-        filename: 'lang.html',
-        title: 'Lang'
+        filename: 'dev.html',
+        title: '開発'
     }])

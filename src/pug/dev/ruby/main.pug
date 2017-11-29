@@ -1,8 +1,8 @@
-include ../../templates/lang.pug
+include ../../templates/dev.pug
 
-+var_lang([{"id":0,"title":"基本","list":[{"filename":"ruby/main","title":"main関数的なやつ"},{"filename":"ruby/print","title":"標準出力"},{"filename":"ruby/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"filename":"c/main","title":"C"},{"filename":"java/main","title":"Java"}]}], "ruby/main", "Ruby")
++var_dev([{"id":0,"title":"基本","list":[{"path":"ruby/main","title":"main関数的なやつ"},{"path":"ruby/print","title":"標準出力"},{"path":"ruby/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"path":"c/main","title":"C"},{"path":"java/main","title":"Java"}]}], "ruby/main", "Ruby")
 
-+langart("ruby", "main", "main関数的なやつ", "Ruby")
++devart("ruby", "main", "main関数的なやつ", "Ruby")
     p.lead ファイルの1行目から順に実行される
     p.lead 以下のように書くと、if文の中は直接実行された場合は呼び出されるが、モジュールとしてインポートしたときは呼び出されない
     +code("ruby").

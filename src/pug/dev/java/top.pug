@@ -1,8 +1,8 @@
-include ../../templates/lang.pug
+include ../../templates/dev.pug
 
-+var_lang([{"id":0,"title":"基本","list":[{"filename":"java/main","title":"main関数"}]},{"id":1,"title":"他の言語","list":[{"filename":"c/top","title":"C"},{"filename":"ruby/top","title":"Ruby"},{"filename":"python/top","title":"Python"}]}], "java/top", "Java")
++var_dev([{"id":0,"title":"基本","list":[{"path":"java/main","title":"main関数"}]},{"id":1,"title":"他の言語","list":[{"path":"c/top","title":"C"},{"path":"ruby/top","title":"Ruby"},{"path":"python/top","title":"Python"}]}], "java/top", "Java")
 
-+langart("java", "top", "Java", "Java")
++devart("java", "top", "Java", "Java")
     p コンパイル言語
     p コンパイルによりJavaバイトコードという、JVMという仮想プラットフォーム上で動くコードに変換される
     p JVMが実際のプラットフォーム別に命令文を変換するのでJVMさえあればどのプラットフォーム上でも動く
@@ -18,7 +18,7 @@ include ../../templates/lang.pug
     h3 Hello World
     p Sample.java
     +code("java").
-        class Sample{
+        class Sample {
             public static void main(String args[]) {
                 System.out.println("Hello, World!");
             }

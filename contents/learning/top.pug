@@ -1,14 +1,12 @@
-include templates/univ.pug
+include templates/learning.pug
 +var
 
-+head('University Page')
++head('学習')
 
 body
-    +header('univ')
+    +header('learning')
 
     +main([0,9,3])
-        div.jumbotron.bg-info
-            h1 University Page
         - var articles = \{articles}
         div.row.mx-auto
             each article in articles

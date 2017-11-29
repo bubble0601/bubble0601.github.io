@@ -1,84 +1,23 @@
-Html Webpack Plugin:
-<pre>
-  Error: Child compilation failed:
-  Module build failed: Error: ENOENT: no such file or directory, open '/d/Development/github-io/src/pug/lang/c/cl_args.pug'
-  
-  
-  - Error: ENOENT: no such file or directory, open '/d/Development/github-io/src/pug/lang/c/cl_args.pug'
-  
-  - compiler.js:76 
-    [github-io]/[html-webpack-plugin]/lib/compiler.js:76:16
-  
-  - Compiler.js:304 compile
-    [github-io]/[webpack]/lib/Compiler.js:304:11
-  
-  - Compiler.js:514 applyPluginsAsync.err
-    [github-io]/[webpack]/lib/Compiler.js:514:14
-  
-  - Tapable.js:202 next
-    [github-io]/[tapable]/lib/Tapable.js:202:11
-  
-  - CachePlugin.js:78 Compiler.<anonymous>
-    [github-io]/[webpack]/lib/CachePlugin.js:78:5
-  
-  - Tapable.js:206 Compiler.applyPluginsAsyncSeries
-    [github-io]/[tapable]/lib/Tapable.js:206:13
-  
-  - Compiler.js:511 compilation.seal.err
-    [github-io]/[webpack]/lib/Compiler.js:511:11
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [github-io]/[tapable]/lib/Tapable.js:195:46
-  
-  - Compilation.js:680 self.applyPluginsAsync.err
-    [github-io]/[webpack]/lib/Compilation.js:680:19
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [github-io]/[tapable]/lib/Tapable.js:195:46
-  
-  - Compilation.js:671 self.applyPluginsAsync.err
-    [github-io]/[webpack]/lib/Compilation.js:671:11
-  
-  - Tapable.js:202 next
-    [github-io]/[tapable]/lib/Tapable.js:202:11
-  
-  - index.js:244 Compilation.<anonymous>
-    [github-io]/[uglifyjs-webpack-plugin]/dist/index.js:244:6
-  
-  - Tapable.js:206 Compilation.applyPluginsAsyncSeries
-    [github-io]/[tapable]/lib/Tapable.js:206:13
-  
-  - Compilation.js:666 self.applyPluginsAsync.err
-    [github-io]/[webpack]/lib/Compilation.js:666:10
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [github-io]/[tapable]/lib/Tapable.js:195:46
-  
-  - Compilation.js:662 sealPart2
-    [github-io]/[webpack]/lib/Compilation.js:662:9
-  
-  - Tapable.js:195 Compilation.applyPluginsAsyncSeries
-    [github-io]/[tapable]/lib/Tapable.js:195:46
-  
-  - Compilation.js:605 Compilation.seal
-    [github-io]/[webpack]/lib/Compilation.js:605:8
-  
-  - Compiler.js:508 applyPluginsParallel.err
-    [github-io]/[webpack]/lib/Compiler.js:508:17
-  
-  - Tapable.js:289 
-    [github-io]/[tapable]/lib/Tapable.js:289:11
-  
-  - Compilation.js:507 _addModuleChain
-    [github-io]/[webpack]/lib/Compilation.js:507:11
-  
-  - Compilation.js:477 processModuleDependencies.err
-    [github-io]/[webpack]/lib/Compilation.js:477:14
-  
-  - next_tick.js:67 _combinedTickCallback
-    internal/process/next_tick.js:67:7
-  
-  - next_tick.js:98 process._tickCallback
-    internal/process/next_tick.js:98:9
-  
-</pre><script type="text/javascript" src="../../js/bundle.js"></script>
+<!DOCTYPE html><html dev="ja"><head><!-- Global site tag (gtag.js) - Google Analytics--><script async src="https://www.googletagmanager.com/gtag/js?id=UA-80539440-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80539440-2');
+</script>
+<meta charset="UTF-8"><meta name="author" content="bubble0601"><title>コマンドライン引数-C | bubbleメモ</title><meta name="format-detection" content="telephone=no,address=no,email=no"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv="content-devuage" content="ja"><link rel="stylesheet" href="../../css/bundle.css"><link rel="stylesheet" href="../../css/prism.css"></head></html><body><header class="navbar navbar-light justify-content-start"><span class="navbar-brand mb-0 ml-2 d-none d-md-inline">bubbleメモ</span><ul class="navbar-nav flex-row"><li class="nav-item h5 mx-3"><a class="nav-link" href="../../index.html">トップ</a></li><li class="nav-item h5 mx-3 active"><a class="nav-link" href="../../dev.html">開発</a></li><li class="nav-item h5 mx-3"><a class="nav-link" href="../../learning.html">学習</a></li></ul></header><div class="container-fluid row mx-0"><div class="col-12 col-md-2"><h2><span class="badge badge-primary w-100" id="sidedev"><a class="mx-auto" href="top.html">C</a></span></h2><div class="mt-2" id="accordion" role="tablist"><div class="card"><div class="card-header p-0" id="clphead0" role="tab"><a class="dev-toggle pl-3 py-2 btn" data-toggle="collapse" href="#clp0" aria-expanded="false" aria-controls="clp0">基本</a></div><div class="collapse show" id="clp0" role="tabpanel" aria-labelledby="clphead0" data-parent="#accordion"><div class="card-body p-0"><ul class="m-0 p-0"><li class="dev-item"><a href="../../dev/c/main.html">main関数</a></li><li class="dev-item"><span>コマンドライン引数</span></li></ul></div></div></div><div class="card"><div class="card-header p-0" id="clphead1" role="tab"><a class="dev-toggle pl-3 py-2 btn" data-toggle="collapse" href="#clp1" aria-expanded="false" aria-controls="clp1">他の言語</a></div><div class="collapse" id="clp1" role="tabpanel" aria-labelledby="clphead1" data-parent="#accordion"><div class="card-body p-0"><ul class="m-0 p-0"><li class="dev-item"><a href="../../dev/ruby/cl_args.html">Ruby</a></li></ul></div></div></div></div></div><main class="col-12 py-3 pl-md-5 col-md-10" role="main"><article class="mx-1" id="devart"><div id="devtitle"><h1 class="d-inline">コマンドライン引数</h1><h5 class="d-inline ml-2"><span class="badge badge-pill badge-success">C</span></h5></div><p class="lead">コマンドラインから引数を受け取る</p><pre><code class="language-c" data-language="c">int main(int argc, char *argv[]) {
+    /* argcに引数の数, argvに引数が格納されている */
+    return 0;
+}</code></pre><p>以下も可</p><pre><code class="language-c" data-language="c">int main(int argc, char **argv) {}
+</code></pre><h3>例</h3><p>foo.c</p><pre><code class="language-c" data-language="c">#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[]) {
+    for (int i = 0; i &lt; argc; i++) {
+        printf(&quot;%s\n&quot;, argv[i]);
+    }
+    return 0;
+}</code></pre><p>実行</p><pre><code class="language-bash" data-language="bash">gcc ./foo.c
+./a.out bar</code></pre><p>出力</p><samp><pre class="mb-0">./a.out
+bar
+</pre></samp><h4>関連</h4><a href="main.html">main関数</a></article></main></div><nav class="rounded w-75 my-2 mx-auto" aria-label="breadcrumb" role="navigation"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">トップ</a></li><li class="breadcrumb-item"><a href="../../dev.html">開発</a></li><li class="breadcrumb-item"><a href="../../dev/c/top.html">C</a></li><li class="breadcrumb-item active"><a href="../../dev/c/cl_args.html">コマンドライン引数</a></li></ol></nav><p><a class="text-muted text-small float-right mr-4" href="../../about.html">当サイトについて</a></p><p><a class="text-muted text-small float-right mr-2" href="../../index.html">トップ</a></p><script src="../../js/prism.js"></script><script type="text/javascript" src="../../js/bundle.js"></script></body>

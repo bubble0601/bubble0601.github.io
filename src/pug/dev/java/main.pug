@@ -1,8 +1,8 @@
-include ../../templates/lang.pug
+include ../../templates/dev.pug
 
-+var_lang([{"id":0,"title":"基本","list":[{"filename":"java/main","title":"main関数"}]},{"id":1,"title":"他の言語","list":[{"filename":"c/main","title":"C"},{"filename":"ruby/main","title":"Ruby"}]}], "java/main", "Java")
++var_dev([{"id":0,"title":"基本","list":[{"path":"java/main","title":"main関数"}]},{"id":1,"title":"他の言語","list":[{"path":"c/main","title":"C"},{"path":"ruby/main","title":"Ruby"}]}], "java/main", "Java")
 
-+langart("java", "main", "main関数", "Java")
++devart("java", "main", "main関数", "Java")
     p.lead Javaではファイル名と一致する名前のクラスのmainメソッドから処理が始まる
     p Main.java
     +code("java").
