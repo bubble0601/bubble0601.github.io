@@ -20,7 +20,7 @@ data:
 - path: c/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: C言語
 - path: c/main
@@ -38,7 +38,7 @@ data:
 - path: java/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Java
 - path: java/main
@@ -50,7 +50,7 @@ data:
 - path: ruby/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Ruby
 - path: ruby/main
@@ -74,7 +74,7 @@ data:
 - path: python/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Python
 - path: python/class
@@ -104,7 +104,7 @@ data:
 - path: android/top
   state: 0
   template: article
-  category: 
+  category:
   params:
     title: Android
 - path: android/template
@@ -137,3 +137,45 @@ data:
   category: adb
   params:
     title: 画面を割ってタッチできなくなった時のadbコマンドメモ
+- path: ruby/regexp
+  state: 1
+  template: article
+  category: string
+  params:
+    title: 正規表現
+- path: ruby/swap
+  state: 1
+  template: article
+  category: array
+  params:
+    title: 入れ替え
+- path: ruby/console_key_input
+  state: 1
+  template: article
+  category: io
+  params:
+    title: コンソールでキー入力を得る
+- path: ruby/function_object
+  state: 1
+  template: article
+  category: function
+  params:
+    title: 関数オブジェクト
+- path: ruby/type_check
+  state: 1
+  template: article
+  category: function
+  params:
+    title: 型判定
+- path: python/type_check
+  state: 1
+  template: article
+  category: function
+  params:
+    title: 型判定
+- path: java/cl_args
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: コマンドライン引数

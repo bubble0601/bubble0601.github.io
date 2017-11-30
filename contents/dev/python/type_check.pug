@@ -1,0 +1,11 @@
+h5: code type(obj) is class
++code("python"): :esc
+    type(1) is int              #=> True
+    type(1.0) in (int, float)   #=> True
+    type(1) is object           #=> False
+
+h5: code isinstance(obj, class)
++code("python"): :esc
+    isinstance(1, int)          #=> True
+    isinstance(1, object)       #=> True
+    isinstance(1, (int, float)) #=> True

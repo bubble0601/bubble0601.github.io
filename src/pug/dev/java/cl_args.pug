@@ -1,0 +1,21 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"基本","list":[{"path":"java/main","title":"main関数"},{"path":"java/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"path":"c/cl_args","title":"C"},{"path":"ruby/cl_args","title":"Ruby"}]}], "java/cl_args", "Java")
+
++devart("java", "cl_args", "コマンドライン引数", "Java")
+    p.lead コマンドラインから引数を受け取る
+    h3 例
+    p Sample.java
+    +code("java").
+        class Sample {
+            public static void main(String[] args) {
+                System.out.println(args[0]);
+            }
+        }
+    
+    +code("bash").
+        javac Sample.java
+        java Sample Hello
+    
+    samp Hello
+    

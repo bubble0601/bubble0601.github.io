@@ -1,6 +1,6 @@
 include ../../templates/dev.pug
 
-+var_dev([{"id":0,"title":"基本","list":[{"path":"java/main","title":"main関数"}]},{"id":1,"title":"他の言語","list":[{"path":"c/top","title":"C"},{"path":"ruby/top","title":"Ruby"},{"path":"python/top","title":"Python"}]}], "java/top", "Java")
++var_dev([{"id":0,"title":"基本","list":[{"path":"java/main","title":"main関数"},{"path":"java/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"path":"c/top","title":"C"},{"path":"ruby/top","title":"Ruby"},{"path":"python/top","title":"Python"}]}], "java/top", "Java")
 
 +devart("java", "top", "Java", "Java")
     p コンパイル言語
@@ -19,7 +19,7 @@ include ../../templates/dev.pug
     p Sample.java
     +code("java").
         class Sample {
-            public static void main(String args[]) {
+            public static void main(String[] args) {
                 System.out.println("Hello, World!");
             }
         }

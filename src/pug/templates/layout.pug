@@ -87,7 +87,7 @@ mixin title(title, date, tags)
 
 mixin footer(bread, js)
     +bread(bread, current)
-    p: a.text-muted.text-small.float-right.mr-4(href=rootpath + 'about.html') 当サイトについて
+    p: a.text-muted.text-small.float-right.mr-4(href=rootpath + 'about.html') このサイトについて
     p: a.text-muted.text-small.float-right.mr-2(href=rootpath + 'index.html') トップ
     if js
         each j in js

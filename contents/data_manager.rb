@@ -259,7 +259,7 @@ class DataMan
             current = @history.length
             @history[current] = ''
             pos = 0
-            len = ->{command.length}    # Proc, len.call()やlen.()やlen[]で呼び出す
+            len = ->{command.length}    # Proc; len.call()やlen.()やlen[]で呼び出す
             while true
                 key = STDIN.getch
                 case key
@@ -331,7 +331,6 @@ class DataMan
             if ['exit', 'quit'].include?(command)
                 break
             end
-            p command
             @history[-1] = command
             begin
                 eval('puts ' + command)

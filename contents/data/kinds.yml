@@ -14,6 +14,14 @@ ruby:
   categories:
   - alias: basic
     title: 基本
+  - alias: io
+    title: 入出力
+  - alias: string
+    title: 文字列
+  - alias: array
+    title: 配列
+  - alias: function
+    title: 関数
 python:
   name: Python
   categories:

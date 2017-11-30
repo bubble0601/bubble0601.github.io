@@ -1,0 +1,15 @@
+p.lead コマンドラインから引数を受け取る
+h3 例
+p Sample.java
++code("java").
+    class Sample {
+        public static void main(String[] args) {
+            System.out.println(args[0]);
+        }
+    }
+
++code("bash").
+    javac Sample.java
+    java Sample Hello
+
+samp Hello

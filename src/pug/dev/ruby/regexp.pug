@@ -1,0 +1,32 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"基本","list":[{"path":"ruby/main","title":"main関数的なやつ"},{"path":"ruby/print","title":"標準出力"},{"path":"ruby/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"入出力","list":[{"path":"ruby/console_key_input","title":"コンソールでキー入力を得る"}]},{"id":2,"title":"文字列","list":[{"path":"ruby/regexp","title":"正規表現"}]},{"id":3,"title":"配列","list":[{"path":"ruby/swap","title":"入れ替え"}]},{"id":4,"title":"関数","list":[{"path":"ruby/function_object","title":"関数オブジェクト"},{"path":"ruby/type_check","title":"型判定"}]}], "ruby/regexp", "Ruby")
+
++devart("ruby", "regexp", "正規表現", "Ruby")
+    p.lead Rubyで正規表現を扱う
+    h3 Regexp
+    +code("ruby").
+        Regexp.new("foo.+", Regexp::IGNORECASE)
+    
+        # リテラル
+        /foo.+/i
+    
+    h3 比較
+    +code("ruby"): :esc
+        ## 位置を返す
+        /foo/ =~ "a foo"    #=> 2
+        /bar/ =~ "a foo"    #=> nil
+        "a foo" =~ /foo/    #=> 2
+    
+        ## 最初にマッチした部分を返す
+        "a foo"[/foo/]      #=> "foo"
+        # 第2引数省略/0がマッチした部分, n(>0)がn番目の括弧の部分
+        "bar"[/(.)(.)/, 2]  #=> "a"
+    
+        ## 真偽値を返す
+        /foo/ === "a foo"   #=> true
+        /bar/ === "a foo"   #=> false
+    
+    h4 参考
+    a(href="https://docs.ruby-lang.org/ja/latest/class/Regexp.html") class Regexp (Ruby 2.4.0)
+    
