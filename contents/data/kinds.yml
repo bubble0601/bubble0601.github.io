@@ -31,14 +31,14 @@ python:
     title: 関数
   - alias: class
     title: クラス
-android:
-  name: Android
-  categories:
-  - alias: layout
-    title: レイアウト
-  - alias: function
-    title: 関数
-  - alias: adb
-    title: adb
-  - alias: tips
-    title: Tips
+# android:
+#   name: Android
+#   categories:
+#   - alias: layout
+#     title: レイアウト
+#   - alias: function
+#     title: 関数
+#   - alias: adb
+#     title: adb
+#   - alias: tips
+#     title: Tips

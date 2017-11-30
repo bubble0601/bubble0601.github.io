@@ -3,15 +3,15 @@
 $pale-blue:  #9fd9f6;
 $pale-green: #a2d7d4;
 
-html {
-    font-size: 1rem;
-    @include media-breakpoint-up(md) {
-        font-size: 1.1rem;
-    }
-    @include media-breakpoint-up(lg) {
-        font-size: 1.2rem;
-    }
-}
+// html {
+    // font-size: 1rem;
+    // @include media-breakpoint-up(md) {
+    //     font-size: 1.1rem;
+    // }
+    // @include media-breakpoint-up(lg) {
+    //     font-size: 1.2rem;
+    // }
+// }
 
 p {
     @extend .mb-0;
