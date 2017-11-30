@@ -1,0 +1,63 @@
+p.lead Xperiaの画面が割れて上半分が反応しなくなったので修理に出す前にバックアップをとったのでその時に使ったコマンドを紹介します
+h3 はじめに
+
+p adbコマンドを実行するために必要なこと
+ul
+    li PCにAndroid SDKがインストールされている
+    li Androidスマホの設定でUSBデバッグがオンになっている
+p root化は不要です。
+p インストールしたSDKのplatform-toolsディレクトリにパスを通しておくと楽です。
+p 操作はターミナル(コマンドプロンプト)で行います
+
+h3 タッチ・キー操作
+h5 始めにシェルを起動
++code("bash").
+    adb shell
+
+h5 タップ/スワイプ/キー操作/テキスト入力
++code("bash"): :esc
+    input tap <x> <y>
+    input swipe <x1> <y1> <x2> <y2> [duration(ms)]
+    input swipe 0 0 0 800 #通知バーを引っ張りだす
+    input swipe 0 0 0 0 3000 #長押し
+
+    input keyevent 3 #Home
+    input keyevent 4 #Back
+    input keyevent 26 #電源
+    input keyevent 82 #Menu
+    #他にも66(Enter),24(VolumeUp),25(VolumeDown)など
+
+    input text <string>
+
+p 開発者向けオプションでポインターの位置表示をオンにしておくと座標がわかって便利です。
+p キーコードは
+    a(href="https://developer.android.com/reference/android/view/KeyEvent.html" target="_blank") KeyEvent | Android Developers
+    | に
+
+h3 バックアップ
+h5 sdカードのバックアップ
++code("bash").
+    adb pull /sdcard/ PC上のバックアップ先フォルダ
+
+h5 アプリリストのバックアップ
++code("bash").
+    adb shell pm list packages > バックアップ先ファイル(~/appList.txtなど)
+
+h5 アプリのバックアップ
++code("bash").
+    adb backup -f バックアップ先ファイル(~/backup.abなど) -all #全て
+    adb backup -f バックアップ先ファイル(~/backup.abなど) アプリのパッケージ名 #個別
+
+h6 オプション
+ul
+    li -apk/-noapk: apkファイルを含めるか(デフォルトはnoapk)
+    li -shared/-noshared: sdカードを含めるか(デフォルトはnoshared)
+    li -system/-nosystem: (allを指定した時)システムアプリを含めるか（デフォルトはsystem)
+
+h6 復元
++code("bash").
+    adb restore バックアップファイル名(~/backup.abなど)
+
+h3 終わり
+p USBデバッグをONにしといて良かった
+

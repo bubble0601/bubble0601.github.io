@@ -1,5 +1,6 @@
 require 'yaml'
 require 'kosi'
+require_relative "misc"
 
 class DataMan
     ROOT_PATH = File.dirname(__FILE__)
@@ -76,7 +77,7 @@ class DataMan
             ret = deep_copy(@data)
             # cond
             ret.select! do |v|
-                cond.keys.all? { |k| v[k] == cond[k] }
+                cond.keys.all? { |k| compare(v[k], cond[k]) }
             end
             # field
             ret.each do |v|
@@ -117,7 +118,7 @@ class DataMan
     def update(cond: nil, data:)
         if @is_table
             @data.each do |e|
-                if cond == nil or cond.map{ |k, v| e[k] == v }.all?
+                if cond == nil or cond.map{ |k, v| compare(e[k], v) }.all?
                     data.each{ |k, v| e[k] = v }
                 end
             end
@@ -131,12 +132,26 @@ class DataMan
 
     def delete(cond)
         if @is_table
-            @data.delete_if{ |e| cond.map{ |k, v| e[k] == v }.all? }
+            @data.delete_if{ |e| cond.map{ |k, v| compare(e[k], v) }.all? }
             dump()
         else
             raise "unsupported operation"
         end
         return self
+    end
+
+    def swap(id1, id2)
+        @data.swap!(id1, id2)
+        return self
+    end
+
+    # for cond
+    def compare(value, cond)
+        if cond.is_a?(Regexp)
+            return cond =~ value
+        else
+            return cond == value
+        end
     end
 
     def console
@@ -201,7 +216,20 @@ class DataMan
                         print "cond [column] = [param]: "
                         break
                     end
-                when 'exit', 'e', 'quit', 'q'
+                when 'eval', 'e'
+                    while true
+                        print "#{@name}(eval)> "
+                        command = STDIN.gets.chomp
+                        if ['exit', 'quit'].include?(command)
+                            break
+                        end
+                        begin
+                            eval('puts ' + command)
+                        rescue => e
+                            p e
+                        end
+                    end
+                when 'exit', 'quit', 'q'
                     break
                 else
                     help()
@@ -231,10 +259,13 @@ class DataMan
             puts ' update(not implemented)'
             puts ' delete(not implemented)'
             puts ' show'
+            puts ' eval'
+            puts ' exit/quit'
         else
             puts 'commands'
             puts ' show'
-            puts ' exit'
+            puts ' eval'
+            puts ' exit/quit'
         end
     end
 
@@ -248,18 +279,24 @@ class DataMan
         YAML.load(YAML.dump(obj))
     end
 
-    def to_s
+    def to_s(field: nil, cond: {})
         if @is_table
-            kosi = Kosi::Table.new({header: @columns.keys})
-            kosi.render(@data.map{ |v| v.values.map!{ |v| v.to_s } })
+            field = @columns.keys unless field
+            kosi = Kosi::Table.new({header: ['id'] + field.select{ |v| @columns.keys.include?(v)}})
+            data = get(field: field, cond: cond).map.with_index{ |row, i| [i.to_s] + row.values.map{ |v| v.to_s } }
+            kosi.render(data)
         else
             @data.to_s
         end
     end
+
+    def show(field: nil, cond: {})
+        to_s(field: field, cond: cond)
+    end
 end
 
 if __FILE__ == $0
-    d = DataMan.new('univ_articles')
+    d = DataMan.new('learning_articles')
     puts d
     puts d.get(cond: {'name' => '1'})
     puts d.insert({'name' => 'test'})

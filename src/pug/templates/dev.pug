@@ -25,7 +25,7 @@ include layout.pug
 mixin devart(kind, name, title, kindname)
     +var(rootpath)
 
-    - t = name === 'top' ? title : title + '-' + kindname
+    - t = name === 'top' ? title : title + ' - ' + kindname
     +head(t, undefined, ['prism'])
 
     body

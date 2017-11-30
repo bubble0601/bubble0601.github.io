@@ -117,6 +117,18 @@ li.dev-item {
 }
 
 #devart {
+    & > * {
+        @extend .ml-1;
+    }
+    p, pre, samp, h6 {
+        @extend .ml-2;
+    }
+    #devtitle {
+        background-color: $pale-green;
+        @extend .p-2;
+        @extend .mb-2;
+        @extend .ml-0;
+    }
     h2 {
         border-bottom: thick solid #ccc;
         @extend .mt-4;
@@ -129,10 +141,15 @@ li.dev-item {
         border-bottom: thin solid #ccc;
         @extend .mt-4;
     }
+    h5 {
+        @extend .mt-3;
+        @extend .font-weight-bold;
+        text-decoration: underline;
+    }
+    h6 {
+        @extend .mt-2;
+        @extend .font-weight-bold;
+    }
 }
 
-#devtitle {
-    background-color: $pale-green;
-    @extend .p-2;
-}
 

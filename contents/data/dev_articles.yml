@@ -20,7 +20,7 @@ data:
 - path: c/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: C言語
 - path: c/main
@@ -38,7 +38,7 @@ data:
 - path: java/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: Java
 - path: java/main
@@ -50,7 +50,7 @@ data:
 - path: ruby/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: Ruby
 - path: ruby/main
@@ -74,7 +74,7 @@ data:
 - path: python/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: Python
 - path: python/class
@@ -101,3 +101,39 @@ data:
   category: function
   params:
     title: 可変長引数
+- path: android/top
+  state: 0
+  template: article
+  category: 
+  params:
+    title: Android
+- path: android/template
+  state: 0
+  template: article
+  category: layout
+  params:
+    title: Android Studioでテンプレートを編集
+- path: android/simple_fragment_template
+  state: 0
+  template: article
+  category: layout
+  params:
+    title: Android Studioでfragmentを使ったシンプルなテンプレートを作る
+- path: android/functions
+  state: 0
+  template: article
+  category: function
+  params:
+    title: よく使われる関数
+- path: android/menuitem_lower_case
+  state: 0
+  template: article
+  category: tips
+  params:
+    title: ActionBarのMenuItemに小文字を使う
+- path: android/adb_command_untouchable
+  state: 0
+  template: article
+  category: adb
+  params:
+    title: 画面を割ってタッチできなくなった時のadbコマンドメモ

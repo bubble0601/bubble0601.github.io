@@ -1,0 +1,175 @@
+p 最初からあるBasic ActivityだとFloatingActionButtonがついてきて邪魔なときがあるのでシンプルなテンプレートを作りました。
+p ベースはBlank Activityです。
+
+p Macではテンプレートは
+samp /Applications/Android Studio.app/Contents/plugins/android/lib/templates
+p にあります。
+p このフォルダに新しいテンプレートのフォルダを作ります。FragmentActivityなどとしておきましょう。
+p ここに以下のファイルを置きました。
+h5 template_blank_activity.png
+p Blank Activityの画像を流用
+
+h5 template.xml
++code("markup", "XML"): :esc
+    <?xml version="1.0"?>
+    <template
+        format="5"
+        revision="5"
+        name="Fragment Activity"
+        minApi="7"
+        minBuildApi="14"
+        description="Creates a new fragment activity">
+
+        <category value="Activity" />
+        <formfactor value="Mobile" />
+
+        <parameter
+            id="activityClass"
+            name="Activity Name"
+            type="string"
+            constraints="class|unique|nonempty"
+            suggest="${layoutToActivity(layoutName)}"
+            default="MainActivity"
+            help="The name of the activity class to create" />
+
+        <parameter
+            id="layoutName"
+            name="Layout Name"
+            type="string"
+            constraints="layout|unique|nonempty"
+            suggest="${activityToLayout(activityClass)}"
+            default="activity_main"
+            help="The name of the layout to create for the activity"/>
+
+        <parameter
+            id="isLauncher"
+            name="Launcher Activity"
+            type="boolean"
+            default="false"
+            help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
+
+        <parameter
+            id="fragmentLayoutName"
+            name="Fragment Layout Name"
+            type="string"
+            constraints="layout|unique|nonempty"
+            suggest="${activityToLayout(activityClass, 'fragment')}"
+            default="fragment_main"
+            help="The name of the layout to create for the activity's content fragment"/>
+
+        <parameter
+            id="packageName"
+            name="Package name"
+            type="string"
+            constraints="package"
+            default="com.mycompany.myapp" />
+
+        <!-- 128x128 thumbnails relative to template.xml -->
+        <thumbs>
+            <!-- default thumbnail is required -->
+            <thumb>template_blank_activity.png</thumb>
+        </thumbs>
+
+        <globals file="globals.xml.ftl" />
+        <execute file="recipe.xml.ftl" />
+
+    </template>
+p flagmentLayoutNameというパラメータを追加し、generateLayoutを削除しました(作るに決まってるので)。
+
+h5 recipe.xml.ftl
++code("markup", "XML"): :esc
+    <?xml version="1.0"?>
+    <recipe>
+        <#include "../common/recipe_manifest.xml.ftl" />
+
+        <!-- fragment -->
+        <#include "../common/recipe_simple_dimens.xml" />
+
+        <instantiate from="root/res/layout/activity_fragment_container.xml.ftl"
+                       to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
+        <instantiate from="root/res/layout/fragment_simple.xml.ftl"
+                       to="${escapeXmlAttribute(resOut)}/layout/${fragmentLayoutName}.xml" />
+        <!-- -->
+
+        <open file="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
+
+        <instantiate from="root/src/app_package/SimpleActivity.java.ftl"
+                       to="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+
+        <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+    </recipe>
+p activity_main.xmlに加え、fragment_main.xmlを作成します。
+
+h5 globals.xml.ftl
++code("markup", "XML"): :esc
+    <?xml version="1.0"?>
+    <globals>
+        <global id="hasNoActionBar" type="boolean" value="false" />
+        <global id="parentActivityClass" value="" />
+        <global id="simpleLayoutName" value="${layoutName}" />
+        <global id="excludeMenu" type="boolean" value="true" />
+        <global id="generateActivityTitle" type="boolean" value="false" />
+        <#include "../common/common_globals.xml.ftl" />
+    </globals>
+p Blank Activityから変えてません
+
+h5 root/res/layout/activity_fragment_container.xml.ftl
++code("markup", "XML"): :esc
+    <?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="${packageName}.${activityClass}"
+        tools:ignore="MergeRootFrame" >
+    </FrameLayout>
+
+h5 root/res/layout/fragment_simple.xml.ftl
++code("markup", "XML"): :esc
+    <?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="${packageName}.${activityClass}$PlaceholderFragment" >
+    </RelativeLayout>
+
+h5 root/src/app_package/SimpleActivity.java.ftl
++code("java").
+    package ${packageName};
+
+    import android.support.v4.app.Fragment;
+    import ${superClassFqcn};
+    import android.os.Bundle;
+    import android.view.LayoutInflater;
+    import android.view.View;
+    import android.view.ViewGroup;
+
+    public class ${activityClass} extends ${superClass} {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.${layoutName});
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+            }
+        }
+
+        public static class PlaceholderFragment extends Fragment {
+
+            public PlaceholderFragment(){
+            }
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+                View rootView = inflater.inflate(R.layout.${fragmentLayoutName}, container, false);
+                return rootView;
+            }
+        }
+    }

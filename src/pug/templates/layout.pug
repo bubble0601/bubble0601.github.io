@@ -106,13 +106,10 @@ mixin analytics
           gtag('config', 'UA-80539440-2');
         </script>
 
-mixin code(lang)
-    if lang === 'html'
-        pre: code.language-markup(data-language="HTML")
-            block
-    else
-        pre: code(class="language-" + lang, data-language=lang)
-            block
+mixin code(lang, langname)
+    - langname = langname ? langname : lang[0].toUpperCase() + lang.slice(1)
+    pre(data-language=langname): code(class="language-" + lang)
+        block
 
 mixin gist(url)
     div.my-2
