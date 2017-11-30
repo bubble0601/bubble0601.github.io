@@ -1,6 +1,7 @@
+require 'io/console'
 require 'yaml'
 require 'kosi'
-require_relative "misc"
+require_relative 'misc'
 
 class DataMan
     ROOT_PATH = File.dirname(__FILE__)
@@ -10,6 +11,8 @@ class DataMan
 
     @is_table
     @columns
+
+    @history
 
     def initialize(name)
         @name = name
@@ -110,7 +113,7 @@ class DataMan
             @data << data
             dump()
         else
-            puts "can not insert into this data"
+            puts "cannot insert into this data"
         end
         return self
     end
@@ -141,7 +144,12 @@ class DataMan
     end
 
     def swap(id1, id2)
-        @data.swap!(id1, id2)
+        if @data.instance_of?(Array)
+            @data.swap!(id1, id2)
+            dump()
+        else
+            puts "cannot swap the data"
+        end
         return self
     end
 
@@ -217,18 +225,7 @@ class DataMan
                         break
                     end
                 when 'eval', 'e'
-                    while true
-                        print "#{@name}(eval)> "
-                        command = STDIN.gets.chomp
-                        if ['exit', 'quit'].include?(command)
-                            break
-                        end
-                        begin
-                            eval('puts ' + command)
-                        rescue => e
-                            p e
-                        end
-                    end
+                    repl()
                 when 'exit', 'quit', 'q'
                     break
                 else
@@ -242,12 +239,104 @@ class DataMan
                 case queries[0]
                 when 'show', 's'
                     puts self
-                when 'exit', 'e', 'quit', 'q'
+                when 'eval', 'e'
+                    repl()
+                when 'exit', 'quit', 'q'
                     break
                 else
                     help()
                 end
                 print "#{@name}> "
+            end
+        end
+    end
+
+    def repl
+        @history = [] unless @history
+        while true
+            print "#{@name}(eval)> "
+            command = ''
+            current = @history.length
+            @history[current] = ''
+            pos = 0
+            len = ->{command.length}    # Proc, len.call()やlen.()やlen[]で呼び出す
+            while true
+                key = STDIN.getch
+                case key
+                when "\C-c" # Control+C
+                    command = "quit"
+                    break
+                when "\r"   # Enter
+                    break
+                when "\e"   # ESC
+                    if STDIN.getch == "[" and ["A", "B", "C", "D"].include?((key = STDIN.getch))
+                        case key
+                        when "A"
+                            if current > 0
+                                print "\e[#{pos}D\e[0K" if pos > 0
+                                current -= 1
+                                print @history[current]
+                                command = @history[current].dup
+                                pos = len[]
+                            end
+                        when "B"
+                            if current < @history.length - 1
+                                print "\e[#{pos}D\e[0K" if pos > 0
+                                current += 1
+                                print @history[current]
+                                command = @history[current].dup
+                                pos = len[]
+                            end
+                        when "C"
+                            if pos < len[]
+                                pos += 1
+                                print "\e[C"
+                            end
+                        when "D"
+                            if pos > 0
+                                pos -= 1
+                                print "\e[D"
+                            end
+                        end
+                    end
+                when "\u007f"   # Back Space
+                    if pos > 0
+                        print "\e[D\e[0K#{command[pos...len[]]}"
+                        print "\e[#{len[] - pos}D" if len[] - pos > 0
+                        command.slice!(pos-1)
+                        pos -= 1
+                        @history[-1] = command if current == @history.length-1
+                    end
+                when "(", "[", "{", "\"", "'"
+                    str = case key
+                    when "(";"()"
+                    when "[";"[]"
+                    when "{";"{}"
+                    when "\"";"\"\""
+                    when "'";"''"
+                    end
+                    print str + command[pos...len[]]
+                    print "\e[#{len[] - pos + 1}D"
+                    command.insert(pos, str)
+                    pos += 1
+                else
+                    print key + command[pos...len[]]
+                    print "\e[#{len[] - pos}D" if len[] - pos > 0
+                    command.insert(pos, key)
+                    pos += 1
+                    @history[-1] = command if current == @history.length-1
+                end
+            end
+            print "\n"
+            if ['exit', 'quit'].include?(command)
+                break
+            end
+            p command
+            @history[-1] = command
+            begin
+                eval('puts ' + command)
+            rescue => e
+                p e
             end
         end
     end
@@ -283,8 +372,11 @@ class DataMan
         if @is_table
             field = @columns.keys unless field
             kosi = Kosi::Table.new({header: ['id'] + field.select{ |v| @columns.keys.include?(v)}})
-            data = get(field: field, cond: cond).map.with_index{ |row, i| [i.to_s] + row.values.map{ |v| v.to_s } }
+            data = get(field: field, cond: cond).map.with_index{ |row, i| [i.to_s] + row.values.map(&:to_s) }
             kosi.render(data)
+        elsif @data.instance_of?(Array)
+            kosi = Kosi::Table.new()
+            kosi.render(@data.map.with_index{ |row, i| [i.to_s] + row.values.map(&:to_s) })
         else
             @data.to_s
         end

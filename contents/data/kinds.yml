@@ -30,7 +30,7 @@ android:
     title: レイアウト
   - alias: function
     title: 関数
-  - alias: tips
-    title: Tips
   - alias: adb
     title: adb
+  - alias: tips
+    title: Tips

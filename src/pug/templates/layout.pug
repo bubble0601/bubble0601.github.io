@@ -91,7 +91,10 @@ mixin footer(bread, js)
     p: a.text-muted.text-small.float-right.mr-2(href=rootpath + 'index.html') トップ
     if js
         each j in js
-            script(src=rootpath + "js/" + j + ".js")
+            if j.slice(0, 4) === "http"
+                script(src=j)
+            else
+                script(src=rootpath + "js/" + j + ".js")
             //- bundle.js is contained automatically
 
 mixin analytics

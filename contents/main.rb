@@ -17,7 +17,7 @@ if __FILE__ == $0
         when 'generate', 'gen', 'g'
             require_relative "generate"
 
-        when 'data', 'd'
+        when 'data', 'dat'
             if ARGV.length < 2
                 help()
             end
@@ -28,7 +28,7 @@ if __FILE__ == $0
         when 'sitemap', 's'
             sitemap()
 
-        when 'dev'
+        when 'dev', 'd'
             dev()
         end
     end
