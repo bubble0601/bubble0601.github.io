@@ -6,8 +6,12 @@ p.lead 以下のように書くと、if文の中は直接実行された場合�
     end
 h4 例
 +code("ruby").
-    if __FILE__ == $0
+    def main
         puts "Hello, World!"
+    end
+
+    if __FILE__ == $0
+        main
     end
 p 出力
 samp Hello, World!

@@ -1,8 +1,8 @@
 include ../../templates/dev.pug
 
-+var_dev([{"id":0,"title":"基本","list":[{"path":"c/main","title":"main関数"},{"path":"c/cl_args","title":"コマンドライン引数"}]},{"id":1,"title":"他の言語","list":[{"path":"ruby/cl_args","title":"Ruby"},{"path":"java/cl_args","title":"Java"}]}], "c/cl_args", "C")
++var_dev([{"id":0,"title":"基本","list":[{"path":"c/main","title":"main関数"},{"path":"c/command_line_args","title":"コマンドライン引数"},{"path":"c/split_code","title":"ソースファイル分割"}]},{"id":1,"title":"配列","list":[{"path":"c/two_dimensional_array","title":"2次元配列"}]},{"id":2,"title":"他の言語","list":[{"path":"ruby/command_line_args","title":"Ruby"},{"path":"java/command_line_args","title":"Java"}]}], "c/command_line_args", "C")
 
-+devart("c", "cl_args", "コマンドライン引数", "C")
++devart("c", "command_line_args", "コマンドライン引数", "C")
     p.lead コマンドラインから引数を受け取る
     +code("c").
         int main(int argc, char *argv[]) {
@@ -14,8 +14,7 @@ include ../../templates/dev.pug
         int main(int argc, char **argv) {}
     
     h3 例
-    p foo.c
-    +code("c"): :esc
+    +code("c", "foo.c"): :esc
         #include <stdio.h>
     
         int main(int argc, char *argv[]) {
@@ -24,11 +23,13 @@ include ../../templates/dev.pug
             }
             return 0;
         }
-    p 実行
+    
+    h6 実行
     +code("bash").
         gcc ./foo.c
         ./a.out bar
-    p 出力
+    
+    h6 出力
     samp: pre.mb-0.
         ./a.out
         bar

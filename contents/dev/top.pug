@@ -1,22 +1,24 @@
 include templates/dev.pug
 +var
 
-+head('開発')
+doctype html
+html(dev="ja")
+    +head('開発')
 
-body
-    +header('dev')
+    body
+        +header('dev')
 
-    +main([0,9,3])
-        - var kinds = \{kinds}
-        div.row.mx-auto
-            each k in kinds
-                +dev-card(k.kind, k.name, k.categories)
+        +main([0,9,3])
+            - var kinds = \{kinds}
+            div.row.mx-auto
+                each k in kinds
+                    +dev-card(k.kind, k.name, k.categories)
 
-    +footer([{
-        filename: 'index.html',
-        title: 'Top'
-    }, {
-        current: true,
-        filename: 'dev.html',
-        title: '開発'
-    }])
+        +footer([{
+            filename: 'index.html',
+            title: 'Top'
+        }, {
+            current: true,
+            filename: 'dev.html',
+            title: '開発'
+        }])

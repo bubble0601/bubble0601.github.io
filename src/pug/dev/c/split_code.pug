@@ -1,0 +1,50 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"基本","list":[{"path":"c/main","title":"main関数"},{"path":"c/command_line_args","title":"コマンドライン引数"},{"path":"c/split_code","title":"ソースファイル分割"}]},{"id":1,"title":"配列","list":[{"path":"c/two_dimensional_array","title":"2次元配列"}]}], "c/split_code", "C")
+
++devart("c", "split_code", "ソースファイル分割", "C")
+    p.lead コードを分割する
+    p includeを用いる
+    p includeで<>で囲むとライブラリを読み込むが、""(ダブルクォーテーション)で囲むとそのファイルを同一ディレクトリから読み込む
+    p そして、読み込んだ内容を展開する
+    p 例
+    +code("c"): :esc
+        #include <stdio.h>
+        #include "list.c"
+    h3 ヘッダファイル
+    p マクロや定数の定義、関数のプロトタイプ宣言を書いたヘッダファイルを取り込むこと多い
+    p ヘッダを利用することで宣言と実装を分けている
+    p #ifndef ~ #define ~ #endifで二重インクルード(別々の箇所で同じファイルが複数回インクルードされること)を防止しています"
+    +code("c", "foo.h"): :esc
+        #ifndef _FOO_H_
+        #define _FOO_H_
+    
+        #include <stdio.h>
+        // 定数の定義
+        #define SIZE 10
+        // マクロの定義
+        #define max(a, b) ((a) > (b)) ? (a) : (b)
+        // 関数のプロトタイプ宣言
+        int bar(int);
+    
+        #endif
+    +code("c", "foo.c"): :esc
+        #include "foo.h"
+        int n = 20;
+        // 関数の実装
+        int bar(int a) {
+            return max(a, SIZE);
+        }
+    +code("c", "main.c"): :esc
+        #include <stdio.h>
+        #include "foo.h"
+    
+        extern int n;   // externは他のファイルで宣言されていることを示す
+        int main(void) {
+            printf("%d\n", bar(n));
+            return 0;
+        }
+    h6 コンパイル
+    +code("bash").
+        gcc main.c foo.c
+    

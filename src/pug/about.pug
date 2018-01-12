@@ -4,20 +4,22 @@ mixin sidebar_left
 include templates/layout.pug
 +var
 
-+head("このサイトについて")
+doctype html
+html(dev="ja")
+    +head("このサイトについて")
 
-body
-    +header('top')
+    body
+        +header('top')
 
-    +main([1,11,0])
-        h2 このサイトについて
-        p 当サイトを利用して発生したいかなる損害についても責任を負いません
-        p Twitter, GitHubアイコンは
-            a(href="https://www.iconfinder.com/iconsets/social-flat-rounded-rects") Social Media Icons by Aha-Soft
-            | 様のものを使用しています
+        +main([1,11,0])
+            h2 このサイトについて
+            p 当サイトを利用して発生したいかなる損害についても責任を負いません
+            p Twitter, GitHubアイコンは
+                a(href="https://www.iconfinder.com/iconsets/social-flat-rounded-rects") Social Media Icons by Aha-Soft
+                | 様のものを使用しています
 
-    +footer([{
-        current: true,
-        filename: 'about.html',
-        title: 'About'
-    }])
+        +footer([{
+            current: true,
+            filename: 'about.html',
+            title: 'About'
+        }])

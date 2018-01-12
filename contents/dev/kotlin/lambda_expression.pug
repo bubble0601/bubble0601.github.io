@@ -1,0 +1,24 @@
++code("kotlin"): :esc
+    // 基本
+    // 引数を括弧で(x, y)と囲うのはdeprecated
+    // 最後の式が返り値となる
+    { x, y -> x + y }
+
+    // 引数なし
+    { foo.bar() }
+
+    // 引数が一つの場合、引数を省略してitを引数として使える
+    { it.foo() }
+
+    // 複数行
+    { x,y ->
+        x.foo()
+        y.bar()
+        x.hoge(y)
+    }
+
+    // returnは使えないので使いたい場合は無名関数を使う
+    fun(x) {
+        if (x) return 0
+        else return 1
+    }

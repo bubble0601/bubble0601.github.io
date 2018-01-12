@@ -1,0 +1,12 @@
+p.lead バージョンによってはButtonのTextのアルファベットが全て大文字になってしまう
+p デフォルトではsetAllCapsがtrueになっているため
+h4 xmlで静的に設定する方法
++code("markup", "activity_main.xmlなど", "XML"): :esc
+    <Button
+        android:id="@+id/button"
+        android:text="text"
+        android:textAllCaps="false" />
+
+h4 コードで動的に設定する方法
++code("kotlin", "MainActivity.ktなど"): :esc
+    button.setAllCaps(false)

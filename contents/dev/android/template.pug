@@ -2,10 +2,10 @@ p ※公式ページとか読んでないので適当な軽い説明です
 h5 template.xml
 p 設定項目を決めたりする。
 p 起動時に読み込まれる。(一旦終了しないと変更が反映されない)
-+code("markup", "XML"): :esc
++code("markup", "", "XML"): :esc
     <template ... />
 p name:テンプレートの名前。他と被ると表示されない。
-+code("markup", "XML"): :esc
++code("markup", "", "XML"): :esc
     <parameter ... />
 p id: パラメータ名 他のxml等で${パラメータ名}とすると代入される
 p type: 入力法 string:テキストボックス boolean:チェックボックス enum:ドロップダウン
@@ -21,18 +21,18 @@ p 変数の定義
 
 h5 recipe.xml.ftl
 h6 処理の実行
-+code("markup", "XML"): :esc
++code("markup", "", "XML"): :esc
     <merge from="..." to="..." />
     <instantiate from="..." to="..." />
 p root内のファイルを実際のプロジェクトに
 p 2つの違いは知らないです
 
 h6 プロジェクトを作成した後に開く
-+code("markup", "XML"): :esc
++code("markup", "", "XML"): :esc
     <open ... />
 
 h6 if文
-+code("markup", "XML"): :esc
++code("markup", "", "XML"): :esc
     <#if ... ></if>
 
 p root以下のファイルでも↑のif文や${パラメータ名}は使える

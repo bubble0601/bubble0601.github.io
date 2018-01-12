@@ -20,7 +20,7 @@ data:
 - path: c/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: C言語
 - path: c/main
@@ -29,7 +29,7 @@ data:
   category: basic
   params:
     title: main関数
-- path: c/cl_args
+- path: c/command_line_args
   state: 1
   template: article
   category: basic
@@ -38,7 +38,7 @@ data:
 - path: java/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: Java
 - path: java/main
@@ -50,7 +50,7 @@ data:
 - path: ruby/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: Ruby
 - path: ruby/main
@@ -65,7 +65,7 @@ data:
   category: basic
   params:
     title: 標準出力
-- path: ruby/cl_args
+- path: ruby/command_line_args
   state: 1
   template: article
   category: basic
@@ -74,7 +74,7 @@ data:
 - path: python/top
   state: 1
   template: article
-  category:
+  category: 
   params:
     title: Python
 - path: python/class
@@ -102,9 +102,9 @@ data:
   params:
     title: 可変長引数
 - path: android/top
-  state: 0
+  state: 1
   template: article
-  category:
+  category: 
   params:
     title: Android
 - path: android/template
@@ -114,7 +114,7 @@ data:
   params:
     title: Android Studioでテンプレートを編集
 - path: android/simple_fragment_template
-  state: 0
+  state: 1
   template: article
   category: layout
   params:
@@ -173,9 +173,111 @@ data:
   category: function
   params:
     title: 型判定
-- path: java/cl_args
+- path: java/command_line_args
   state: 1
   template: article
   category: basic
   params:
     title: コマンドライン引数
+- path: python/create_exception
+  state: 1
+  template: article
+  category: exception
+  params:
+    title: 例外を自作する
+- path: c/split_code
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: ソースファイル分割
+- path: latex/top
+  state: 1
+  template: article
+  category: 
+  params:
+    title: LaTeX
+- path: latex/title
+  state: 1
+  template: article
+  category: struct
+  params:
+    title: タイトルの出力
+- path: c/two_dimensional_array
+  state: 1
+  template: article
+  category: array
+  params:
+    title: 2次元配列
+- path: algorithm/top
+  state: 1
+  template: article
+  category: 
+  params:
+    title: アルゴリズム
+- path: algorithm/combination
+  state: 1
+  template: article
+  category: array
+  params:
+    title: 組み合わせ
+- path: algorithm/permutation
+  state: 1
+  template: article
+  category: array
+  params:
+    title: 順列
+- path: python/assert
+  state: 1
+  template: article
+  category: debug
+  params:
+    title: アサート文
+- path: python/str_int_convertion
+  state: 1
+  template: article
+  category: string
+  params:
+    title: 文字列と数値の変換
+- path: android/edittext_ime_invalidate
+  state: 1
+  template: article
+  category: components
+  params:
+    title: EditTextでIMEを無効化する
+- path: android/button_unset_allcaps
+  state: 1
+  template: article
+  category: components
+  params:
+    title: ボタンで全て大文字になるのを防ぐ
+- path: android/re_draw
+  state: 1
+  template: article
+  category: components
+  params:
+    title: 再描画させる
+- path: android/edittext_cursor_move
+  state: 1
+  template: article
+  category: components
+  params:
+    title: EditTextのカーソルを動かす
+- path: android/create_custom_view
+  state: 1
+  template: article
+  category: components
+  params:
+    title: カスタムViewを作成する
+- path: kotlin/top
+  state: 1
+  template: article
+  category: 
+  params:
+    title: Kotlin
+- path: kotlin/lambda_expression
+  state: 1
+  template: article
+  category: function
+  params:
+    title: ラムダ式

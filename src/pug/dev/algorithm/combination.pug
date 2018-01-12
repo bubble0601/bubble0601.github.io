@@ -1,0 +1,22 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"配列","list":[{"path":"algorithm/combination","title":"組み合わせ"},{"path":"algorithm/permutation","title":"順列"}]}], "algorithm/combination", "アルゴリズム")
+
++devart("algorithm", "combination", "組み合わせ", "アルゴリズム")
+    p.lead 組み合わせをすべて試したい
+    h3 Cでの実装例(nC2のとき)
+    +code("c"): :esc
+        for (int i = 0; i < n*(n-1)/2; i++) {
+            int j = n-1, s = 0;
+            while (s + j <= i) s += j--;
+            printf("%d, %d\n", n-1-j, n-j+i-s);
+        }
+    p 出力(n=4)
+    samp: pre.
+        0, 1
+        0, 2
+        0, 3
+        1, 2
+        1, 3
+        2, 3
+    

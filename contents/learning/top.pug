@@ -1,22 +1,24 @@
 include templates/learning.pug
 +var
 
-+head('学習')
+doctype html
+html(dev="ja")
+    +head('学習')
 
-body
-    +header('learning')
+    body
+        +header('learning')
 
-    +main([0,9,3])
-        - var articles = \{articles}
-        div.row.mx-auto
-            each article in articles
-                +article-card(article.url, article.title, article.img)
+        +main([0,9,3])
+            - var articles = \{articles}
+            div.row.mx-auto
+                each article in articles
+                    +article-card(article.url, article.title, article.img)
 
-    +footer([{
-        filename: 'index.html',
-        title: 'Top'
-    }, {
-        current: true,
-        filename: 'univ.html',
-        title: 'Univ'
-    }])
+        +footer([{
+            filename: 'index.html',
+            title: 'Top'
+        }, {
+            current: true,
+            filename: 'univ.html',
+            title: 'Univ'
+        }])

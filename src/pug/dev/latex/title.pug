@@ -1,0 +1,18 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"文章構造","list":[{"path":"latex/title","title":"タイトルの出力"}]}], "latex/title", "LaTeX")
+
++devart("latex", "title", "タイトルの出力", "LaTeX")
+    +code("latex").
+        \documentclass{jsarticle}
+    
+        \title{タイトル}    % 省略不可
+        \author{著者}       % 省略可?
+        \date{2017/12/12}   % 省略すると書いてる日の日付
+    
+        \begin{document}
+          % タイトルを出力
+          \maketitle
+    
+        \end{document}
+    

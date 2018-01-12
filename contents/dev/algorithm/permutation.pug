@@ -1,0 +1,35 @@
+p.lead 順列を全て試す
+h3 Cでの実装例1
++code("c"): :esc
+    // 再帰を使う
+    // factは階乗を計算する関数
+    // min_c(int n, int *arr, int x)はis_remainingの中でx+1番目に小さい要素のインデックスを返す関数
+    // showは配列の要素を表示する関数
+
+    void perm(int i, int n, int r, int *arr, int *is_remaining) {
+        if (r == 0) return;
+        if (r == 1) route[n-r] = min_c(n, is_remaining, 0);
+        int f = fact(r-1);
+        arr[n-r] = min_c(n, is_remaining, i/f);
+        is_remaining[arr[n-r]] = 1;
+        perm(i - i/f*f, n, r-1, arr, is_remaining);
+    }
+
+    int main() {
+        int arr[3];
+        int is_remaining[3];
+        for(int i=0; i<3; i++) is_remaining[i] = 0;
+        for(int i=0; i<fact(n); i++) {
+            perm(i, 3, 3, arr, is_remaining);
+            show(arr)
+        }
+    }
+
+p 出力
+samp: pre
+    0 1 2
+    0 2 1
+    1 2 3
+    1 3 2
+    2 1 3
+    2 3 1

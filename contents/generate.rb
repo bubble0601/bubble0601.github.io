@@ -42,7 +42,7 @@ end
 
 def dev
     data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
-    kinds = DataMan.new('kinds').get
+    kinds = DataMan.new('kinds').get.select{ |k, v| v['state'] == 1 }
     data.each do |e|
         begin
             e['kind'] = e['path'].split('/')[0]

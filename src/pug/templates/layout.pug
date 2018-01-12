@@ -2,25 +2,23 @@ mixin var(root)
     - rootpath = root || ''
 
 mixin head(title, desc, css)
-    doctype html
-    html(dev="ja")
-        head
-            +analytics
-            meta(charset="UTF-8")
-            meta(name="author", content="bubble0601")
-            if title
-                title= title + " | bubbleメモ"
-            else
-                title bubbleメモ
-            if desc
-                meta(name="description", content=desc)
-            meta(name="format-detection", content="telephone=no,address=no,email=no")
-            meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-            meta(http-equiv="content-devuage", content="ja")
-            link(rel="stylesheet", href=rootpath + 'css/bundle.css')
-            if css
-                each c in css
-                    link(rel="stylesheet", href=rootpath + 'css/' + c + '.css')
+    head
+        +analytics
+        meta(charset="UTF-8")
+        meta(name="author", content="bubble0601")
+        if title
+            title= title + " | bubbleメモ"
+        else
+            title bubbleメモ
+        if desc
+            meta(name="description", content=desc)
+        meta(name="format-detection", content="telephone=no,address=no,email=no")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(http-equiv="content-language", content="ja")
+        link(rel="stylesheet", href=rootpath + 'css/bundle.css')
+        if css
+            each c in css
+                link(rel="stylesheet", href=rootpath + 'css/' + c + '.css')
 
 mixin header(current)
     +navbar(current)
@@ -71,7 +69,7 @@ mixin main(side)
         if side[0] > 0
             div.col-12(class="col-md-" + side[0])
                 +sidebar_left
-        main.col-12.py-3.pl-md-5(class="col-md-" + side[1] role="main")
+        main.col-12.py-3(class="col-md-" + side[1] role="main")
             if block
                 block
         if side[2] > 0
@@ -109,8 +107,13 @@ mixin analytics
           gtag('config', 'UA-80539440-2');
         </script>
 
-mixin code(lang, langname)
+mixin badge(text)
+    h5: span.badge.badge-secondary= text
+
+mixin code(lang, filename, langname)
     - langname = langname ? langname : lang[0].toUpperCase() + lang.slice(1)
+    if filename
+        +badge(filename)
     pre(data-language=langname): code(class="language-" + lang)
         block
 

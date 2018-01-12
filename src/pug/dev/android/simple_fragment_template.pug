@@ -1,0 +1,221 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"レイアウト","list":[{"path":"android/simple_fragment_template","title":"Android Studioでfragmentを使ったシンプルなテンプレートを作る"}]},{"id":1,"title":"コンポーネント","list":[{"path":"android/edittext_ime_invalidate","title":"EditTextでIMEを無効化する"},{"path":"android/button_unset_allcaps","title":"ボタンで全て大文字になるのを防ぐ"},{"path":"android/re_draw","title":"再描画させる"},{"path":"android/edittext_cursor_move","title":"EditTextのカーソルを動かす"},{"path":"android/create_custom_view","title":"カスタムViewを作成する"}]}], "android/simple_fragment_template", "Android")
+
++devart("android", "simple_fragment_template", "Android Studioでfragmentを使ったシンプルなテンプレートを作る", "Android")
+    div.alert.alert-warning(role="alert") 情報が古くなっていると思われます。
+    
+    p 最初からあるBasic ActivityだとFloatingActionButtonがついてきて邪魔なときがあるのでシンプルなテンプレートを作りました。
+    p ベースはBlank Activityです。
+    
+    p Macではテンプレートは
+    samp /Applications/Android Studio.app/Contents/plugins/android/lib/templates
+    p にあります。
+    p このフォルダに新しいテンプレートのフォルダを作ります。FragmentActivityなどとしておきましょう。
+    p ここに以下のファイルを置きました。
+    
+    +badge("template_blank_activity.png")
+    p Empty Activityの画像を流用
+    
+    +code("markup", "template.xml", "XML"): :esc
+        <?xml version="1.0"?>
+        <template
+        format="5"
+        revision="5"
+        name="Empty Activity"
+        minApi="9"
+        minBuildApi="14"
+        description="Creates a new empty activity">
+    
+        <category value="Activity" />
+        <formfactor value="Mobile" />
+    
+        <parameter
+            id="instantAppActivityHost"
+            name="Instant App URL Host"
+            type="string"
+            suggest="${companyDomain}"
+            default="instantapp.example.com"
+            visibility="isInstantApp!false"
+            help="The domain to use in the Instant App route for this activity"/>
+    
+        <parameter
+            id="instantAppActivityRouteType"
+            name="Instant App URL Route Type"
+            type="enum"
+            default="pathPattern"
+            visibility="isInstantApp!false"
+            help="The type of route to use in the Instant App route for this activity" >
+            <option id="path">Path</option>
+            <option id="pathPrefix">Path Prefix</option>
+            <option id="pathPattern">Path Pattern</option>
+        </parameter>
+    
+        <parameter
+            id="instantAppActivityRoute"
+            name="Instant App URL Route"
+            type="string"
+            default="/.*"
+            visibility="isInstantApp!false"
+            help="The route to use in the Instant App route for this activity"/>
+    
+        <parameter
+            id="activityClass"
+            name="Activity Name"
+            type="string"
+            constraints="class|unique|nonempty"
+            suggest="${layoutToActivity(layoutName)}"
+            default="MainActivity"
+            help="The name of the activity class to create" />
+    
+        <parameter
+            id="layoutName"
+            name="Layout Name"
+            type="string"
+            constraints="layout|unique|nonempty"
+            suggest="${activityToLayout(activityClass)}"
+            default="activity_main"
+            visibility="generateLayout"
+            help="The name of the layout to create for the activity" />
+    
+        <parameter
+            id="isLauncher"
+            name="Launcher Activity"
+            type="boolean"
+            default="false"
+            help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
+    
+        <parameter
+            id="fragmentLayoutName"
+            name="Fragment Layout Name"
+            type="string"
+            constraints="layout|unique|nonempty"
+            suggest="${activityToLayout(activityClass, 'fragment')}"
+            default="fragment_main"
+            help="The name of the layout to create for the activity's content fragment"/>
+    
+        <parameter
+            id="backwardsCompatibility"
+            name="Backwards Compatibility (AppCompat)"
+            type="boolean"
+            default="true"
+            help="If false, this activity base class will be Activity instead of AppCompatActivity" />
+    
+        <parameter
+            id="packageName"
+            name="Package name"
+            type="string"
+            constraints="package"
+            default="com.mycompany.myapp" />
+    
+        <!-- 128x128 thumbnails relative to template.xml -->
+        <thumbs>
+            <!-- default thumbnail is required -->
+            <thumb>template_blank_activity.png</thumb>
+        </thumbs>
+    
+        <globals file="globals.xml.ftl" />
+        <execute file="recipe.xml.ftl" />
+    
+        </template>
+    p flagmentLayoutNameというパラメータを追加し、generateLayoutを削除しました(作るので)。
+    
+    +code("markup", "recipe.xml.ftl", "XML"): :esc
+        <?xml version="1.0"?>
+        <#import "root://activities/common/kotlin_macros.ftl" as kt>
+        <recipe>
+            <#include "../common/recipe_manifest.xml.ftl" />
+            <@kt.addAllKotlinDependencies />
+    
+        <!-- fragment -->
+        <instantiate from="root/res/layout/activity_fragment_container.xml.ftl"
+                       to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
+        <instantiate from="root/res/layout/fragment_simple.xml.ftl"
+                       to="${escapeXmlAttribute(resOut)}/layout/${fragmentLayoutName}.xml" />
+    
+        <#include "../common/recipe_simple.xml.ftl" />
+        <open file="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
+    
+        <#if generateKotlin>
+            <instantiate from="root/src/app_package/SimpleActivity.kt.ftl"
+                           to="${escapeXmlAttribute(srcOut)}/${activityClass}.kt" />
+            <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.kt" />
+        <#else>
+            <instantiate from="root/src/app_package/SimpleActivity.java.ftl"
+                           to="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+            <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+        </#if>
+    
+        </recipe>
+    p activity_main.xmlに加え、fragment_main.xmlを作成します。
+    
+    +code("markup", "globals.xml.ftl", "XML"): :esc
+        <?xml version="1.0"?>
+        <globals>
+            <global id="hasNoActionBar" type="boolean" value="false" />
+            <global id="parentActivityClass" value="" />
+            <global id="simpleLayoutName" value="${layoutName}" />
+            <global id="excludeMenu" type="boolean" value="true" />
+            <global id="generateActivityTitle" type="boolean" value="false" />
+            <#include "../common/common_globals.xml.ftl" />
+        </globals>
+    p Blank Activityから変えてません
+    
+    +code("markup", "root/res/layout/activity_fragment_container.xml.ftl", "XML"): :esc
+        <?xml version="1.0" encoding="utf-8"?>
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="${packageName}.${activityClass}"
+            tools:ignore="MergeRootFrame" >
+        </FrameLayout>
+    
+    +code("markup", "root/res/layout/fragment_simple.xml.ftl", "XML"): :esc
+        <?xml version="1.0" encoding="utf-8"?>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context="${packageName}.${activityClass}$PlaceholderFragment" >
+        </RelativeLayout>
+    
+    +code("java", "root/src/app_package/SimpleActivity.java.ftl").
+        package ${packageName};
+    
+        import android.support.v4.app.Fragment;
+        import ${superClassFqcn};
+        import android.os.Bundle;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+    
+        public class ${activityClass} extends ${superClass} {
+    
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.${layoutName});
+                if (savedInstanceState == null) {
+                    getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+                }
+            }
+    
+            public static class PlaceholderFragment extends Fragment {
+    
+                public PlaceholderFragment(){
+                }
+    
+                @Override
+                public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+                    View rootView = inflater.inflate(R.layout.${fragmentLayoutName}, container, false);
+                    return rootView;
+                }
+            }
+        }
+    

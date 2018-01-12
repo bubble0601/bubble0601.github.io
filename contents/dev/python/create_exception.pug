@@ -1,0 +1,11 @@
+p.lead 例外を自作する
++code("python").
+    class MyException(Exception):
+        def print(self):
+            print("MyException is raised")
+
+    try:
+        raise MyException("error")
+    except MyException as e:
+        e.print()   #=> MyException is raised
+        print(e)    #=> error

@@ -1,16 +1,21 @@
 ---
 c:
   name: C
+  state: 1
   categories:
   - alias: basic
     title: 基本
+  - alias: array
+    title: 配列
 java:
   name: Java
+  state: 1
   categories:
   - alias: basic
     title: 基本
 ruby:
   name: Ruby
+  state: 1
   categories:
   - alias: basic
     title: 基本
@@ -24,6 +29,7 @@ ruby:
     title: 関数
 python:
   name: Python
+  state: 1
   categories:
   - alias: list
     title: リスト
@@ -31,14 +37,35 @@ python:
     title: 関数
   - alias: class
     title: クラス
-# android:
-#   name: Android
-#   categories:
-#   - alias: layout
-#     title: レイアウト
-#   - alias: function
-#     title: 関数
-#   - alias: adb
-#     title: adb
-#   - alias: tips
-#     title: Tips
+  - alias: exception
+    title: 例外
+  - alias: debug
+    title: デバッグ
+  - alias: string
+    title: 文字列
+latex:
+  name: LaTeX
+  state: 1
+  categories:
+  - alias: struct
+    title: 文章構造
+algorithm:
+  name: アルゴリズム
+  state: 1
+  categories:
+  - alias: array
+    title: 配列
+android:
+  name: Android
+  state: 1
+  categories:
+  - alias: layout
+    title: レイアウト
+  - alias: components
+    title: コンポーネント
+kotlin:
+  name: Kotlin
+  state: 1
+  categories:
+  - alias: function
+    title: 関数

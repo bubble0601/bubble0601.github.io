@@ -1,0 +1,11 @@
+p.lead EditTextをタップしたときにIMEが起動するのを防ぐ
+p 入力用のコンポーネントを自作するときなどに
++code("kotlin"): :esc
+    // EditTextのIME無効化
+    editText1.setOnClickListener {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+    }
+    editText1.setOnTouchListener { v, event ->
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        true
+    }

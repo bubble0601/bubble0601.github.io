@@ -6,31 +6,33 @@ mixin article
             block
 
 mixin learningart(id, title, date, tags)
-    - var rootpath = '../'
-    +var(rootpath)
+    doctype html
+    html(dev="ja")
+        - var rootpath = '../'
+        +var(rootpath)
 
-    +head(title, undefined, ['prism'])
+        +head(title, undefined, ['prism'])
 
-    body
-        +header('learning')
+        body
+            +header('learning')
 
-        +main([0,9,3])
-            +article
-                +title(title, date, tags)
+            +main([0,9,3])
+                +article
+                    +title(title, date, tags)
 
-                block
+                    block
 
-        +footer([{
-            filename: 'index.html',
-            title: 'トップ'
-        }, {
-            filename: 'learning.html',
-            title: '学習'
-        }, {
-            current: true,
-            filename: 'learning/' + id + '.html',
-            title: title
-        }], ["https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js", 'prism'])
+            +footer([{
+                filename: 'index.html',
+                title: 'トップ'
+            }, {
+                filename: 'learning.html',
+                title: '学習'
+            }, {
+                current: true,
+                filename: 'learning/' + id + '.html',
+                title: title
+            }], ["https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js", 'prism'])
 
 mixin article-card(url, title, img)
     div.col-12.col-sm-6.col-lg-4.col-xl-3.px-2

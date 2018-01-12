@@ -3,9 +3,9 @@ ROOT_PATH = File.dirname(__FILE__)
 def help
     puts "Usage"
     puts "\tgenerate/g: generate pug"
-    puts "\tdata [name]/d [name]: manipulate data/[name].yml; if not exists, creatre interactively"
+    puts "\tdata [name]: manipulate data/[name].yml; if not exists, creatre interactively"
     puts "\tsitemap/s: generate sitemap"
-    puts "\tdev: create new dev article"
+    puts "\tdev/d: create new dev article"
 end
 
 if __FILE__ == $0
@@ -20,6 +20,7 @@ if __FILE__ == $0
         when 'data', 'dat'
             if ARGV.length < 2
                 help()
+                exit
             end
             require_relative "data_manager"
             dm = DataMan.new(ARGV[1])

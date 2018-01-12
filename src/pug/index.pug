@@ -1,17 +1,19 @@
 include templates/layout.pug
 +var
 
-+head
+doctype html
+html(dev="ja")
+    +head
 
-body
-    +header('top')
+    body
+        +header('top')
 
-    +main([0,9,3])
-        div.jumbotron
-            h1 Hello, World!
+        +main([0,9,3])
+            div.jumbotron
+                h1 Hello, World!
 
-    +footer([{
-        current: true,
-        filename: 'index.html',
-        title: 'Top'
-    }])
+        +footer([{
+            current: true,
+            filename: 'index.html',
+            title: 'Top'
+        }])

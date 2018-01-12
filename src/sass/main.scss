@@ -2,6 +2,7 @@
 
 $pale-blue:  #9fd9f6;
 $pale-green: #a2d7d4;
+$light-gray: #f5f2f0;
 
 // html {
     // font-size: 1rem;
@@ -30,8 +31,12 @@ a {
 samp {
     @extend .p-2;
     @extend .rounded;
-    background-color: #f5f2f0;
+    background-color: $light-gray;
     display: block;
+}
+
+code {
+    background-color: $light-gray;
 }
 
 .navbar {
@@ -105,7 +110,7 @@ li.dev-item {
     }
 }
 
-#sidedev {
+#sidedev, .dev-kind {
     background-color: $pale-green;
     a {
         color: #004986;

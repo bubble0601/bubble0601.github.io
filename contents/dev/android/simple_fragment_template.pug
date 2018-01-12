@@ -1,3 +1,5 @@
+div.alert.alert-warning(role="alert") 情報が古くなっていると思われます。
+
 p 最初からあるBasic ActivityだとFloatingActionButtonがついてきて邪魔なときがあるのでシンプルなテンプレートを作りました。
 p ベースはBlank Activityです。
 
@@ -6,102 +8,143 @@ samp /Applications/Android Studio.app/Contents/plugins/android/lib/templates
 p にあります。
 p このフォルダに新しいテンプレートのフォルダを作ります。FragmentActivityなどとしておきましょう。
 p ここに以下のファイルを置きました。
-h5 template_blank_activity.png
-p Blank Activityの画像を流用
 
-h5 template.xml
-+code("markup", "XML"): :esc
++badge("template_blank_activity.png")
+p Empty Activityの画像を流用
+
++code("markup", "template.xml", "XML"): :esc
     <?xml version="1.0"?>
     <template
-        format="5"
-        revision="5"
-        name="Fragment Activity"
-        minApi="7"
-        minBuildApi="14"
-        description="Creates a new fragment activity">
+    format="5"
+    revision="5"
+    name="Empty Activity"
+    minApi="9"
+    minBuildApi="14"
+    description="Creates a new empty activity">
 
-        <category value="Activity" />
-        <formfactor value="Mobile" />
+    <category value="Activity" />
+    <formfactor value="Mobile" />
 
-        <parameter
-            id="activityClass"
-            name="Activity Name"
-            type="string"
-            constraints="class|unique|nonempty"
-            suggest="${layoutToActivity(layoutName)}"
-            default="MainActivity"
-            help="The name of the activity class to create" />
+    <parameter
+        id="instantAppActivityHost"
+        name="Instant App URL Host"
+        type="string"
+        suggest="${companyDomain}"
+        default="instantapp.example.com"
+        visibility="isInstantApp!false"
+        help="The domain to use in the Instant App route for this activity"/>
 
-        <parameter
-            id="layoutName"
-            name="Layout Name"
-            type="string"
-            constraints="layout|unique|nonempty"
-            suggest="${activityToLayout(activityClass)}"
-            default="activity_main"
-            help="The name of the layout to create for the activity"/>
+    <parameter
+        id="instantAppActivityRouteType"
+        name="Instant App URL Route Type"
+        type="enum"
+        default="pathPattern"
+        visibility="isInstantApp!false"
+        help="The type of route to use in the Instant App route for this activity" >
+        <option id="path">Path</option>
+        <option id="pathPrefix">Path Prefix</option>
+        <option id="pathPattern">Path Pattern</option>
+    </parameter>
 
-        <parameter
-            id="isLauncher"
-            name="Launcher Activity"
-            type="boolean"
-            default="false"
-            help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
+    <parameter
+        id="instantAppActivityRoute"
+        name="Instant App URL Route"
+        type="string"
+        default="/.*"
+        visibility="isInstantApp!false"
+        help="The route to use in the Instant App route for this activity"/>
 
-        <parameter
-            id="fragmentLayoutName"
-            name="Fragment Layout Name"
-            type="string"
-            constraints="layout|unique|nonempty"
-            suggest="${activityToLayout(activityClass, 'fragment')}"
-            default="fragment_main"
-            help="The name of the layout to create for the activity's content fragment"/>
+    <parameter
+        id="activityClass"
+        name="Activity Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${layoutToActivity(layoutName)}"
+        default="MainActivity"
+        help="The name of the activity class to create" />
 
-        <parameter
-            id="packageName"
-            name="Package name"
-            type="string"
-            constraints="package"
-            default="com.mycompany.myapp" />
+    <parameter
+        id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="${activityToLayout(activityClass)}"
+        default="activity_main"
+        visibility="generateLayout"
+        help="The name of the layout to create for the activity" />
 
-        <!-- 128x128 thumbnails relative to template.xml -->
-        <thumbs>
-            <!-- default thumbnail is required -->
-            <thumb>template_blank_activity.png</thumb>
-        </thumbs>
+    <parameter
+        id="isLauncher"
+        name="Launcher Activity"
+        type="boolean"
+        default="false"
+        help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
 
-        <globals file="globals.xml.ftl" />
-        <execute file="recipe.xml.ftl" />
+    <parameter
+        id="fragmentLayoutName"
+        name="Fragment Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="${activityToLayout(activityClass, 'fragment')}"
+        default="fragment_main"
+        help="The name of the layout to create for the activity's content fragment"/>
+
+    <parameter
+        id="backwardsCompatibility"
+        name="Backwards Compatibility (AppCompat)"
+        type="boolean"
+        default="true"
+        help="If false, this activity base class will be Activity instead of AppCompatActivity" />
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp" />
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
 
     </template>
-p flagmentLayoutNameというパラメータを追加し、generateLayoutを削除しました(作るに決まってるので)。
+p flagmentLayoutNameというパラメータを追加し、generateLayoutを削除しました(作るので)。
 
-h5 recipe.xml.ftl
-+code("markup", "XML"): :esc
++code("markup", "recipe.xml.ftl", "XML"): :esc
     <?xml version="1.0"?>
+    <#import "root://activities/common/kotlin_macros.ftl" as kt>
     <recipe>
         <#include "../common/recipe_manifest.xml.ftl" />
+        <@kt.addAllKotlinDependencies />
 
-        <!-- fragment -->
-        <#include "../common/recipe_simple_dimens.xml" />
+    <!-- fragment -->
+    <instantiate from="root/res/layout/activity_fragment_container.xml.ftl"
+                   to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
+    <instantiate from="root/res/layout/fragment_simple.xml.ftl"
+                   to="${escapeXmlAttribute(resOut)}/layout/${fragmentLayoutName}.xml" />
 
-        <instantiate from="root/res/layout/activity_fragment_container.xml.ftl"
-                       to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
-        <instantiate from="root/res/layout/fragment_simple.xml.ftl"
-                       to="${escapeXmlAttribute(resOut)}/layout/${fragmentLayoutName}.xml" />
-        <!-- -->
+    <#include "../common/recipe_simple.xml.ftl" />
+    <open file="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
 
-        <open file="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
-
+    <#if generateKotlin>
+        <instantiate from="root/src/app_package/SimpleActivity.kt.ftl"
+                       to="${escapeXmlAttribute(srcOut)}/${activityClass}.kt" />
+        <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.kt" />
+    <#else>
         <instantiate from="root/src/app_package/SimpleActivity.java.ftl"
                        to="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
-
         <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+    </#if>
+
     </recipe>
 p activity_main.xmlに加え、fragment_main.xmlを作成します。
 
-h5 globals.xml.ftl
-+code("markup", "XML"): :esc
++code("markup", "globals.xml.ftl", "XML"): :esc
     <?xml version="1.0"?>
     <globals>
         <global id="hasNoActionBar" type="boolean" value="false" />
@@ -113,8 +156,7 @@ h5 globals.xml.ftl
     </globals>
 p Blank Activityから変えてません
 
-h5 root/res/layout/activity_fragment_container.xml.ftl
-+code("markup", "XML"): :esc
++code("markup", "root/res/layout/activity_fragment_container.xml.ftl", "XML"): :esc
     <?xml version="1.0" encoding="utf-8"?>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -125,8 +167,7 @@ h5 root/res/layout/activity_fragment_container.xml.ftl
         tools:ignore="MergeRootFrame" >
     </FrameLayout>
 
-h5 root/res/layout/fragment_simple.xml.ftl
-+code("markup", "XML"): :esc
++code("markup", "root/res/layout/fragment_simple.xml.ftl", "XML"): :esc
     <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -139,8 +180,7 @@ h5 root/res/layout/fragment_simple.xml.ftl
         tools:context="${packageName}.${activityClass}$PlaceholderFragment" >
     </RelativeLayout>
 
-h5 root/src/app_package/SimpleActivity.java.ftl
-+code("java").
++code("java", "root/src/app_package/SimpleActivity.java.ftl").
     package ${packageName};
 
     import android.support.v4.app.Fragment;

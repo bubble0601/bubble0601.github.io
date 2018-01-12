@@ -23,59 +23,59 @@ mixin sidebar_left
 include layout.pug
 
 mixin devart(kind, name, title, kindname)
-    +var(rootpath)
+    doctype html
+    html(dev="ja")
+        +var(rootpath)
 
-    - t = name === 'top' ? title : title + ' - ' + kindname
-    +head(t, undefined, ['prism'])
+        - t = name === 'top' ? title : title + ' - ' + kindname
+        +head(t, undefined, ['prism'])
 
-    body
-        +header('dev')
+        body
+            +header('dev')
 
-        +main([2,10,0])
-            article#devart.mx-1
-                div#devtitle
-                    h1.d-inline= title
-                    h5.d-inline.ml-2: span.badge.badge-pill.badge-success= kindname
+            +main([2,10,0])
+                article#devart.mx-1
+                    div#devtitle
+                        h1.d-inline= title
+                        h5.d-inline.ml-2: span.badge.badge-pill.badge-success= kindname
 
-                block
+                    block
 
-        if name === 'top'
-            +footer([{
-                filename: 'index.html',
-                title: 'Top'
-            }, {
-                filename: 'dev.html',
-                title: '開発'
-            }, {
-                current: true,
-                filename: 'dev/' + kind + '/top.html',
-                title: kindname
-            }], ['prism'])
-        else
-            +footer([{
-                filename: 'index.html',
-                title: 'トップ'
-            }, {
-                filename: 'dev.html',
-                title: '開発'
-            }, {
-                filename: 'dev/' + kind + '/top.html',
-                title: kindname
-            }, {
-                current: true,
-                filename: 'dev/' + kind + '/' + name + '.html',
-                title: title
-            }], ["https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js", 'prism'])
+            if name === 'top'
+                +footer([{
+                    filename: 'index.html',
+                    title: 'Top'
+                }, {
+                    filename: 'dev.html',
+                    title: '開発'
+                }, {
+                    current: true,
+                    filename: 'dev/' + kind + '/top.html',
+                    title: kindname
+                }], ['prism'])
+            else
+                +footer([{
+                    filename: 'index.html',
+                    title: 'トップ'
+                }, {
+                    filename: 'dev.html',
+                    title: '開発'
+                }, {
+                    filename: 'dev/' + kind + '/top.html',
+                    title: kindname
+                }, {
+                    current: true,
+                    filename: 'dev/' + kind + '/' + name + '.html',
+                    title: title
+                }], ["https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js", 'prism'])
 
 mixin dev-card(kind, kindname, categories)
     div.col-12.col-sm-6.col-lg-4.col-xl-3.p-2
         div.card.article-card
-            div.card-body
-                h4.card-title: a(href=rootpath + "dev/" + kind + "/top.html")= kindname
-                div(id="acd_" + kind data-children=".item")
-                    each item in categories
-                        div.item
-                            a(data-toggle="collapse" data-parent="acd_" + kind href="#" + kind + item.id aria-expanded="false" aria-controls=kind + item.id)= item.title
-                            div.collapse(id=kind + item.id role="tabpanel")
-                                ul: each e in item.list
-                                    li: a(href=rootpath + "dev/" + e.path + ".html")= e.title
+            div.card-header.dev-kind: a.h4.card-link(href=rootpath + "dev/" + kind + "/top.html")= kindname
+            ul.list-group(id="acd_" + kind data-children=".item")
+                each item in categories
+                    a.list-group-item.list-group-item-action.item.text-info.bg-light(data-toggle="collapse" data-parent="acd_" + kind href="#" + kind + item.id aria-expanded="false" aria-controls=kind + item.id)= item.title
+                    div.collapse(id=kind + item.id role="tabpanel")
+                        ul.p-0: each e in item.list
+                            li.dev-item: a(href=rootpath + "dev/" + e.path + ".html")= e.title

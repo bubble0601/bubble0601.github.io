@@ -9,8 +9,7 @@ p 以下も可
     int main(int argc, char **argv) {}
 
 h3 例
-p foo.c
-+code("c"): :esc
++code("c", "foo.c"): :esc
     #include <stdio.h>
 
     int main(int argc, char *argv[]) {
@@ -19,11 +18,13 @@ p foo.c
         }
         return 0;
     }
-p 実行
+
+h6 実行
 +code("bash").
     gcc ./foo.c
     ./a.out bar
-p 出力
+
+h6 出力
 samp: pre.mb-0.
     ./a.out
     bar
