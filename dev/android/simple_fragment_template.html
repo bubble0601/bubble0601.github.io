@@ -1,0 +1,192 @@
+<!DOCTYPE html><html dev="ja"><head><!-- Global site tag (gtag.js) - Google Analytics--><script async src="https://www.googletagmanager.com/gtag/js?id=UA-80539440-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80539440-2');
+</script>
+<meta charset="UTF-8"/><meta name="author" content="bubble0601"/><title>Android Studioでfragmentを使ったシンプルなテンプレートを作る - Android | bubbleメモ</title><meta name="format-detection" content="telephone=no,address=no,email=no"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta http-equiv="content-language" content="ja"/><link rel="stylesheet" href="../../css/bundle.css"/><link rel="stylesheet" href="../../css/prism.css"/></head><body><header class="navbar navbar-light justify-content-start"><span class="navbar-brand mb-0 ml-2 d-none d-md-inline">bubbleメモ</span><ul class="navbar-nav flex-row"><li class="nav-item h5 mx-3"><a class="nav-link" href="../../index.html">トップ</a></li><li class="nav-item h5 mx-3 active"><a class="nav-link" href="../../dev.html">開発</a></li><li class="nav-item h5 mx-3"><a class="nav-link" href="../../learning.html">学習</a></li></ul></header><div class="container-fluid row mx-0"><div class="col-12 col-md-2"><h2><span class="badge badge-primary w-100" id="sidedev"><a class="mx-auto" href="top.html">Android</a></span></h2><div class="mt-2" id="accordion" role="tablist"><div class="card"><div class="card-header p-0" id="clphead0" role="tab"><a class="dev-toggle pl-3 py-2 btn" data-toggle="collapse" href="#clp0" aria-expanded="false" aria-controls="clp0">レイアウト</a></div><div class="collapse show" id="clp0" role="tabpanel" aria-labelledby="clphead0" data-parent="#accordion"><div class="card-body p-0"><ul class="m-0 p-0"><li class="dev-item"><span>Android Studioでfragmentを使ったシンプルなテンプレートを作る</span></li></ul></div></div></div><div class="card"><div class="card-header p-0" id="clphead1" role="tab"><a class="dev-toggle pl-3 py-2 btn" data-toggle="collapse" href="#clp1" aria-expanded="false" aria-controls="clp1">コンポーネント</a></div><div class="collapse" id="clp1" role="tabpanel" aria-labelledby="clphead1" data-parent="#accordion"><div class="card-body p-0"><ul class="m-0 p-0"><li class="dev-item"><a href="../../dev/android/edittext_ime_invalidate.html">EditTextでIMEを無効化する</a></li><li class="dev-item"><a href="../../dev/android/button_unset_allcaps.html">ボタンで全て大文字になるのを防ぐ</a></li><li class="dev-item"><a href="../../dev/android/re_draw.html">再描画させる</a></li><li class="dev-item"><a href="../../dev/android/edittext_cursor_move.html">EditTextのカーソルを動かす</a></li><li class="dev-item"><a href="../../dev/android/create_custom_view.html">カスタムViewを作成する</a></li></ul></div></div></div></div></div><main class="col-12 py-3 col-md-10" role="main"><article class="mx-1" id="devart"><div id="devtitle"><h1 class="d-inline">Android Studioでfragmentを使ったシンプルなテンプレートを作る</h1><h5 class="d-inline ml-2"><span class="badge badge-pill badge-success">Android</span></h5></div><div class="alert alert-warning" role="alert">情報が古くなっていると思われます。</div><p>最初からあるBasic ActivityだとFloatingActionButtonがついてきて邪魔なときがあるのでシンプルなテンプレートを作りました。</p><p>ベースはBlank Activityです。</p><p>Macではテンプレートは</p><samp>/Applications/Android Studio.app/Contents/plugins/android/lib/templates</samp><p>にあります。</p><p>このフォルダに新しいテンプレートのフォルダを作ります。FragmentActivityなどとしておきましょう。</p><p>ここに以下のファイルを置きました。</p><h5><span class="badge badge-secondary">template_blank_activity.png</span></h5><p>Empty Activityの画像を流用</p><h5><span class="badge badge-secondary">template.xml</span></h5><pre data-language="XML"><code class="language-markup">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;template
+format=&quot;5&quot;
+revision=&quot;5&quot;
+name=&quot;Empty Activity&quot;
+minApi=&quot;9&quot;
+minBuildApi=&quot;14&quot;
+description=&quot;Creates a new empty activity&quot;&gt;
+
+&lt;category value=&quot;Activity&quot; /&gt;
+&lt;formfactor value=&quot;Mobile&quot; /&gt;
+
+&lt;parameter
+    id=&quot;instantAppActivityHost&quot;
+    name=&quot;Instant App URL Host&quot;
+    type=&quot;string&quot;
+    suggest=&quot;${companyDomain}&quot;
+    default=&quot;instantapp.example.com&quot;
+    visibility=&quot;isInstantApp!false&quot;
+    help=&quot;The domain to use in the Instant App route for this activity&quot;/&gt;
+
+&lt;parameter
+    id=&quot;instantAppActivityRouteType&quot;
+    name=&quot;Instant App URL Route Type&quot;
+    type=&quot;enum&quot;
+    default=&quot;pathPattern&quot;
+    visibility=&quot;isInstantApp!false&quot;
+    help=&quot;The type of route to use in the Instant App route for this activity&quot; &gt;
+    &lt;option id=&quot;path&quot;&gt;Path&lt;/option&gt;
+    &lt;option id=&quot;pathPrefix&quot;&gt;Path Prefix&lt;/option&gt;
+    &lt;option id=&quot;pathPattern&quot;&gt;Path Pattern&lt;/option&gt;
+&lt;/parameter&gt;
+
+&lt;parameter
+    id=&quot;instantAppActivityRoute&quot;
+    name=&quot;Instant App URL Route&quot;
+    type=&quot;string&quot;
+    default=&quot;/.*&quot;
+    visibility=&quot;isInstantApp!false&quot;
+    help=&quot;The route to use in the Instant App route for this activity&quot;/&gt;
+
+&lt;parameter
+    id=&quot;activityClass&quot;
+    name=&quot;Activity Name&quot;
+    type=&quot;string&quot;
+    constraints=&quot;class|unique|nonempty&quot;
+    suggest=&quot;${layoutToActivity(layoutName)}&quot;
+    default=&quot;MainActivity&quot;
+    help=&quot;The name of the activity class to create&quot; /&gt;
+
+&lt;parameter
+    id=&quot;layoutName&quot;
+    name=&quot;Layout Name&quot;
+    type=&quot;string&quot;
+    constraints=&quot;layout|unique|nonempty&quot;
+    suggest=&quot;${activityToLayout(activityClass)}&quot;
+    default=&quot;activity_main&quot;
+    visibility=&quot;generateLayout&quot;
+    help=&quot;The name of the layout to create for the activity&quot; /&gt;
+
+&lt;parameter
+    id=&quot;isLauncher&quot;
+    name=&quot;Launcher Activity&quot;
+    type=&quot;boolean&quot;
+    default=&quot;false&quot;
+    help=&quot;If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher&quot; /&gt;
+
+&lt;parameter
+    id=&quot;fragmentLayoutName&quot;
+    name=&quot;Fragment Layout Name&quot;
+    type=&quot;string&quot;
+    constraints=&quot;layout|unique|nonempty&quot;
+    suggest=&quot;${activityToLayout(activityClass, &#x27;fragment&#x27;)}&quot;
+    default=&quot;fragment_main&quot;
+    help=&quot;The name of the layout to create for the activity&#x27;s content fragment&quot;/&gt;
+
+&lt;parameter
+    id=&quot;backwardsCompatibility&quot;
+    name=&quot;Backwards Compatibility (AppCompat)&quot;
+    type=&quot;boolean&quot;
+    default=&quot;true&quot;
+    help=&quot;If false, this activity base class will be Activity instead of AppCompatActivity&quot; /&gt;
+
+&lt;parameter
+    id=&quot;packageName&quot;
+    name=&quot;Package name&quot;
+    type=&quot;string&quot;
+    constraints=&quot;package&quot;
+    default=&quot;com.mycompany.myapp&quot; /&gt;
+
+&lt;!-- 128x128 thumbnails relative to template.xml --&gt;
+&lt;thumbs&gt;
+    &lt;!-- default thumbnail is required --&gt;
+    &lt;thumb&gt;template_blank_activity.png&lt;/thumb&gt;
+&lt;/thumbs&gt;
+
+&lt;globals file=&quot;globals.xml.ftl&quot; /&gt;
+&lt;execute file=&quot;recipe.xml.ftl&quot; /&gt;
+
+&lt;/template&gt;</code></pre><p>flagmentLayoutNameというパラメータを追加し、generateLayoutを削除しました(作るので)。</p><h5><span class="badge badge-secondary">recipe.xml.ftl</span></h5><pre data-language="XML"><code class="language-markup">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;#import &quot;root://activities/common/kotlin_macros.ftl&quot; as kt&gt;
+&lt;recipe&gt;
+    &lt;#include &quot;../common/recipe_manifest.xml.ftl&quot; /&gt;
+    &lt;@kt.addAllKotlinDependencies /&gt;
+
+&lt;!-- fragment --&gt;
+&lt;instantiate from=&quot;root/res/layout/activity_fragment_container.xml.ftl&quot;
+               to=&quot;${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml&quot; /&gt;
+&lt;instantiate from=&quot;root/res/layout/fragment_simple.xml.ftl&quot;
+               to=&quot;${escapeXmlAttribute(resOut)}/layout/${fragmentLayoutName}.xml&quot; /&gt;
+
+&lt;#include &quot;../common/recipe_simple.xml.ftl&quot; /&gt;
+&lt;open file=&quot;${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml&quot; /&gt;
+
+&lt;#if generateKotlin&gt;
+    &lt;instantiate from=&quot;root/src/app_package/SimpleActivity.kt.ftl&quot;
+                   to=&quot;${escapeXmlAttribute(srcOut)}/${activityClass}.kt&quot; /&gt;
+    &lt;open file=&quot;${escapeXmlAttribute(srcOut)}/${activityClass}.kt&quot; /&gt;
+&lt;#else&gt;
+    &lt;instantiate from=&quot;root/src/app_package/SimpleActivity.java.ftl&quot;
+                   to=&quot;${escapeXmlAttribute(srcOut)}/${activityClass}.java&quot; /&gt;
+    &lt;open file=&quot;${escapeXmlAttribute(srcOut)}/${activityClass}.java&quot; /&gt;
+&lt;/#if&gt;
+
+&lt;/recipe&gt;</code></pre><p>activity_main.xmlに加え、fragment_main.xmlを作成します。</p><h5><span class="badge badge-secondary">globals.xml.ftl</span></h5><pre data-language="XML"><code class="language-markup">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;globals&gt;
+    &lt;global id=&quot;hasNoActionBar&quot; type=&quot;boolean&quot; value=&quot;false&quot; /&gt;
+    &lt;global id=&quot;parentActivityClass&quot; value=&quot;&quot; /&gt;
+    &lt;global id=&quot;simpleLayoutName&quot; value=&quot;${layoutName}&quot; /&gt;
+    &lt;global id=&quot;excludeMenu&quot; type=&quot;boolean&quot; value=&quot;true&quot; /&gt;
+    &lt;global id=&quot;generateActivityTitle&quot; type=&quot;boolean&quot; value=&quot;false&quot; /&gt;
+    &lt;#include &quot;../common/common_globals.xml.ftl&quot; /&gt;
+&lt;/globals&gt;</code></pre><p>Blank Activityから変えてません</p><h5><span class="badge badge-secondary">root/res/layout/activity_fragment_container.xml.ftl</span></h5><pre data-language="XML"><code class="language-markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/container&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;${packageName}.${activityClass}&quot;
+    tools:ignore=&quot;MergeRootFrame&quot; &gt;
+&lt;/FrameLayout&gt;
+</code></pre><h5><span class="badge badge-secondary">root/res/layout/fragment_simple.xml.ftl</span></h5><pre data-language="XML"><code class="language-markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
+    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
+    tools:context=&quot;${packageName}.${activityClass}$PlaceholderFragment&quot; &gt;
+&lt;/RelativeLayout&gt;
+</code></pre><h5><span class="badge badge-secondary">root/src/app_package/SimpleActivity.java.ftl</span></h5><pre data-language="Java"><code class="language-java">package ${packageName};
+
+import android.support.v4.app.Fragment;
+import ${superClassFqcn};
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class ${activityClass} extends ${superClass} {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.${layoutName});
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+        }
+    }
+
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment(){
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+            View rootView = inflater.inflate(R.layout.${fragmentLayoutName}, container, false);
+            return rootView;
+        }
+    }
+}</code></pre></article></main></div><nav class="rounded w-75 my-2 mx-auto" aria-label="breadcrumb" role="navigation"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">トップ</a></li><li class="breadcrumb-item"><a href="../../dev.html">開発</a></li><li class="breadcrumb-item"><a href="../../dev/android/top.html">Android</a></li><li class="breadcrumb-item active"><a href="../../dev/android/simple_fragment_template.html">Android Studioでfragmentを使ったシンプルなテンプレートを作る</a></li></ol></nav><p><a class="text-muted text-small float-right mr-4" href="../../about.html">このサイトについて</a></p><p><a class="text-muted text-small float-right mr-2" href="../../index.html">トップ</a></p><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="../../js/prism.js"></script><script type="text/javascript" src="../../js/bundle.js"></script></body></html>
