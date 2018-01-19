@@ -31,6 +31,10 @@ if __FILE__ == $0
 
         when 'dev', 'd'
             dev()
+
+        when 'deve', 'de'
+            dev_external()
+
         end
     end
 end

@@ -22,9 +22,9 @@ mixin sidebar_left
 
 include layout.pug
 
-mixin devart(kind, name, title, kindname)
+mixin devart(kind, name, title, kindname, lastmod)
     doctype html
-    html(dev="ja")
+    html(lang="ja")
         +var(rootpath)
 
         - t = name === 'top' ? title : title + ' - ' + kindname
@@ -37,7 +37,7 @@ mixin devart(kind, name, title, kindname)
                 article#devart.mx-1
                     div#devtitle
                         h1.d-inline= title
-                        h5.d-inline.ml-2: span.badge.badge-pill.badge-success= kindname
+                        h5.d-inline.ml-2: span.badge.badge-pill.badge-secondary= lastmod
 
                     block
 
@@ -78,4 +78,7 @@ mixin dev-card(kind, kindname, categories)
                     a.list-group-item.list-group-item-action.item.text-info.bg-light(data-toggle="collapse" data-parent="acd_" + kind href="#" + kind + item.id aria-expanded="false" aria-controls=kind + item.id)= item.title
                     div.collapse(id=kind + item.id role="tabpanel")
                         ul.p-0: each e in item.list
-                            li.dev-item: a(href=rootpath + "dev/" + e.path + ".html")= e.title
+                            if e.path.slice(0, 4) === "http"
+                                li.dev-item: a(href=e.path)= e.title
+                            else
+                                li.dev-item: a(href=rootpath + "dev/" + e.path + ".html")= e.title

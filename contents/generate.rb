@@ -40,9 +40,14 @@ def learning_top
     generate(data)
 end
 
+def get_kind(kind_name)
+    kind = DataMan.new('kinds').get(cond: {'alias' => kind_name})
+    if kind.length == 1 then kind = kind[0] else raise "illegal kind" end
+    return kind
+end
+
 def dev
-    data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
-    kinds = DataMan.new('kinds').get.select{ |k, v| v['state'] == 1 }
+    data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED}).select{ |e| e['path'][0, 4] != 'http' }
     data.each do |e|
         begin
             e['kind'] = e['path'].split('/')[0]
@@ -50,10 +55,12 @@ def dev
         rescue
             puts "failed: probably path do not contain kind"
         end
-        e['params']['kindname'] = kinds[e['kind']]['name']
+        kind = get_kind(e['kind'])
+        e['params']['kindname'] = kind['name']
     end
     data.each do |elem|
-        categories = kinds[elem['kind']]['categories']
+        kind = get_kind(elem['kind'])
+        categories = kind['categories']
         elem['params']['categories'] = []
         categories.each_with_index do |cat, i|
             elem['params']['categories'].push({
@@ -76,13 +83,13 @@ end
 def dev_top
     data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED})
     kinds = DataMan.new('kinds').get
-    kind_data = kinds.map do |k, l| {
-        'kind' => k,
-        'name' => l['name'],
-        'categories' => l['categories'].map.with_index do |cat, i| {
+    kind_data = kinds.map do |kind| {
+        'kind' => kind['alias'],
+        'name' => kind['name'],
+        'categories' => kind['categories'].map.with_index do |cat, i| {
             'id' => i,
             'title' => cat['title'],
-            'list' => data.select{ |e| e['path'].split('/')[0] == k and e['category'] == cat['alias'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
+            'list' => data.select{ |e| e['path'].split('/')[0] == kind['alias'] and e['category'] == cat['alias'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
         }
         end
     }
@@ -105,19 +112,23 @@ def generate(data, dir = '')
         v.each { |k, v| params[k] = JSON.dump(v) if k != 'params' }
 
         tpl = ''
+
         # template読み込み
         open("#{ROOT_PATH}/#{dir}#{v['template']}.pug") do |f|
             tpl = f.read()
         end
 
         # pug読み込み
-        if File.exist?("#{ROOT_PATH}/#{dir}#{v['path']}.pug")
-            open("#{ROOT_PATH}/#{dir}#{v['path']}.pug") do |f|
+        pug = "#{ROOT_PATH}/#{dir}#{v['path']}.pug"
+        if File.exist?(pug)
+            open(pug) do |f|
                 params['content'] = f.read().gsub(/\n/, "\n    ")   # TODO: インデントをうまく処理
+                time = File::Stat.new(pug).mtime
+                params['lastmod'] = JSON.dump("#{time.year}/#{time.month}/#{time.day}")
             end
         end
 
-        # template適用
+        # templateにparams適用
         params.each do |name, val|
             tpl.gsub!(/\\{#{name}}/, val.to_s)
         end

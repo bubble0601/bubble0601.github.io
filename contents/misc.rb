@@ -42,29 +42,82 @@ def dev
     cat   = STDIN.gets.chomp
 
     kind_man = DataMan.new('kinds')
-    kinds = kind_man.get()
     dir = "#{ROOT_PATH}/dev/#{kind}"
-    unless kinds.key?(kind)
+    begin
+        kind_data = get_kind(kind)
+    rescue
         print "kind name: "
         kn = STDIN.gets.chomp
-        kinds[kind] = {
+        kind_man.insert({
             "name" => kn,
+            "alias" => kind,
             "categories" => []
-        }
+        })
+        kind_data = get_kind(kind)
         Dir.mkdir(dir)
         dev_art_man.insert({"path" => "#{kind}/top", "state" => 1, "template" => "article", "category" => nil, "params" => {"title" => kn}})
         open("#{dir}/top.pug", "w")
     end
-    unless kinds[kind]['categories'].map{|v| v['alias'] }.include?(cat)
+    categories = kind_data['categories']
+    unless categories.map{|v| v['alias'] }.include?(cat)
             print "category name: "
             cn = STDIN.gets.chomp
-            kinds[kind]['categories'].push({
+            categories.push({
                 "alias" => cat,
                 "title" => cn
             })
+            kind_man.update(cond: {'alias' => kind}, data: {'categories' => categories})
     end
-    kind_man.update(data: kinds)
 
     dev_art_man.insert({"path" => "#{kind}/#{name}", "state" => 1, "template" => "article", "category" => cat, "params" => {"title" => title}})
-    open("#{dir}/#{name}.pug", "w")
+    open("#{dir}/#{name}.pug", "w").close
+    exec("vim #{dir}/#{name}.pug")
+end
+
+def get_kind(kind_name)
+    kind = DataMan.new('kinds').get(cond: {'alias' => kind_name})
+    if kind.length == 1 then kind = kind[0] else raise "illegal kind " end
+    return kind
+end
+
+def dev_external
+    require_relative "data_manager"
+    dev_art_man = DataMan.new('dev_articles')
+    print "kind: "
+    kind  = STDIN.gets.chomp
+    print "title: "
+    title = STDIN.gets.chomp
+    print "url: "
+    url   = STDIN.gets.chomp
+    print "category: "
+    cat   = STDIN.gets.chomp
+
+    kind_man = DataMan.new('kinds')
+    dir = "#{ROOT_PATH}/dev/#{kind}"
+    begin
+        kind_data = get_kind(kind)
+    rescue
+        print "kind name: "
+        kn = STDIN.gets.chomp
+        kind_man.insert({
+            "name" => kn,
+            "categories" => []
+        })
+        kind_data = get_kind(kind)
+        Dir.mkdir(dir)
+        dev_art_man.insert({"path" => "#{kind}/top", "state" => 1, "template" => "article", "category" => nil, "params" => {"title" => kn}})
+        open("#{dir}/top.pug", "w")
+    end
+    categories = kind_data['categories']
+    unless categories.map{|v| v['alias'] }.include?(cat)
+            print "category name: "
+            cn = STDIN.gets.chomp
+            categories.push({
+                "alias" => cat,
+                "title" => cn
+            })
+            kind_man.update(cond: {'alias' => kind}, data: {'categories' => categories})
+    end
+
+    dev_art_man.insert({"path" => "#{url}", "state" => 1, "template" => "", "category" => cat, "params" => {"title" => title}})
 end

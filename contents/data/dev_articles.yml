@@ -20,7 +20,7 @@ data:
 - path: c/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: C言語
 - path: c/main
@@ -38,7 +38,7 @@ data:
 - path: java/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Java
 - path: java/main
@@ -50,7 +50,7 @@ data:
 - path: ruby/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Ruby
 - path: ruby/main
@@ -74,7 +74,7 @@ data:
 - path: python/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Python
 - path: python/class
@@ -104,7 +104,7 @@ data:
 - path: android/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Android
 - path: android/template
@@ -194,7 +194,7 @@ data:
 - path: latex/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: LaTeX
 - path: latex/title
@@ -212,7 +212,7 @@ data:
 - path: algorithm/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: アルゴリズム
 - path: algorithm/combination
@@ -272,7 +272,7 @@ data:
 - path: kotlin/top
   state: 1
   template: article
-  category: 
+  category:
   params:
     title: Kotlin
 - path: kotlin/lambda_expression
@@ -281,3 +281,21 @@ data:
   category: function
   params:
     title: ラムダ式
+- path: ruby/execute_shell_script
+  state: 1
+  template: article
+  category: basic
+  params:
+    title: シェルスクリプトを実行する
+- path: mysql/top
+  state: 1
+  template: article
+  category:
+  params:
+    title: MySQL
+- path: mysql/manipulate_database
+  state: 1
+  template: article
+  category: sql
+  params:
+    title: データベースの操作
