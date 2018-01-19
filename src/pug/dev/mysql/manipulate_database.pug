@@ -1,0 +1,9 @@
+include ../../templates/dev.pug
+
++var_dev([{"id":0,"title":"SQL文","list":[{"path":"mysql/manipulate_database","title":"データベースの操作"}]}], "mysql/manipulate_database", "MySQL")
+
++devart("mysql", "manipulate_database", "データベースの操作", "MySQL", "2018/1/19")
+    h5 消去
+    +code("sql").
+        drop database データベース名
+    
