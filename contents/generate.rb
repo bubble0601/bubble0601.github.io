@@ -47,7 +47,7 @@ def get_kind(kind_name)
 end
 
 def dev
-    data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED}).select{ |e| e['path'][0, 4] != 'http' }
+    data = DataMan.new('dev_articles').get(cond: {'state' => Status::PUBLISHED}).select{ |e| e['path'][/https?:\/\//] == nil }
     data.each do |e|
         begin
             e['kind'] = e['path'].split('/')[0]
@@ -66,11 +66,13 @@ def dev
             elem['params']['categories'].push({
                 'id' => i,
                 'title' => cat['title'],
-                'list' => data.select{ |e| e['kind'] == elem['kind'] and e['category'] == cat['alias'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
+                'list' => data.select{ |e| e['kind'] == elem['kind'] and e['category'] == cat['alias'] }
+                              .map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
             })
         end
 
-        other_kind_data = data.select{ |e| e['params']['name'] == elem['params']['name'] and e['kind'] != elem['kind'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['kindname']} }
+        other_kind_data = data.select{ |e| e['params']['name'] == elem['params']['name'] and e['kind'] != elem['kind'] }
+                              .map{ |e| {'path' => e['path'], 'title' => e['params']['kindname']} }
         elem['params']['categories'].push({
             'id' => elem['params']['categories'].length,
             'title' => '他の言語',
@@ -89,7 +91,8 @@ def dev_top
         'categories' => kind['categories'].map.with_index do |cat, i| {
             'id' => i,
             'title' => cat['title'],
-            'list' => data.select{ |e| e['path'].split('/')[0] == kind['alias'] and e['category'] == cat['alias'] }.map{ |e| {'path' => e['path'], 'title' => e['params']['title']} }
+            'list' => data.select{ |e| e['path'].split('/')[0] == kind['alias'] and e['category'] == cat['alias'] }
+                          .map{ |e| {'path' => e['path'][/https?:\/\//] == nil ? e['path'] : e['path'][/https?:\/\/.+/], 'title' => e['params']['title']} }
         }
         end
     }

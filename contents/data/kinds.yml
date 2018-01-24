@@ -83,9 +83,15 @@ data:
     title: レイアウト
   - alias: components
     title: コンポーネント
-- name: MySQL
-  alias: mysql
+- alias: mysql
+  name: MySQL
   categories:
   - alias: sql
     title: SQL文
+  state: 0
+- alias: git
+  name: Git
+  categories:
+  - alias: file
+    title: ファイル管理
   state: 0

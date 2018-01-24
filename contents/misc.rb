@@ -49,8 +49,8 @@ def dev
         print "kind name: "
         kn = STDIN.gets.chomp
         kind_man.insert({
-            "name" => kn,
             "alias" => kind,
+            "name" => kn,
             "categories" => []
         })
         kind_data = get_kind(kind)
@@ -96,10 +96,11 @@ def dev_external
     dir = "#{ROOT_PATH}/dev/#{kind}"
     begin
         kind_data = get_kind(kind)
-    rescue
+    rescue RuntimeError
         print "kind name: "
         kn = STDIN.gets.chomp
         kind_man.insert({
+            "alias" => kind,
             "name" => kn,
             "categories" => []
         })
